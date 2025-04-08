@@ -1,0 +1,77 @@
+{
+  "name": "web3bio-profile-kit",
+  "version": "0.0.1",
+  "description": "React hooks for querying Web3.bio profiles",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/react": "^18.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "5.0.1",
+    "rimraf": "^5.0.5",
+    "rollup": "^2.75.0",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rimraf dist && rollup -c",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prepublishOnly": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": [
+    "web3",
+    "profile",
+    "react",
+    "hooks",
+    "web3bio"
+  ],
+  "author": "web3bio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web3bio/web3bio-profile-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/web3bio/web3bio-profile-kit/issues"
+  },
+  "homepage": "https://github.com/web3bio/web3bio-profile-kit#readme"
+}
