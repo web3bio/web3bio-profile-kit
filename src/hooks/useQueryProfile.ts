@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PROFILE_API_ENDPOINT } from "../utils/base";
 
 export interface ProfileOptions {
+  /** Path to query */
   path: "profile" | "ns";
   /** API Key for authentication */
   apiKey?: string;
@@ -61,14 +62,12 @@ export const useQueryProfile = <T = any>(
           signal: abortController.signal,
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
         const responseData = await response.json();
-
+        if (responseData?.error) {
+          setError(responseData.error);
+          return;
+        }
         setData(responseData);
-        setIsLoading(false);
       } catch (err) {
         setError(err);
       } finally {

@@ -134,4 +134,18 @@ describe("useQueryProfile - Live API Test", () => {
     expect(data[1].identity).toBe("nick.eth");
     expect(data[3].identity).toBe("dwr.eth");
   });
+  test("Invalid api key", async () => {
+    const { result } = renderHook(() =>
+      useQueryProfile("sujiyan.eth", {
+        path: "profile",
+        apiKey: "invalid_api_key",
+      }),
+    );
+    expect(result.current.isLoading).toBe(true);
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false), {
+      timeout: TIMEOUT_LIMIT,
+    });
+    expect(result.current.error).toBe("Invalid API Token");
+  });
 });
