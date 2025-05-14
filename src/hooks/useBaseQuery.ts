@@ -82,7 +82,7 @@ export const useBaseQuery = (
     return () => {
       abortController.abort();
     };
-  }, [identity, apiKey, enabled, endpoint]);
+  }, [identity, apiKey, enabled, endpoint, platform]);
 
   return { data, isLoading, error };
 };

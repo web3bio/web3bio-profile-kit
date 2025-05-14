@@ -13,7 +13,7 @@ export interface ProfileOptions {
  * @param {ProfileOptions} options - Query options
  * @returns {ProfileResult} Query result and control methods
  */
-export const useQueryNS = <T = any>(
+export const useQueryNS = (
   identity: string | string[] | null | undefined,
   options: ProfileOptions,
 ): QueryResult => {
