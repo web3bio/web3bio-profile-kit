@@ -14,14 +14,14 @@ export interface ProfileResult<T = any> {
 }
 
 /**
- * Hook to query Web3.bio profiles by identity
+ * Hook to query Web3.bio NS by identity
  * @param {string|string[]} identity - Identity or identities to query (id format: platform,identity)
  * @param {ProfileOptions} options - Query options
  * @returns {ProfileResult} Query result and control methods
  */
-export const useQueryProfile = <T = any>(
+export const useQueryNS = <T = any>(
   identity: string | string[] | null | undefined,
   options: ProfileOptions,
 ): ProfileResult<T> => {
-  return useBaseQuery<T>(identity, "profile", options);
+  return useBaseQuery<T>(identity, "ns", options);
 };
