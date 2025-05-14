@@ -1,16 +1,12 @@
-import { useBaseQuery } from "./useBaseQuery";
+import { PlatformType } from "../utils/types";
+import { QueryResult, useBaseQuery } from "./useBaseQuery";
 
 export interface ProfileOptions {
+  platform?: PlatformType;
   /** API Key for authentication */
   apiKey?: string;
   /** Whether the query should execute */
   enabled?: boolean;
-}
-
-export interface ProfileResult<T = any> {
-  data: T | null;
-  isLoading: boolean;
-  error: Error | null;
 }
 
 /**
@@ -19,9 +15,9 @@ export interface ProfileResult<T = any> {
  * @param {ProfileOptions} options - Query options
  * @returns {ProfileResult} Query result and control methods
  */
-export const useQueryProfile = <T = any>(
+export const useQueryProfile = (
   identity: string | string[] | null | undefined,
   options: ProfileOptions,
-): ProfileResult<T> => {
-  return useBaseQuery<T>(identity, "profile", options);
+): QueryResult => {
+  return useBaseQuery(identity, "profile", options);
 };

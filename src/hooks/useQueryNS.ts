@@ -1,16 +1,10 @@
-import { useBaseQuery } from "./useBaseQuery";
+import { QueryResult, useBaseQuery } from "./useBaseQuery";
 
 export interface ProfileOptions {
   /** API Key for authentication */
   apiKey?: string;
   /** Whether the query should execute */
   enabled?: boolean;
-}
-
-export interface ProfileResult<T = any> {
-  data: T | null;
-  isLoading: boolean;
-  error: Error | null;
 }
 
 /**
@@ -22,6 +16,6 @@ export interface ProfileResult<T = any> {
 export const useQueryNS = <T = any>(
   identity: string | string[] | null | undefined,
   options: ProfileOptions,
-): ProfileResult<T> => {
-  return useBaseQuery<T>(identity, "ns", options);
+): QueryResult => {
+  return useBaseQuery(identity, "ns", options);
 };

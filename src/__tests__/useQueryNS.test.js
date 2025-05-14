@@ -20,8 +20,8 @@ describe("useQueryNS - Live API Test", () => {
     expect(result.current.data).not.toBeNull();
 
     const data = result.current.data;
-    expect(data.identity).toBe("tony.base.eth");
-    expect(data.link).toBe(undefined);
+    expect(data[0].identity).toBe("tony.base.eth");
+    expect(data[0].link).toBe(undefined);
   });
 
   test("NS Query Universal", async () => {

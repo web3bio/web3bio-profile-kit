@@ -5,7 +5,7 @@ const TIMEOUT_LIMIT = 100000;
 
 describe("useQueryProfile - Live API Test", () => {
   test("Profile query with platofrm id format", async () => {
-    const identity = "ethereum,vitalik.eth";
+    const identity = "ens,vitalik.eth";
     const { result } = renderHook(() =>
       useQueryProfile(identity, {
         apiKey: API_KEY,
@@ -20,7 +20,8 @@ describe("useQueryProfile - Live API Test", () => {
     expect(result.current.data).not.toBeNull();
 
     const data = result.current.data;
-    expect(data.identity).toBe("vitalik.eth");
+
+    expect(data[0].identity).toBe("vitalik.eth");
   });
 
   test("Profile Query Universal", async () => {
@@ -40,6 +41,26 @@ describe("useQueryProfile - Live API Test", () => {
 
     const data = result.current.data;
     expect(data.length).toBe(6);
+  });
+
+  test("Profile Query Single Platform", async () => {
+    const identity = "sujiyan.eth";
+    const { result } = renderHook(() =>
+      useQueryProfile(identity, {
+        apiKey: API_KEY,
+        platform: "ens",
+      }),
+    );
+    expect(result.current.isLoading).toBe(true);
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false), {
+      timeout: TIMEOUT_LIMIT,
+    });
+    expect(result.current.error).toBeNull();
+    expect(result.current.data).not.toBeNull();
+
+    const data = result.current.data;
+    expect(data.identity).toBe("sujiyan.eth");
   });
 
   test("Profile Batch", async () => {

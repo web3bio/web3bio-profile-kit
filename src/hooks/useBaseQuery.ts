@@ -1,16 +1,22 @@
 // src/hooks/useBaseQuery.ts
 import { useState, useEffect } from "react";
 import { PROFILE_API_ENDPOINT } from "../utils/base";
+import {
+  PlatformType,
+  ProfileNSResponse,
+  ProfileResponse,
+} from "../utils/types";
 
 export interface QueryOptions {
+  platform?: PlatformType;
   /** API Key for authentication */
   apiKey?: string;
   /** Whether the query should execute */
   enabled?: boolean;
 }
 
-export interface QueryResult<T = any> {
-  data: T | null;
+export interface QueryResult {
+  data: ProfileResponse | ProfileNSResponse | null;
   isLoading: boolean;
   error: Error | null;
 }
@@ -21,12 +27,12 @@ export interface QueryResult<T = any> {
  * @param {string} endpoint - API endpoint path (ns or profile)
  * @param {QueryOptions} options - Query options
  */
-export const useBaseQuery = <T = any>(
+export const useBaseQuery = (
   identity: string | string[] | null | undefined,
   endpoint: string,
   options: QueryOptions,
-): QueryResult<T> => {
-  const { apiKey, enabled = true } = options;
+): QueryResult => {
+  const { apiKey, enabled = true, platform } = options;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -42,10 +48,8 @@ export const useBaseQuery = <T = any>(
         let url = "";
         if (Array.isArray(identity)) {
           url = `${PROFILE_API_ENDPOINT}/${endpoint}/batch/${JSON.stringify(identity)}`;
-        } else if (identity.includes(",")) {
-          const platform = identity.split(",")[0].toLowerCase();
-          const domain = identity.split(",")[1];
-          url = `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${domain}`;
+        } else if (platform) {
+          url = `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${identity}`;
         } else {
           url = `${PROFILE_API_ENDPOINT}/${endpoint}/${identity}`;
         }
