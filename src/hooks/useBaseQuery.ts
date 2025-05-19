@@ -16,7 +16,7 @@ const getURL = (
   const platform = id?.split(",")[0];
   const handle = id?.split(",")[1];
   if (universal) {
-    return `${PROFILE_API_ENDPOINT}/${endpoint}/${id}`;
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/${identity}`;
   } else {
     return `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
   }

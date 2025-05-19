@@ -169,7 +169,28 @@ export interface QueryOptions {
 }
 
 export interface QueryResult {
-  data: ProfileResponse | ProfileNSResponse | null;
+  data: ProfileResponse | ProfileNSResponse | DomainResponse | null;
   isLoading: boolean;
   error: Error | null;
+}
+
+interface DomainResponse {
+  identity: string;
+  platform: PlatformType;
+  resolvedAddress: string | null;
+  ownerAddress: string | null;
+  managerAddress: string | null;
+  displayName: string | null;
+  isPrimary: boolean;
+  status: string;
+  createdAt: string | null;
+  updatedAt: string | null;
+  expiredAt: string | null;
+  contenthash: string | null;
+  texts: {
+    [index: string]: string;
+  };
+  addresses: {
+    [index: string]: string;
+  };
 }

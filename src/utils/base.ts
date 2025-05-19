@@ -20,7 +20,7 @@ import {
 } from "./regexp";
 import { PlatformType } from "./types";
 
-export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
+export const PROFILE_API_ENDPOINT = "https://api-staging.web3.bio";
 
 export const resolveIdentity = (input: string): string | null => {
   if (!input) return null;

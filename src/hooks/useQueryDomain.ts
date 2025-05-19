@@ -7,9 +7,8 @@ import { useBaseQuery } from "./useBaseQuery";
  * @param {ProfileOptions} options - Query options
  * @returns {ProfileResult} Query result and control methods
  */
-export const useQueryProfile = (
-  identity: string | string[] | null | undefined,
-  universal: boolean,
+export const useQueryDomain = (
+  identity: string | null | undefined,
   options: QueryOptions,
 ): QueryResult => {
   const apiKey =
@@ -18,8 +17,7 @@ export const useQueryProfile = (
     process.env.REACT_APP_WEB3BIO_API_KEY ||
     process.env.VITE_WEB3BIO_API_KEY ||
     process.env.NEXT_PUBLIC_WEB3BIO_API_KEY;
-
-  return useBaseQuery(identity, universal || false, "profile", {
+  return useBaseQuery(identity, true, "domain", {
     ...options,
     apiKey,
   });
