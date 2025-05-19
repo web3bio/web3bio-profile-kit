@@ -1,16 +1,11 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { useQueryProfile } from "../hooks/useQueryProfile";
-const API_KEY = process.env.WEB3BIO_IDENTITY_GRAPH_API_KEY || "";
 const TIMEOUT_LIMIT = 100000;
 
 describe("useQueryProfile - Live API Test", () => {
   test("Profile query with platofrm id format", async () => {
     const identity = "ens,vitalik.eth";
-    const { result } = renderHook(() =>
-      useQueryProfile(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryProfile(identity, true));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {
@@ -26,11 +21,7 @@ describe("useQueryProfile - Live API Test", () => {
 
   test("Profile Query Universal", async () => {
     const identity = "sujiyan.eth";
-    const { result } = renderHook(() =>
-      useQueryProfile(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryProfile(identity, true));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {
@@ -45,12 +36,7 @@ describe("useQueryProfile - Live API Test", () => {
 
   test("Profile Query Single Platform", async () => {
     const identity = "sujiyan.eth";
-    const { result } = renderHook(() =>
-      useQueryProfile(identity, {
-        apiKey: API_KEY,
-        platform: "ens",
-      }),
-    );
+    const { result } = renderHook(() => useQueryProfile(identity, false));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {
@@ -69,11 +55,7 @@ describe("useQueryProfile - Live API Test", () => {
       "ethereum,0x2EC8EBB0a8eAa40e4Ce620CF9f84A96dF68D4669",
       "suji_yan.twitter",
     ];
-    const { result } = renderHook(() =>
-      useQueryProfile(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryProfile(identity));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {

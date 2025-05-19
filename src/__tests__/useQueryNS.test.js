@@ -1,16 +1,11 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { useQueryNS } from "../hooks/useQueryNS";
-const API_KEY = process.env.WEB3BIO_IDENTITY_GRAPH_API_KEY || "";
 const TIMEOUT_LIMIT = 100000;
 
 describe("useQueryNS - Live API Test", () => {
   test("NS query with platofrm id format", async () => {
     const identity = "basenames,tony.base.eth";
-    const { result } = renderHook(() =>
-      useQueryNS(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryNS(identity, true));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {
@@ -26,11 +21,7 @@ describe("useQueryNS - Live API Test", () => {
 
   test("NS Query Universal", async () => {
     const identity = "stani.lens";
-    const { result } = renderHook(() =>
-      useQueryNS(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryNS(identity, true));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {
@@ -50,11 +41,7 @@ describe("useQueryNS - Live API Test", () => {
       "basenames,tony.base.eth",
       "farcaster,dwr.eth",
     ];
-    const { result } = renderHook(() =>
-      useQueryNS(identity, {
-        apiKey: API_KEY,
-      }),
-    );
+    const { result } = renderHook(() => useQueryNS(identity));
     expect(result.current.isLoading).toBe(true);
 
     await waitFor(() => expect(result.current.isLoading).toBe(false), {

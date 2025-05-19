@@ -1,25 +1,26 @@
 // src/hooks/useBaseQuery.ts
 import { useState, useEffect } from "react";
-import { PROFILE_API_ENDPOINT } from "../utils/base";
-import {
-  PlatformType,
-  ProfileNSResponse,
-  ProfileResponse,
-} from "../utils/types";
+import { PROFILE_API_ENDPOINT, resolveIdentity } from "../utils/base";
+import { QueryOptions, QueryResult } from "../utils/types";
 
-export interface QueryOptions {
-  platform?: PlatformType;
-  /** API Key for authentication */
-  apiKey?: string;
-  /** Whether the query should execute */
-  enabled?: boolean;
-}
-
-export interface QueryResult {
-  data: ProfileResponse | ProfileNSResponse | null;
-  isLoading: boolean;
-  error: Error | null;
-}
+const getURL = (
+  identity: string | string[],
+  endpoint: string,
+  universal: boolean,
+) => {
+  if (Array.isArray(identity))
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/batch/${JSON.stringify(identity)}`;
+  const id = resolveIdentity(
+    Array.isArray(identity) ? JSON.stringify(identity) : identity,
+  );
+  const platform = id?.split(",")[0];
+  const handle = id?.split(",")[1];
+  if (universal) {
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/${id}`;
+  } else {
+    return `${PROFILE_API_ENDPOINT}/${platform}/${handle}`;
+  }
+};
 
 /**
  * Base hook for querying Web3.bio API
@@ -29,10 +30,11 @@ export interface QueryResult {
  */
 export const useBaseQuery = (
   identity: string | string[] | null | undefined,
+  universal: boolean,
   endpoint: string,
   options: QueryOptions,
 ): QueryResult => {
-  const { apiKey, enabled = true, platform } = options;
+  const { apiKey, enabled = true } = options;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -45,14 +47,7 @@ export const useBaseQuery = (
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        let url = "";
-        if (Array.isArray(identity)) {
-          url = `${PROFILE_API_ENDPOINT}/${endpoint}/batch/${JSON.stringify(identity)}`;
-        } else if (platform) {
-          url = `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${identity}`;
-        } else {
-          url = `${PROFILE_API_ENDPOINT}/${endpoint}/${identity}`;
-        }
+        const url = getURL(identity, endpoint, universal);
 
         const requestHeaders: HeadersInit = {
           ...(apiKey ? { "x-api-key": apiKey } : {}),
@@ -82,7 +77,7 @@ export const useBaseQuery = (
     return () => {
       abortController.abort();
     };
-  }, [identity, apiKey, enabled, endpoint, platform]);
+  }, [identity, apiKey, enabled, endpoint, universal]);
 
   return { data, isLoading, error };
 };

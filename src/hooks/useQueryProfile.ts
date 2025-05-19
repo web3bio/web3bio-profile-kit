@@ -1,23 +1,19 @@
-import { PlatformType } from "../utils/types";
-import { QueryResult, useBaseQuery } from "./useBaseQuery";
-
-export interface ProfileOptions {
-  platform?: PlatformType;
-  /** API Key for authentication */
-  apiKey?: string;
-  /** Whether the query should execute */
-  enabled?: boolean;
-}
+import { QueryOptions, QueryResult } from "../utils/types";
+import { useBaseQuery } from "./useBaseQuery";
 
 /**
- * Hook to query Web3.bio profiles by identity
+ * Hook to query Web3.bio NS by identity
  * @param {string|string[]} identity - Identity or identities to query (id format: platform,identity)
  * @param {ProfileOptions} options - Query options
  * @returns {ProfileResult} Query result and control methods
  */
 export const useQueryProfile = (
   identity: string | string[] | null | undefined,
-  options: ProfileOptions,
+  universal: boolean,
+  options: QueryOptions,
 ): QueryResult => {
-  return useBaseQuery(identity, "profile", options);
+  return useBaseQuery(identity, universal, "ns", {
+    ...options,
+    apiKey: options?.apiKey || process.env.WEB3BIO_API_KEY,
+  });
 };

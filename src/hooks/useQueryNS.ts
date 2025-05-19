@@ -1,11 +1,5 @@
-import { QueryResult, useBaseQuery } from "./useBaseQuery";
-
-export interface ProfileOptions {
-  /** API Key for authentication */
-  apiKey?: string;
-  /** Whether the query should execute */
-  enabled?: boolean;
-}
+import { QueryOptions, QueryResult } from "../utils/types";
+import { useBaseQuery } from "./useBaseQuery";
 
 /**
  * Hook to query Web3.bio NS by identity
@@ -15,7 +9,11 @@ export interface ProfileOptions {
  */
 export const useQueryNS = (
   identity: string | string[] | null | undefined,
-  options: ProfileOptions,
+  universal: boolean,
+  options: QueryOptions,
 ): QueryResult => {
-  return useBaseQuery(identity, "ns", options);
+  return useBaseQuery(identity, universal, "ns", {
+    ...options,
+    apiKey: options?.apiKey || process.env.WEB3BIO_API_KEY,
+  });
 };

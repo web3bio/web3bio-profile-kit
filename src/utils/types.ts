@@ -160,3 +160,16 @@ type LinksItem = {
   handle: string | null;
   sources: SourceType[];
 };
+
+export interface QueryOptions {
+  /** API Key for authentication */
+  apiKey?: string;
+  /** Whether the query should execute */
+  enabled?: boolean;
+}
+
+export interface QueryResult {
+  data: ProfileResponse | ProfileNSResponse | null;
+  isLoading: boolean;
+  error: Error | null;
+}
