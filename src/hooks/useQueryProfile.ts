@@ -12,8 +12,15 @@ export const useQueryProfile = (
   universal: boolean,
   options: QueryOptions,
 ): QueryResult => {
+  const apiKey =
+    options?.apiKey ||
+    process.env.WEB3BIO_API_KEY ||
+    process.env.REACT_APP_WEB3BIO_API_KEY ||
+    process.env.VITE_WEB3BIO_API_KEY ||
+    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY;
+
   return useBaseQuery(identity, universal, "ns", {
     ...options,
-    apiKey: options?.apiKey || process.env.WEB3BIO_API_KEY,
+    apiKey,
   });
 };

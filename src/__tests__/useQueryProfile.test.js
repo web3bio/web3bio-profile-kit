@@ -70,7 +70,7 @@ describe("useQueryProfile - Live API Test", () => {
   });
   test("Invalid api key", async () => {
     const { result } = renderHook(() =>
-      useQueryProfile("sujiyan.eth", {
+      useQueryProfile("sujiyan.eth", false, {
         apiKey: "invalid_api_key",
       }),
     );

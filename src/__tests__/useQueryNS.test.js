@@ -56,7 +56,7 @@ describe("useQueryNS - Live API Test", () => {
   });
   test("Invalid api key", async () => {
     const { result } = renderHook(() =>
-      useQueryNS("sujiyan.eth", {
+      useQueryNS("sujiyan.eth", false, {
         apiKey: "invalid_api_key",
       }),
     );

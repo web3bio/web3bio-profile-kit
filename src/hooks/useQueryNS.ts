@@ -12,8 +12,14 @@ export const useQueryNS = (
   universal: boolean,
   options: QueryOptions,
 ): QueryResult => {
-  return useBaseQuery(identity, universal, "ns", {
+  const apiKey =
+    options?.apiKey ||
+    process.env.WEB3BIO_API_KEY ||
+    process.env.REACT_APP_WEB3BIO_API_KEY ||
+    process.env.VITE_WEB3BIO_API_KEY ||
+    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY;
+  return useBaseQuery(identity, universal || false, "ns", {
     ...options,
-    apiKey: options?.apiKey || process.env.WEB3BIO_API_KEY,
+    apiKey,
   });
 };

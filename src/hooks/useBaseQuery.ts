@@ -18,7 +18,7 @@ const getURL = (
   if (universal) {
     return `${PROFILE_API_ENDPOINT}/${endpoint}/${id}`;
   } else {
-    return `${PROFILE_API_ENDPOINT}/${platform}/${handle}`;
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
   }
 };
 
@@ -48,7 +48,6 @@ export const useBaseQuery = (
       try {
         setIsLoading(true);
         const url = getURL(identity, endpoint, universal);
-
         const requestHeaders: HeadersInit = {
           ...(apiKey ? { "x-api-key": apiKey } : {}),
         };
