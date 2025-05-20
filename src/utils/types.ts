@@ -90,7 +90,7 @@ export enum PlatformType {
   gravity = "gravity",
 }
 
-enum SourceType {
+export enum SourceType {
   ethereum = "ethereum",
   ens = "ens",
   twitter = "twitter",
@@ -143,7 +143,7 @@ export interface ProfileResponse extends ProfileNSResponse {
   createdAt: string | null;
   status: string | null;
   error?: string;
-  links: Links | {};
+  links: SocialLInks | {};
   social:
     | {
         uid: number | null;
@@ -153,9 +153,9 @@ export interface ProfileResponse extends ProfileNSResponse {
     | {};
 }
 
-type Links = Record<PlatformType, LinksItem>;
+export type SocialLInks = Record<PlatformType, SocialLinksItem>;
 
-type LinksItem = {
+export type SocialLinksItem = {
   link: string | null;
   handle: string | null;
   sources: SourceType[];
@@ -174,7 +174,7 @@ export interface QueryResult {
   error: Error | null;
 }
 
-interface DomainResponse {
+export interface DomainResponse {
   identity: string;
   platform: PlatformType;
   resolvedAddress: string | null;
