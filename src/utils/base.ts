@@ -115,3 +115,13 @@ export const handleSearchPlatform = (term: string) => {
   }
   return term.includes(".") ? PlatformType.ens : PlatformType.farcaster;
 };
+
+export const getApiKey = (userProvidedKey?: string): string | undefined => {
+  return (
+    userProvidedKey ||
+    process.env.WEB3BIO_API_KEY ||
+    process.env.REACT_APP_WEB3BIO_API_KEY ||
+    process.env.VITE_WEB3BIO_API_KEY ||
+    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY
+  );
+};

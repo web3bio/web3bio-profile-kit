@@ -1,3 +1,4 @@
+import { getApiKey } from "../utils/base";
 import { QueryOptions, QueryResult } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
 
@@ -12,13 +13,7 @@ export const useQueryProfile = (
   universal: boolean,
   options: QueryOptions,
 ): QueryResult => {
-  const apiKey =
-    options?.apiKey ||
-    process.env.WEB3BIO_API_KEY ||
-    process.env.REACT_APP_WEB3BIO_API_KEY ||
-    process.env.VITE_WEB3BIO_API_KEY ||
-    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY;
-
+  const apiKey = getApiKey(options?.apiKey);
   return useBaseQuery(identity, universal || false, "profile", {
     ...options,
     apiKey,

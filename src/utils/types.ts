@@ -143,7 +143,7 @@ export interface ProfileResponse extends ProfileNSResponse {
   createdAt: string | null;
   status: string | null;
   error?: string;
-  links: SocialLInks | {};
+  links: SocialLinks | {};
   social:
     | {
         uid: number | null;
@@ -153,7 +153,7 @@ export interface ProfileResponse extends ProfileNSResponse {
     | {};
 }
 
-export type SocialLInks = Record<PlatformType, SocialLinksItem>;
+export type SocialLinks = Record<PlatformType, SocialLinksItem>;
 
 export type SocialLinksItem = {
   link: string | null;
