@@ -37,4 +37,20 @@ describe("useQueryDomain - Live API Test", () => {
     expect(data.identity).toBe("dwr.eth");
     expect(data.platform).toBe("farcaster");
   });
+  test("Domain query for ens,nick.eth", async () => {
+    const identity = "ens,nick.eth";
+    const { result } = renderHook(() => useQueryDomain(identity));
+
+    expect(result.current.isLoading).toBe(true);
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false), {
+      timeout: TIMEOUT_LIMIT,
+    });
+    expect(result.current.error).toBeNull();
+    expect(result.current.data).not.toBeNull();
+
+    const data = result.current.data;
+    expect(data.identity).toBe("nick.eth");
+    expect(data.platform).toBe("ens");
+  });
 });
