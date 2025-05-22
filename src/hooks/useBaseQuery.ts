@@ -14,10 +14,10 @@ import {
 /**
  * Constructs the appropriate URL for the Web3.bio API request
  *
- * @param {string | string[]} identity - Single identity string or array of identities
+ * @param {Identtiy} identity - Single identity string or array of identities
  * @param {QueryEndpoint} endpoint - API endpoint (e.g. 'ns', 'profile', 'domain')
  * @param {boolean} universal - Whether to use universal lookup format or platform-specific
- * @returns {string} Formatted API URL
+ * @returns {string | null} Formatted API URL
  */
 const getURL = (
   identity: Identity,
@@ -43,7 +43,7 @@ const getURL = (
  *
  * @param {Identity} identity - Identity or array of identities to query
  * @param {boolean} universal - Whether to use universal identity lookup
- * @param {string} endpoint - API endpoint path (e.g. 'ns', 'profile', 'domain')
+ * @param {QueryEndpoint} endpoint - API endpoint path (e.g. 'ns', 'profile', 'domain')
  * @param {QueryOptions} options - Configuration options including API key and enabled state
  * @returns {QueryResult} Object containing data, loading state, and any errors
  */
