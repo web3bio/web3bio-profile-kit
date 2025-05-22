@@ -127,14 +127,14 @@ export enum SourceType {
   particle = "particle",
 }
 
-export interface ProfileNSResponse {
+export type ProfileNSResponse = {
   identity: string;
   address: string;
   avatar: string | null;
   description: string | null;
   platform: string;
   displayName: string | null;
-}
+};
 export interface ProfileResponse extends ProfileNSResponse {
   email: string | null;
   contenthash: string | null;
@@ -161,20 +161,20 @@ export type SocialLinksItem = {
   sources: SourceType[];
 };
 
-export interface QueryOptions {
+export type QueryOptions = {
   /** API Key for authentication */
   apiKey?: string;
   /** Whether the query should execute */
   enabled?: boolean;
-}
+};
 
-export interface QueryResult {
+export type QueryResult = {
   data: ProfileResponse | ProfileNSResponse | DomainResponse | null;
   isLoading: boolean;
   error: Error | null;
-}
+};
 
-export interface DomainResponse {
+export type DomainResponse = {
   identity: string;
   platform: PlatformType;
   resolvedAddress: string | null;
@@ -193,4 +193,23 @@ export interface DomainResponse {
   addresses: {
     [index: string]: string;
   };
+};
+export enum ErrorMessages {
+  notFound = "Not Found",
+  invalidResolver = "Invalid Resolver Address",
+  invalidResolved = "Invalid Resolved Address",
+  notExist = "Does Not Exist",
+  invalidIdentity = "Invalid Identity or Domain",
+  invalidAddr = "Invalid Address",
+  unknownError = "Unknown Error Occurs",
+  networkError = "Network Error",
 }
+
+export enum QueryEndpoint {
+  ns = "ns",
+  profile = "profile",
+  domain = "domain",
+}
+
+export type IdentityString = string | `${PlatformType},${string}`;
+export type Identity = IdentityString | IdentityString[];

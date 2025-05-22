@@ -1,5 +1,5 @@
 import { getApiKey } from "../utils/base";
-import { QueryOptions, QueryResult } from "../utils/types";
+import { QueryEndpoint, QueryOptions, QueryResult } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**
@@ -14,7 +14,7 @@ export const useQueryProfile = (
   options: QueryOptions,
 ): QueryResult => {
   const apiKey = getApiKey(options?.apiKey);
-  return useBaseQuery(identity, universal || false, "profile", {
+  return useBaseQuery(identity, universal || false, QueryEndpoint.profile, {
     ...options,
     apiKey,
   });
