@@ -1,145 +1,196 @@
 # Web3.bio Profile Kit
 
-<a href="https://web3.bio">
-  <img width="200" height="200" src="https://github.com/web3bio/web3bio/blob/main/public/logo-web3bio.png?raw=true" alt="Web3.bio Profile Kit">
-</a>
-
-<p>
-  <a href="https://www.npmjs.com/package/web3bio-profile-kit">
-    <img src="https://img.shields.io/npm/v/web3bio-profile-kit?style=flat" alt="Version">
-  </a>
-  <a href="https://github.com/web3bio/web3bio-profile-kit/blob/main/LICENSE">
-    <img src="https://img.shields.io/npm/l/web3bio-profile-kit?style=flat" alt="MIT License">
-  </a>
-  <a href="https://www.npmjs.com/package/web3bio-profile-kit">
-    <img src="https://img.shields.io/npm/dm/web3bio-profile-kit?style=flat" alt="Downloads per month">
-  </a>
-</p>
-
-## Introduction
-
-Web3.bio Profile Kit is a lightweight React hooks library that enables developers to easily fetch on-chain and off-chain identity data from the [Web3.bio Profile API](https://api.web3.bio).
-
-- 🔍 Query profiles by ENS, address, Lens handle, Farcaster, and more
-- 🪝 Simple React hooks that handle loading and error states
-- 📚 TypeScript ready with built-in type definitions
-- 🔄 Easy batch queries for multiple identities
+A lightweight React hooks library for easily integrating Web3.bio profile data into your applications.
 
 ## Installation
 
 ```bash
-# npm
 npm install web3bio-profile-kit
-
-# yarn
+# or
 yarn add web3bio-profile-kit
-
-# pnpm
+# or
 pnpm add web3bio-profile-kit
+```
+
+## Overview
+
+Web3.bio Profile Kit provides React hooks for querying the Web3.bio Profile API, which offers unified profile data across multiple Web3 platforms. This library makes it easy to fetch user profiles, name service information, and domain data.
+
+## API Key
+
+While the Web3.bio Profile API can be used without an API key, it's recommended to use one for production applications to avoid rate limiting.
+
+You can set your API key using environment variables:
+
+```
+NEXT_PUBLIC_WEB3BIO_API_KEY=your_api_key
+# or
+REACT_APP_WEB3BIO_API_KEY=your_api_key
+# or
+VITE_WEB3BIO_API_KEY=your_api_key
+# or
+WEB3BIO_API_KEY=your_api_key
+```
+
+Or pass it directly to the hooks:
+
+```jsx
+const { data } = useProfile("vitalik.eth", { apiKey: "your_api_key" });
 ```
 
 ## Usage
 
-### Basic Profile Query
+### Query Profile Data
 
-```tsx
-import { useQueryProfile } from "web3bio-profile-kit";
+```jsx
+import { useProfile } from 'web3bio-profile-kit';
 
-function Profile() {
-  // Query an ENS profile by ENS name (platform,identity format)
-  const { data, isLoading, error } = useQueryProfile("ens,vitalik.eth", false, {
-    // optional API key
-    apiKey: "your_api_key"
-  });
+function ProfileComponent() {
+  // Query by ENS domain
+  const { data, isLoading, error } = useProfile("vitalik.eth");
+
+  // Or with explicit platform
+  // const { data, isLoading, error } = useProfile("ens,vitalik.eth");
+
+  // Or with Ethereum address
+  // const { data, isLoading, error } = useProfile("0x123...");
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-      <img src={data?.avatar} alt={data?.identity} width="80" />
-      <h2>{data?.displayName}</h2>
-      <p>{data?.identity}</p>
+      <h1>{data?.displayName || data?.identity}</h1>
+      {data?.avatar && <img src={data.avatar} alt="Profile" />}
+      <p>{data?.description}</p>
     </div>
   );
 }
 ```
 
-### Available Hooks
+### Query Name Service Data
 
-The library provides three main hooks:
+```jsx
+import { useNameService } from 'web3bio-profile-kit';
 
-```tsx
-// Profile data with detailed social links
-useQueryProfile(identity, universal, options)
+function NameServiceComponent() {
+  const { data, isLoading } = useNameService("vitalik.eth");
 
-// Name service resolution data
-useQueryNS(identity, universal, options)
+  if (isLoading) return <div>Loading...</div>;
 
-// Domain details including resolver records
-useQueryDomain(identity, options)
+  return (
+    <div>
+      <h2>{data?.displayName}</h2>
+      <p>Address: {data?.address}</p>
+    </div>
+  );
+}
 ```
 
-### Query Examples
+### Query Domain Data
 
-```tsx
-// Profile query with platform-specific format
-const { data } = useQueryProfile("ens,vitalik.eth", false);
+```jsx
+import { useDomain } from 'web3bio-profile-kit';
 
-// Universal profile query (auto-detects platform)
-const { data } = useQueryProfile("vitalik.eth", true);
+function DomainComponent() {
+  const { data, isLoading } = useDomain("vitalik.eth");
 
-// NS query with Ethereum address
-const { data } = useQueryNS(
-  "ethereum,0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-  false
-);
+  if (isLoading) return <div>Loading...</div>;
 
-// Universal query for lens handle
-const { data } = useQueryNS("stani.lens", true);
-
-// Domain query
-const { data } = useQueryDomain("sujiyan.eth");
-
-// Batch query for multiple identities
-const { data } = useQueryProfile(
-  [
-    "farcaster,dwr.eth",
-    "ens,sujiyan.eth",
-    "linea,184.linea.eth",
-    "basenames,tony.base.eth",
-    "ethereum,0x2EC8EBB0a8eAa40e4Ce620CF9f84A96dF68D4669"
-  ],
-  false
-);
+  return (
+    <div>
+      <h2>{data?.identity}</h2>
+      <p>Resolved address: {data?.resolvedAddress}</p>
+      <p>Owner address: {data?.ownerAddress}</p>
+    </div>
+  );
+}
 ```
 
-## API Key Configuration
+### Query Multiple Identities
 
-You can provide your API key in three ways:
+```jsx
+import { useProfile } from 'web3bio-profile-kit';
 
-1. **Directly in options object**:
-   ```tsx
-   useQueryProfile("vitalik.eth", true, { apiKey: "your_api_key" });
-   ```
+function MultiProfileComponent() {
+  const { data, isLoading } = useProfile([
+    "vitalik.eth",
+    "lens,stani"
+  ]);
 
-2. **Using environment variables** (detected automatically):
-   ```
-   # .env file - use the appropriate prefix for your framework
-   REACT_APP_WEB3BIO_API_KEY=your_api_key    # Create React App
-   VITE_WEB3BIO_API_KEY=your_api_key         # Vite
-   NEXT_PUBLIC_WEB3BIO_API_KEY=your_api_key  # Next.js
-   WEB3BIO_API_KEY=your_api_key              # Other frameworks (if supported)
-   ```
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div>
+      {Array.isArray(data) && data.map(profile => (
+        <div key={profile.identity}>
+          <h3>{profile.displayName}</h3>
+          <p>{profile.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Advanced Usage: Controlling Query Execution
+
+You can control when the query executes using the `enabled` option:
+
+```jsx
+const [searchTerm, setSearchTerm] = useState("");
+const { data, isLoading } = useProfile(searchTerm, {
+  enabled: searchTerm.length > 0
+});
+```
+
+## Supported Identity Formats
+
+- ENS domains: `name.eth`
+- Ethereum addresses: `0x123...`
+- Lens profiles: `username.lens`
+- Farcaster: `username`
+- And many more!
+
+You can also use the explicit format `platform,identity` for clarity:
+- `ens,vitalik.eth`
+- `ethereum,0x123...`
+- `farcaster,dwr`
+
+## API Reference
+
+### Hooks
+
+#### `useProfile(identity, options?, universal?)`
+
+Fetches comprehensive profile data including social links and avatar.
+
+#### `useNameService(identity, options?, universal?)`
+
+Fetches basic name service data (similar to ENS lookups).
+
+#### `useDomain(identity, options?, universal?)`
+
+Fetches detailed domain information including resolution data.
+
+### Arguments
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `identity` | `string` or `string[]` | Identity to query or array of identities for batch queries |
+| `options` | `object` | Optional configuration with `apiKey` and `enabled` |
+| `universal` | `boolean` | Whether to use universal lookup (default: `false`) |
+
+### Return Values
+
+All hooks return an object with:
+
+| Property | Type | Description |
+|-----------|------|-------------|
+| `data` | `object` or `null` | The profile data when successful |
+| `isLoading` | `boolean` | `true` during the fetch operation |
+| `error` | `Error` or `null` | Error object if the request failed |
 
 ## License
 
-[MIT](https://github.com/web3bio/web3bio-profile-kit/blob/main/LICENSE)
-
-## Related Projects
-
-- [Web3.bio](https://web3.bio) - Web3 identity search engine
-- [Web3.bio Profile API](https://api.web3.bio) - Web3 profile data resolution API
-
----
-Created with ❤️ for the Web3 community.
+MIT

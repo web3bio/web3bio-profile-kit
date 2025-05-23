@@ -1,7 +1,6 @@
-// hooks
-export { useQueryProfile } from "./hooks/useQueryProfile";
-export { useQueryNS } from "./hooks/useQueryNS";
-export { useQueryDomain } from "./hooks/useQueryDomain";
+// Export the main hooks
+export { useProfile, useNameService, useDomain } from './hooks';
 
-// types
-export * from "./utils/types";
+// Export types
+export * from './utils/types';
+export * from './utils/constants';
