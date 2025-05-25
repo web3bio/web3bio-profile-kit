@@ -7,7 +7,6 @@ import { useBaseQuery } from "./useBaseQuery";
  * 
  * @param identity - Identity string or array of identities to query
  * @param options - Optional configuration options
- * @param universal - Whether to use universal identity lookup (default: false)
  * @returns Object containing domain data, loading state, and any errors
  * 
  * @example
@@ -19,8 +18,7 @@ import { useBaseQuery } from "./useBaseQuery";
  */
 export function useDomain(
   identity: Identity,
-  options: QueryOptions = {},
-  universal: boolean = false
+  options: QueryOptions = {}
 ): DomainQueryResult {
-  return useBaseQuery<DomainResponse>(identity, QueryEndpoint.DOMAIN, options, universal);
+  return useBaseQuery<DomainResponse>(identity, QueryEndpoint.DOMAIN, false, options);
 }

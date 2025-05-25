@@ -1,4 +1,6 @@
-export { useProfile } from './useProfile';
-export { useNameService } from './useNameService';
-export { useDomain } from './useDomain';
-export { useBaseQuery } from './useBaseQuery';
+export { useProfile } from "./useProfile";
+export { useNS } from "./useNS";
+export { useDomain } from "./useDomain";
+export { useUniversalProfile } from "./useUniversalProfile";
+export { useUniversalNS } from "./useUniversalNS";
+export { useBaseQuery } from "./useBaseQuery";

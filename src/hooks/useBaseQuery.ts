@@ -34,8 +34,8 @@ const buildApiUrl = (
 export function useBaseQuery<T>(
   identity: Identity,
   endpoint: QueryEndpoint,
-  options: QueryOptions = {},
   universal: boolean = false,
+  options: QueryOptions = {},
 ): QueryResult<T> {
   const { apiKey: userApiKey, enabled = true } = options;
   const apiKey = getApiKey(userApiKey);

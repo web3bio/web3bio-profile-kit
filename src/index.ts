@@ -1,5 +1,11 @@
 // Export the main hooks
-export { useProfile, useNameService, useDomain } from './hooks';
+export { 
+  useProfile, 
+  useNS, 
+  useDomain,
+  useUniversalProfile,
+  useUniversalNS
+} from './hooks';
 
 // Export types
 export * from './utils/types';

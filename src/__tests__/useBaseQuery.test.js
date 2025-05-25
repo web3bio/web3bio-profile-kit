@@ -38,7 +38,7 @@ describe('useBaseQuery', () => {
     resolveIdentity.mockReturnValueOnce('ens,vitalik.eth');
 
     // Execute hook
-    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE));
+    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false));
     
     // Verify URL construction
     await waitFor(() => {
@@ -54,7 +54,7 @@ describe('useBaseQuery', () => {
     const identities = ['vitalik.eth', 'lens,stani'];
     
     // Execute hook
-    renderHook(() => useBaseQuery(identities, QueryEndpoint.PROFILE));
+    renderHook(() => useBaseQuery(identities, QueryEndpoint.PROFILE, false));
     
     // Verify URL construction for batch request
     await waitFor(() => {
@@ -70,7 +70,7 @@ describe('useBaseQuery', () => {
     const identity = 'vitalik.eth';
     
     // Execute hook with universal=true
-    renderHook(() => useBaseQuery(identity, QueryEndpoint.PROFILE, {}, true));
+    renderHook(() => useBaseQuery(identity, QueryEndpoint.PROFILE, true, {}));
     
     // Verify universal URL format
     await waitFor(() => {
@@ -87,7 +87,7 @@ describe('useBaseQuery', () => {
     getApiKey.mockReturnValueOnce(apiKey);
     
     // Execute hook with API key
-    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, { apiKey }));
+    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false, { apiKey }));
     
     // Verify API key in headers
     await waitFor(() => {
@@ -102,7 +102,7 @@ describe('useBaseQuery', () => {
 
   it('should not execute query when enabled=false', async () => {
     // Execute hook with enabled=false
-    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, { enabled: false }));
+    renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false, { enabled: false }));
     
     // Verify fetch was not called
     expect(global.fetch).not.toHaveBeenCalled();
@@ -113,7 +113,7 @@ describe('useBaseQuery', () => {
     resolveIdentity.mockReturnValueOnce(null);
     
     // Execute hook
-    const { result } = renderHook(() => useBaseQuery('invalid', QueryEndpoint.PROFILE));
+    const { result } = renderHook(() => useBaseQuery('invalid', QueryEndpoint.PROFILE, false));
     
     // Verify error is set
     await waitFor(() => {
@@ -132,7 +132,7 @@ describe('useBaseQuery', () => {
     });
     
     // Execute hook
-    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE));
+    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false));
     
     // Verify error handling
     await waitFor(() => {
@@ -148,7 +148,7 @@ describe('useBaseQuery', () => {
     global.fetch.mockRejectedValueOnce(networkError);
     
     // Execute hook
-    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE));
+    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false));
     
     // Verify network error handling
     await waitFor(() => {
@@ -166,7 +166,7 @@ describe('useBaseQuery', () => {
     });
     
     // Execute hook
-    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE));
+    const { result } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false));
     
     // Verify HTTP error handling
     await waitFor(() => {
@@ -186,7 +186,7 @@ describe('useBaseQuery', () => {
     global.AbortController = jest.fn(() => mockAbortController);
     
     // Execute hook and unmount
-    const { unmount } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE));
+    const { unmount } = renderHook(() => useBaseQuery('vitalik.eth', QueryEndpoint.PROFILE, false));
     unmount();
     
     // Verify abort was called

@@ -22,17 +22,16 @@ describe('useDomain', () => {
     // Set up test parameters
     const identity = 'vitalik.eth';
     const options = { apiKey: 'test-key' };
-    const universal = true;
 
     // Execute the hook
-    renderHook(() => useDomain(identity, options, universal));
+    renderHook(() => useDomain(identity, options));
 
     // Verify the correct parameters were passed
     expect(useBaseQuery).toHaveBeenCalledWith(
       identity,
       QueryEndpoint.DOMAIN,
-      options,
-      universal
+      false,
+      options
     );
   });
 
@@ -96,7 +95,7 @@ describe('useDomain', () => {
     });
   });
 
-  it('should use default values for options and universal', () => {
+  it('should use default values for options', () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -111,8 +110,8 @@ describe('useDomain', () => {
     expect(useBaseQuery).toHaveBeenCalledWith(
       'vitalik.eth',
       QueryEndpoint.DOMAIN,
-      {}, // default empty options
-      false // default universal value
+      false, // universal is always false for useDomain
+      {} // default empty options
     );
   });
 });

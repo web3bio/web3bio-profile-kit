@@ -42,18 +42,43 @@ const { data } = useProfile("vitalik.eth", { apiKey: "your_api_key" });
 
 ### Query Profile Data
 
+#### Standard Profile Queries (Platform-Specific)
+
 ```jsx
 import { useProfile } from 'web3bio-profile-kit';
 
 function ProfileComponent() {
-  // Query by ENS domain
-  const { data, isLoading, error } = useProfile("vitalik.eth");
-
-  // Or with explicit platform
-  // const { data, isLoading, error } = useProfile("ens,vitalik.eth");
+  // Query with explicit platform format
+  const { data, isLoading, error } = useProfile("farcaster,dwr");
 
   // Or with Ethereum address
-  // const { data, isLoading, error } = useProfile("0x123...");
+  // const { data, isLoading, error } = useProfile("ethereum,0x123...");
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h1>{data?.displayName || data?.identity}</h1>
+      {data?.avatar && <img src={data.avatar} alt="Profile" />}
+      <p>{data?.description}</p>
+    </div>
+  );
+}
+```
+
+#### Universal Profile Queries (Any Identity Format)
+
+```jsx
+import { useUniversalProfile } from 'web3bio-profile-kit';
+
+function UniversalProfileComponent() {
+  // Query by any identity format - ENS domain, Farcaster handle, etc.
+  const { data, isLoading, error } = useUniversalProfile("vitalik.eth");
+
+  // Or with any other identity
+  // const { data, isLoading, error } = useUniversalProfile("dwr.farcaster");
+  // const { data, isLoading, error } = useUniversalProfile("0x123...");
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -70,11 +95,34 @@ function ProfileComponent() {
 
 ### Query Name Service Data
 
+#### Standard Name Service Queries
+
 ```jsx
-import { useNameService } from 'web3bio-profile-kit';
+import { useNS } from 'web3bio-profile-kit';
 
 function NameServiceComponent() {
-  const { data, isLoading } = useNameService("vitalik.eth");
+  // Requires platform-specific format
+  const { data, isLoading } = useNS("ens,vitalik.eth");
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h2>{data?.displayName}</h2>
+      <p>Address: {data?.address}</p>
+    </div>
+  );
+}
+```
+
+#### Universal Name Service Queries
+
+```jsx
+import { useUniversalNS } from 'web3bio-profile-kit';
+
+function UniversalNameServiceComponent() {
+  // Works with any identity format
+  const { data, isLoading } = useUniversalNS("vitalik.eth");
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -165,7 +213,7 @@ You can also use the explicit format `platform,identity` for clarity:
 
 Fetches comprehensive profile data including social links and avatar.
 
-#### `useNameService(identity, options?, universal?)`
+#### `useNS(identity, options?, universal?)`
 
 Fetches basic name service data (similar to ENS lookups).
 

@@ -7,20 +7,18 @@ import { useBaseQuery } from "./useBaseQuery";
  * 
  * @param identity - Identity string or array of identities to query
  * @param options - Optional configuration options
- * @param universal - Whether to use universal identity lookup (default: false)
  * @returns Object containing NS data, loading state, and any errors
  * 
  * @example
  * // Query by ENS name
- * const { data, isLoading, error } = useNameService("vitalik.eth");
+ * const { data, isLoading, error } = useNS("vitalik.eth");
  * 
  * // Query by Ethereum address
- * const { data } = useNameService("0x123...");
+ * const { data } = useNS("0x123...");
  */
-export function useNameService(
+export function useNS(
   identity: Identity,
-  options: QueryOptions = {},
-  universal: boolean = false
+  options: QueryOptions = {}
 ): NSQueryResult {
-  return useBaseQuery<NSResponse>(identity, QueryEndpoint.NS, options, universal);
+  return useBaseQuery<NSResponse>(identity, QueryEndpoint.NS, false, options);
 }
