@@ -1,5 +1,5 @@
-import { REGEX } from './constants';
-import { PlatformType, Identity } from './types';
+import { REGEX } from "./constants";
+import { PlatformType, Identity } from "./types";
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -9,7 +9,7 @@ import { PlatformType, Identity } from './types';
 export const resolveIdentity = (input: string): string | null => {
   if (!input) return null;
 
-  const parts = input.split(',');
+  const parts = input.split(",");
 
   let platform: PlatformType;
   let identity: string;
@@ -43,8 +43,13 @@ export const prettify = (input: string): string => {
   if (!input) return "";
   if (input.endsWith(".twitter")) return input.replace(".twitter", "");
   if (input.endsWith(".nextid")) return input.replace(".nextid", "");
-  if (input.startsWith("farcaster,#")) return input.replace(/^(farcaster),/, "");
-  if (input.endsWith(".farcaster") || input.endsWith(".fcast.id") || input.endsWith(".farcaster.eth")) {
+  if (input.startsWith("farcaster,#"))
+    return input.replace(/^(farcaster),/, "");
+  if (
+    input.endsWith(".farcaster") ||
+    input.endsWith(".fcast.id") ||
+    input.endsWith(".farcaster.eth")
+  ) {
     return input.replace(/(\.farcaster|\.fcast\.id|\.farcaster\.eth)$/, "");
   }
   if (input.endsWith(".base") || input.endsWith(".linea")) {
@@ -56,7 +61,9 @@ export const prettify = (input: string): string => {
 /**
  * Check if the platform is supported for API queries
  */
-export const isSupportedPlatform = (platform?: PlatformType | null): boolean => {
+export const isSupportedPlatform = (
+  platform?: PlatformType | null,
+): boolean => {
   if (!platform) return false;
   return Object.values(PlatformType).includes(platform as PlatformType);
 };
@@ -66,7 +73,7 @@ export const isSupportedPlatform = (platform?: PlatformType | null): boolean => 
  */
 export const detectPlatform = (term: string): PlatformType => {
   if (term.endsWith(".farcaster.eth")) return PlatformType.farcaster;
-  
+
   const platformMap: [RegExp, PlatformType][] = [
     [REGEX.BASENAMES, PlatformType.basenames],
     [REGEX.LINEA, PlatformType.linea],
@@ -89,7 +96,7 @@ export const detectPlatform = (term: string): PlatformType => {
       return platformType;
     }
   }
-  
+
   // Default fallback
   return term.includes(".") ? PlatformType.ens : PlatformType.farcaster;
 };
@@ -98,9 +105,11 @@ export const detectPlatform = (term: string): PlatformType => {
  * Get API key from various environment sources or user provided value
  */
 export const getApiKey = (userProvidedKey?: string): string | undefined => {
-  return userProvidedKey ||
+  return (
+    userProvidedKey ||
     process.env.WEB3BIO_API_KEY ||
     process.env.REACT_APP_WEB3BIO_API_KEY ||
-    process.env.VITE_WEB3BIO_API_KEY ||
-    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY;
+    process.env.NEXT_PUBLIC_WEB3BIO_API_KEY ||
+    process.env.VITE_WEB3BIO_API_KEY
+  );
 };

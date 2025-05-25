@@ -1,10 +1,10 @@
 export enum PlatformType {
   ens = "ens",
-  dotbit = "dotbit",
+  farcaster = "farcaster",
   lens = "lens",
   ethereum = "ethereum",
   twitter = "twitter",
-  farcaster = "farcaster",
+  github = "github",
   bitcoin = "bitcoin",
   unstoppableDomains = "unstoppabledomains",
   basenames = "basenames",
@@ -13,7 +13,7 @@ export enum PlatformType {
   solana = "solana",
   sns = "sns",
   nextid = "nextid",
-  // Additional platforms can be added as needed
+  dotbit = "dotbit",
 }
 
 export enum SourceType {
@@ -28,7 +28,6 @@ export enum SourceType {
   space_id = "space_id",
   solana = "solana",
   sns = "sns",
-  // Additional sources can be added as needed
 }
 
 export type SocialLinksItem = {
