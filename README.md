@@ -1,6 +1,12 @@
 # Web3.bio Profile Kit
 
-A lightweight React hooks library for easily integrating Web3.bio profile data into your applications.
+A lightweight React hooks library for easily integrating Web3 profile data from Ethereum / ENS, Basenames, Farcaster, Lens, Linea Name Service, Solana / SNS, and more into your apps.
+
+## Overview
+
+Web3.bio Profile Kit provides React hooks for querying the [Web3.bio Profile API](https://api.web3.bio/), which offers unified profile data across multiple Web3 platforms. This library makes it easy to fetch user profiles, name service information, and domain data.
+
+More information about the Web3.bio Profile API can be found in the [document](https://api.web3.bio/).
 
 ## Installation
 
@@ -11,12 +17,6 @@ yarn add web3bio-profile-kit
 # or
 pnpm add web3bio-profile-kit
 ```
-
-## Overview
-
-Web3.bio Profile Kit provides React hooks for querying the [Web3.bio Profile API](https://api.web3.bio/), which offers unified profile data across multiple Web3 platforms. This library makes it easy to fetch user profiles, name service information, and domain data.
-
-More information about the Web3.bio Profile API can be found in the [document](https://api.web3.bio/).
 
 ## API Key
 
