@@ -96,7 +96,6 @@ export type QueryOptions = {
 };
 
 export type IdentityString = string | `${PlatformType},${string}`;
-export type Identity = IdentityString | IdentityString[];
 
 export type QueryResult<T> = {
   data: T | null;
@@ -105,6 +104,10 @@ export type QueryResult<T> = {
 };
 
 // Query-specific result types for better type safety
-export type ProfileQueryResult = QueryResult<ProfileResponse>;
-export type NSQueryResult = QueryResult<NSResponse>;
-export type DomainQueryResult = QueryResult<DomainResponse>;
+export type ProfileResult = QueryResult<ProfileResponse>;
+export type NSResult = QueryResult<NSResponse>;
+export type ProfileBatchResult = QueryResult<ProfileResponse[]>;
+export type NSBatchResult = QueryResult<NSResponse[]>;
+export type ProfileUniversalResult = QueryResult<ProfileResponse[]>;
+export type NSUniversalResult = QueryResult<NSResponse[]>;
+export type DomainResult = QueryResult<DomainResponse>;

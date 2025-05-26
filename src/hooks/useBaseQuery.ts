@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { API_ENDPOINT, ErrorMessages, QueryEndpoint } from "../utils/constants";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
-import { Identity, QueryOptions, QueryResult } from "../utils/types";
+import { IdentityString, QueryOptions, QueryResult } from "../utils/types";
 
 /**
  * Constructs the API URL based on query parameters
  */
 const buildApiUrl = (
-  identity: Identity,
+  identity: IdentityString | IdentityString[],
   endpoint: QueryEndpoint,
   universal: boolean,
 ): string | null => {
@@ -22,6 +22,8 @@ const buildApiUrl = (
   } else {
     const resolvedId = resolveIdentity(identity);
     if (!resolvedId) return null;
+    if (endpoint === QueryEndpoint.DOMAIN)
+      return `${API_ENDPOINT}/${endpoint}/${resolvedId}`;
 
     const [platform, handle] = resolvedId.split(",");
     return `${API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
@@ -32,7 +34,7 @@ const buildApiUrl = (
  * Core hook for querying Web3.bio Profile API
  */
 export function useBaseQuery<T>(
-  identity: Identity,
+  identity: IdentityString | IdentityString[],
   endpoint: QueryEndpoint,
   universal: boolean = false,
   options: QueryOptions = {},

@@ -1,32 +1,28 @@
 import { QueryEndpoint } from "../utils/constants";
 import {
   IdentityString,
+  ProfileBatchResult,
   ProfileResponse,
-  ProfileResult,
-  ProfileUniversalResult,
   QueryOptions,
 } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**
- * Hook to query Web3.bio profile data by identity
+ * Hook to query Web3.bio profile data using batch identity lookup
  *
- * @param identity - Identity string
+ * @param identity - array of Identity string
  * @param options - Optional configuration options
  * @returns Object containing profile data, loading state, and any errors
  *
  * @example
- * // Query by ENS name
- * const { data, isLoading, error } = useProfile("vitalik.eth");
- *
- * // Query with platform specification
- * const { data } = useProfile("farcaster,dwr");
+ * // Query by any identity type with batch lookup
+ * const { data } = useBatchProfile(["dwr.farcaster","ens,vitalik.eth","sujiyan.eth","stani.lens"]);
  */
-export function useProfile(
-  identity: IdentityString,
+export function useBatchProfile(
+  identity: IdentityString[],
   options: QueryOptions = {},
-): ProfileResult {
-  return useBaseQuery<ProfileResponse>(
+): ProfileBatchResult {
+  return useBaseQuery<ProfileResponse[]>(
     identity,
     QueryEndpoint.PROFILE,
     false,
