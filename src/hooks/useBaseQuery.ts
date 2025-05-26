@@ -44,6 +44,9 @@ const getCacheKey = (
 // Create a cache to store results across component instances and re-renders
 const globalRequestCache = new Map<string, any>();
 
+// Track if we're in strict mode's second render
+const strictModeInitialRender = new Set<string>();
+
 /**
  * Core hook for querying Web3.bio Profile API
  */
@@ -67,6 +70,7 @@ export function useBaseQuery<T>(
   // Use ref to track in-flight requests and prevent race conditions
   const requestIdRef = useRef<number>(0);
   const prevParamsRef = useRef<string>("");
+  const effectRunCountRef = useRef(0);
 
   // Current request parameters as a string for comparison
   const currentParams = JSON.stringify({
@@ -74,6 +78,11 @@ export function useBaseQuery<T>(
     endpoint,
     universal,
   });
+
+  // Unique key for this hook instance + parameters
+  const instanceKey = useRef(
+    `${Math.random().toString(36).substring(2)}_${currentParams}`,
+  ).current;
 
   useEffect(() => {
     // Don't run the query if disabled or no identity
@@ -99,6 +108,11 @@ export function useBaseQuery<T>(
 
     // Increment request ID to track the latest request
     const requestId = ++requestIdRef.current;
+
+    // Check if we're in strict mode's second render
+    effectRunCountRef.current += 1;
+
+    // Create AbortController but don't use it in cleanup function in development
     const controller = new AbortController();
 
     setIsLoading(true);
@@ -114,11 +128,24 @@ export function useBaseQuery<T>(
 
         const headers: HeadersInit = apiKey ? { "x-api-key": apiKey } : {};
 
-        const response = await fetch(url, {
+        // In development, don't pass the signal to fetch to prevent abortion
+        const fetchOptions: RequestInit = {
           method: "GET",
           headers,
-          signal: controller.signal,
-        });
+        };
+
+        // Only use the abort signal in production or when we're not in strict mode's first render
+        if (
+          process.env.NODE_ENV !== "development" ||
+          strictModeInitialRender.has(instanceKey)
+        ) {
+          fetchOptions.signal = controller.signal;
+        } else {
+          // Mark that we've seen this instance in the initial render
+          strictModeInitialRender.add(instanceKey);
+        }
+
+        const response = await fetch(url, fetchOptions);
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
@@ -151,9 +178,19 @@ export function useBaseQuery<T>(
     fetchData();
 
     return () => {
+      // In development environment with strict mode, don't abort on first unmount
+      if (
+        process.env.NODE_ENV === "development" &&
+        effectRunCountRef.current <= 1
+      ) {
+        // Don't abort the first request in development
+        return;
+      }
+
+      // In production or for subsequent renders, abort normally
       controller.abort();
     };
-  }, [currentParams, enabled]); // Simplified dependency array
+  }, [currentParams, enabled, instanceKey]); // Added instanceKey to deps
 
   return { data, isLoading, error };
 }
