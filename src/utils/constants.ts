@@ -1,4 +1,4 @@
-export const API_ENDPOINT = "https://api-staging.web3.bio";
+export const API_ENDPOINT = "https://api.web3.bio";
 
 export enum ErrorMessages {
   NOT_FOUND = "Not Found",
