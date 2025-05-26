@@ -16,7 +16,7 @@ import { useBaseQuery } from "./useBaseQuery";
  *
  * @example
  * // Query by any identity type with batch lookup
- * const { data } = useBAtchNS(["dwr.farcaster","ens,vitalik.eth","sujiyan.eth","stani.lens"]);
+ * const { data } = useBatchNS(["dwr.farcaster","ens,vitalik.eth","sujiyan.eth","stani.lens"]);
  */
 export function useBatchNS(
   identity: IdentityString[],

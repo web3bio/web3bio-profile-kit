@@ -6,6 +6,8 @@ import {
   useDomain,
   useUniversalNS,
   useUniversalProfile,
+  useBatchNS,
+  useBatchProfile,
 } from "web3bio-profile-kit";
 
 export default function Home() {
@@ -28,85 +30,87 @@ export default function Home() {
   const { data: universalProfileData, isLoading: universalProfileLoading } =
     useUniversalProfile("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
 
+  // useBatchNS
+  const { data: batchNsData, isLoading: batchNsLoading } = useBatchNS([
+    "vitalik.eth",
+    "yanzzz.eth",
+    "sujiyan.eth",
+  ]);
+
+  // useBatchProfile
+  const { data: batchProfileData, isLoading: batchProfileLoading } =
+    useBatchProfile([
+      "ethereum,0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+      "ens,sujiyan.eth",
+    ]);
+
+  const formatJSON = (data: unknown) => {
+    return <pre>{JSON.stringify(data, null, 4)}</pre>;
+  };
+
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Web3.bio Profile Kit Examples</h1>
+    <main>
+      <h1>Web3.bio Profile Kit Examples</h1>
 
-      {/* useProfile  */}
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-2">useProfile</h2>
-        {profileLoading && <p>Loading profile...</p>}
-        {profileData && (
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <pre className="text-xs overflow-auto">
-              {JSON.stringify(profileData, null, 2)}
-            </pre>
-          </div>
-        )}
-      </section>
+      <div>
+        {/* useProfile */}
+        <section>
+          <h2>useProfile</h2>
 
-      {/* useNS  */}
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-2">useNS</h2>
-        {nsLoading && <p>Loading NS data...</p>}
-        {nsData && (
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <pre className="text-xs overflow-auto">
-              {JSON.stringify(nsData, null, 2)}
-            </pre>
-          </div>
-        )}
-      </section>
+          {profileLoading && <p>Loading profile...</p>}
+          {profileData && formatJSON(profileData)}
+        </section>
 
-      {/* useDomain  */}
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-2">useDomain</h2>
-        {domainLoading && <p>Loading domain data...</p>}
-        {domainData && (
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <pre className="text-xs overflow-auto">
-              {JSON.stringify(domainData, null, 2)}
-            </pre>
-          </div>
-        )}
-      </section>
+        {/* useNS */}
+        <section>
+          <h2>useNS</h2>
 
-      {/* useUniversalNS  */}
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-2">useUniversalNS</h2>
-        {universalNsLoading && <p>Loading universal NS data...</p>}
-        {universalNsData && (
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <pre className="text-xs overflow-auto">
-              {JSON.stringify(universalNsData, null, 2)}
-            </pre>
-          </div>
-        )}
-      </section>
+          {nsLoading && <p>Loading NS data...</p>}
+          {nsData && formatJSON(nsData)}
+        </section>
 
-      {/* useUniversalProfile  */}
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-2">useUniversalProfile</h2>
-        {universalProfileLoading && <p>Loading universal profile data...</p>}
-        {universalProfileData && (
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h3 className="font-bold">
-              {universalProfileData.displayName ||
-                universalProfileData.identity}
-            </h3>
-            {universalProfileData.avatar && (
-              <img
-                src={universalProfileData.avatar}
-                alt="Avatar"
-                className="w-12 h-12 rounded-full my-2"
-              />
-            )}
-            {universalProfileData.description && (
-              <p className="text-sm">{universalProfileData.description}</p>
-            )}
-          </div>
-        )}
-      </section>
+        {/* useDomain */}
+        <section>
+          <h2>useDomain</h2>
+
+          {domainLoading && <p>Loading domain data...</p>}
+          {domainData && formatJSON(domainData)}
+        </section>
+
+        {/* useUniversalNS */}
+        <section>
+          <h2>useUniversalNS</h2>
+
+          {universalNsLoading && <p>Loading universal NS data...</p>}
+          {universalNsData && formatJSON(universalNsData)}
+        </section>
+
+        {/* useUniversalProfile */}
+        <section>
+          <h2>useUniversalProfile</h2>
+
+          {universalProfileLoading && <p>Loading universal profile data...</p>}
+          {universalProfileData && (
+            <div>{formatJSON(universalProfileData)}</div>
+          )}
+        </section>
+
+        {/* useBatchNS */}
+        <section>
+          <h2>useBatchNS</h2>
+
+          {batchNsLoading && <p>Loading batch NS data...</p>}
+          {batchNsData && formatJSON(batchNsData)}
+        </section>
+
+        {/* useBatchProfile */}
+        <section>
+          <h2>useBatchProfile</h2>
+
+          {batchProfileLoading && <p>Loading batch profile data...</p>}
+          {batchProfileData && <div>{formatJSON(batchProfileData)}</div>}
+        </section>
+      </div>
     </main>
   );
 }
