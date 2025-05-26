@@ -1,10 +1,11 @@
 {
   "name": "web3bio-profile-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React hooks for querying Web3.bio profiles",
   "author": "web3bio",
   "license": "MIT",
   "private": false,
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
