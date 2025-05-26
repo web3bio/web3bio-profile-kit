@@ -53,6 +53,7 @@ export interface ProfileResponse {
   status: string | null;
   error?: string;
   links: SocialLinks;
+  aliases?: string[];
   social:
     | {
         uid: number | null;
@@ -69,6 +70,7 @@ export interface NSResponse {
   description: string | null;
   platform: string;
   displayName: string | null;
+  aliases?: string[];
 }
 
 export interface DomainResponse {
