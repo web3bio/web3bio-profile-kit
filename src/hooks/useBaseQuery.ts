@@ -11,21 +11,28 @@ const buildApiUrl = (
   endpoint: QueryEndpoint,
   universal: boolean,
 ): string | null => {
+  // Handle batch requests
   if (Array.isArray(identity)) {
     return `${API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
   }
 
+  // Handle universal queries
   if (universal) {
     return `${API_ENDPOINT}/${endpoint}/${identity}`;
-  } else {
-    const resolvedId = resolveIdentity(identity);
-    if (!resolvedId) return null;
-    if (endpoint === QueryEndpoint.DOMAIN)
-      return `${API_ENDPOINT}/${endpoint}/${resolvedId}`;
-
-    const [platform, handle] = resolvedId.split(",");
-    return `${API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
   }
+
+  // Handle platform-specific queries
+  const resolvedId = resolveIdentity(identity);
+  if (!resolvedId) return null;
+
+  // Domain endpoint uses resolved ID directly
+  if (endpoint === QueryEndpoint.DOMAIN) {
+    return `${API_ENDPOINT}/${endpoint}/${resolvedId}`;
+  }
+
+  // Other endpoints need platform/handle split
+  const [platform, handle] = resolvedId.split(",");
+  return `${API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
 };
 
 // Generate a stable cache key for this request

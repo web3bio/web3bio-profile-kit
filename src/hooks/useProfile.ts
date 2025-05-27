@@ -3,7 +3,6 @@ import {
   IdentityString,
   ProfileResponse,
   ProfileResult,
-  ProfileUniversalResult,
   QueryOptions,
 } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
