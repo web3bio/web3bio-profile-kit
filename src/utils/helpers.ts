@@ -1,5 +1,5 @@
 import { REGEX } from "./constants";
-import { PlatformType, Identity } from "./types";
+import { PlatformType } from "./types";
 
 /**
  * Resolves an identity string to a platform and identifier

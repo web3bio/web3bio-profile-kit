@@ -156,18 +156,18 @@ function DomainComponent() {
 ### Batch Profile Query
 
 ```jsx
-import { useProfile } from 'web3bio-profile-kit';
+import { useBatchProfile } from 'web3bio-profile-kit';
 
 function BatchProfileComponent() {
-  const { data, isLoading } = useProfile([
+  const { data, isLoading } = useBatchProfile([
     "vitalik.eth",
-    "lens,stani"
+    "stani.lens"
   ]);
 
   // You can also use useNS for batch queries
-  // const { data, isLoading } = useNS([
+  // const { data, isLoading } = useBatchNS([
   //   "vitalik.eth",
-  //   "lens,stani"
+  //   "stani.lens"
   // ]);
 
   if (isLoading) return <div>Loading...</div>;

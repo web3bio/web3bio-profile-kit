@@ -1,24 +1,29 @@
+import type {
+  NSResponse,
+  QueryOptions,
+  IdentityString,
+  NSResult,
+} from "../utils/types";
 import { QueryEndpoint } from "../utils/constants";
-import { Identity, NSResponse, NSQueryResult, QueryOptions } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**
  * Hook to query Web3.bio name service (NS) data by identity
- * 
- * @param identity - Identity string or array of identities to query
+ *
+ * @param identity - Identity string
  * @param options - Optional configuration options
  * @returns Object containing NS data, loading state, and any errors
- * 
+ *
  * @example
  * // Query by ENS name
  * const { data, isLoading, error } = useNS("vitalik.eth");
- * 
+ *
  * // Query by Ethereum address
  * const { data } = useNS("0x123...");
  */
 export function useNS(
-  identity: Identity,
-  options: QueryOptions = {}
-): NSQueryResult {
+  identity: IdentityString,
+  options: QueryOptions = {},
+): NSResult {
   return useBaseQuery<NSResponse>(identity, QueryEndpoint.NS, false, options);
 }

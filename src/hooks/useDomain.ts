@@ -1,24 +1,34 @@
+import type {
+  DomainResponse,
+  DomainResult,
+  IdentityString,
+  QueryOptions,
+} from "../utils/types";
 import { QueryEndpoint } from "../utils/constants";
-import { DomainQueryResult, DomainResponse, Identity, QueryOptions } from "../utils/types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**
  * Hook to query Web3.bio domain data by identity
- * 
- * @param identity - Identity string or array of identities to query
+ *
+ * @param identity - Identity string
  * @param options - Optional configuration options
  * @returns Object containing domain data, loading state, and any errors
- * 
+ *
  * @example
  * // Query by ENS name
  * const { data, isLoading, error } = useDomain("vitalik.eth");
- * 
+ *
  * // Query by domain name with platform
  * const { data } = useDomain("ens,vitalik.eth");
  */
 export function useDomain(
-  identity: Identity,
-  options: QueryOptions = {}
-): DomainQueryResult {
-  return useBaseQuery<DomainResponse>(identity, QueryEndpoint.DOMAIN, false, options);
+  identity: IdentityString,
+  options: QueryOptions = {},
+): DomainResult {
+  return useBaseQuery<DomainResponse>(
+    identity,
+    QueryEndpoint.DOMAIN,
+    false,
+    options,
+  );
 }
