@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "rimraf dist && rollup -c",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
