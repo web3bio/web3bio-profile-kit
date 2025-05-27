@@ -1,7 +1,7 @@
+import type { IdentityString, QueryOptions, QueryResult } from "../utils/types";
 import { useState, useEffect, useRef } from "react";
 import { API_ENDPOINT, ErrorMessages, QueryEndpoint } from "../utils/constants";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
-import { IdentityString, QueryOptions, QueryResult } from "../utils/types";
 
 /**
  * Constructs the API URL based on query parameters
