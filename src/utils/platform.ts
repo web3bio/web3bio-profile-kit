@@ -98,6 +98,7 @@ export type SocialPlatform = {
   urlPrefix?: string;
   ensText?: string[];
   registerlink?: string;
+  editUrlPrefix?: string;
   system: PlatformSystem;
 };
 
