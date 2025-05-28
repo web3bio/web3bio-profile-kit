@@ -1,3 +1,4 @@
+import { Network } from "./network";
 import type { PlatformType } from "./platform";
 import type { SourceType } from "./source";
 
@@ -64,7 +65,7 @@ export interface DomainResponse {
   expiredAt: string | null;
   contenthash: string | null;
   texts: Record<string, string>;
-  addresses: AddressRecord;
+  addresses: Record<Network, string>;
 }
 
 export type QueryOptions = {
