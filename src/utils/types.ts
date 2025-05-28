@@ -1,34 +1,5 @@
-export enum PlatformType {
-  ens = "ens",
-  farcaster = "farcaster",
-  lens = "lens",
-  ethereum = "ethereum",
-  twitter = "twitter",
-  github = "github",
-  bitcoin = "bitcoin",
-  unstoppableDomains = "unstoppabledomains",
-  basenames = "basenames",
-  linea = "linea",
-  space_id = "space_id",
-  solana = "solana",
-  sns = "sns",
-  nextid = "nextid",
-  dotbit = "dotbit",
-}
-
-export enum SourceType {
-  ethereum = "ethereum",
-  ens = "ens",
-  twitter = "twitter",
-  nextid = "nextid",
-  dotbit = "dotbit",
-  unstoppabledomains = "unstoppabledomains",
-  lens = "lens",
-  farcaster = "farcaster",
-  space_id = "space_id",
-  solana = "solana",
-  sns = "sns",
-}
+import type { PlatformType } from "./platform";
+import type { SourceType } from "./source";
 
 export type SocialLinksItem = {
   link: string | null;
@@ -37,6 +8,12 @@ export type SocialLinksItem = {
 };
 
 export type SocialLinks = Record<string, SocialLinksItem>;
+
+export type SocialRecord = [
+  uid: number | null,
+  follower: number,
+  following: number,
+];
 
 export interface ProfileResponse {
   identity: string;
@@ -54,13 +31,7 @@ export interface ProfileResponse {
   error?: string;
   links: SocialLinks;
   aliases?: string[];
-  social:
-    | {
-        uid: number | null;
-        follower: number;
-        following: number;
-      }
-    | {};
+  social: SocialRecord | {};
 }
 
 export interface NSResponse {
