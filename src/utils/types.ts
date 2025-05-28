@@ -22,13 +22,7 @@ export type SocialRecord = {
   following: number;
 };
 
-export interface ProfileResponse {
-  identity: string;
-  address: string | null;
-  avatar: string | null;
-  description: string | null;
-  platform: string;
-  displayName: string | null;
+export interface ProfileResponse extends NSResponse {
   email: string | null;
   contenthash: string | null;
   header: string | null;
@@ -37,7 +31,6 @@ export interface ProfileResponse {
   status: string | null;
   error?: string;
   links: SocialLinks;
-  aliases?: string[];
   social: SocialRecord | {};
 }
 
