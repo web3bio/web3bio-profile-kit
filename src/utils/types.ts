@@ -1,34 +1,12 @@
-export enum PlatformType {
-  ens = "ens",
-  farcaster = "farcaster",
-  lens = "lens",
-  ethereum = "ethereum",
-  twitter = "twitter",
-  github = "github",
-  bitcoin = "bitcoin",
-  unstoppableDomains = "unstoppabledomains",
-  basenames = "basenames",
-  linea = "linea",
-  space_id = "space_id",
-  solana = "solana",
-  sns = "sns",
-  nextid = "nextid",
-  dotbit = "dotbit",
-}
+import { Network } from "./network";
+import type { PlatformType } from "./platform";
+import type { SourceType } from "./source";
 
-export enum SourceType {
-  ethereum = "ethereum",
-  ens = "ens",
-  twitter = "twitter",
-  nextid = "nextid",
-  dotbit = "dotbit",
-  unstoppabledomains = "unstoppabledomains",
-  lens = "lens",
-  farcaster = "farcaster",
-  space_id = "space_id",
-  solana = "solana",
-  sns = "sns",
-}
+export type AddressRecord = {
+  address: string;
+  network: string;
+  __typename: "Address";
+};
 
 export type SocialLinksItem = {
   link: string | null;
@@ -38,13 +16,13 @@ export type SocialLinksItem = {
 
 export type SocialLinks = Record<string, SocialLinksItem>;
 
-export interface ProfileResponse {
-  identity: string;
-  address: string | null;
-  avatar: string | null;
-  description: string | null;
-  platform: string;
-  displayName: string | null;
+export type SocialRecord = {
+  uid: number | null;
+  follower: number;
+  following: number;
+};
+
+export interface ProfileResponse extends NSResponse {
   email: string | null;
   contenthash: string | null;
   header: string | null;
@@ -53,14 +31,7 @@ export interface ProfileResponse {
   status: string | null;
   error?: string;
   links: SocialLinks;
-  aliases?: string[];
-  social:
-    | {
-        uid: number | null;
-        follower: number;
-        following: number;
-      }
-    | {};
+  social: SocialRecord | {};
 }
 
 export interface NSResponse {
@@ -87,7 +58,7 @@ export interface DomainResponse {
   expiredAt: string | null;
   contenthash: string | null;
   texts: Record<string, string>;
-  addresses: Record<string, string>;
+  addresses: Record<Network, string>;
 }
 
 export type QueryOptions = {

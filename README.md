@@ -41,7 +41,7 @@ VITE_WEB3BIO_API_KEY=your_api_key
 #### Platform-Specific Profile Queries
 
 ```jsx
-import { useProfile } from 'web3bio-profile-kit';
+import { useProfile } from "web3bio-profile-kit";
 
 function ProfileComponent() {
   // Query with explicit platform format
@@ -69,7 +69,7 @@ function ProfileComponent() {
 #### Universal Profile Queries
 
 ```jsx
-import { useUniversalProfile } from 'web3bio-profile-kit';
+import { useUniversalProfile } from "web3bio-profile-kit";
 
 function UniversalProfileComponent() {
   // Query by any identity format - ENS domain, Farcaster handle, etc.
@@ -97,7 +97,7 @@ function UniversalProfileComponent() {
 #### Platform-Specific Name Service Queries
 
 ```jsx
-import { useNS } from 'web3bio-profile-kit';
+import { useNS } from "web3bio-profile-kit";
 
 function NameServiceComponent() {
   const { data, isLoading } = useNS("ens,vitalik.eth");
@@ -116,7 +116,7 @@ function NameServiceComponent() {
 #### Universal Name Service Queries
 
 ```jsx
-import { useUniversalNS } from 'web3bio-profile-kit';
+import { useUniversalNS } from "web3bio-profile-kit";
 
 function UniversalNameServiceComponent() {
   // Works with any identity format
@@ -136,7 +136,7 @@ function UniversalNameServiceComponent() {
 ### Query Domain Data
 
 ```jsx
-import { useDomain } from 'web3bio-profile-kit';
+import { useDomain } from "web3bio-profile-kit";
 
 function DomainComponent() {
   const { data, isLoading } = useDomain("vitalik.eth");
@@ -156,7 +156,7 @@ function DomainComponent() {
 ### Batch Profile Query
 
 ```jsx
-import { useBatchProfile } from 'web3bio-profile-kit';
+import { useBatchProfile } from "web3bio-profile-kit";
 
 function BatchProfileComponent() {
   const { data, isLoading } = useBatchProfile([
@@ -233,6 +233,14 @@ Fetches basic universal name service data across multiple platforms.
 #### `useDomain(identity, options?)`
 
 Fetches detailed domain information including resolution data.
+
+#### `useBatchProfile(identity, options?)`
+
+Fetches comprehensive profile data for multiple identities in a single request.
+
+#### `useBatchNS(identity, options?)`
+
+Fetches basic name service data for multiple identities in a single request.
 
 ### Arguments
 
