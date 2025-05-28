@@ -33,6 +33,8 @@ export enum SourceType {
   mask_stake = "mask_stake",
   crowdsourcing = "crowdsourcing",
   particle = "particle",
+  tally = "tally",
+  icebreaker = "icebreaker",
 }
 
 export interface SourceInfo {
@@ -176,5 +178,13 @@ export const SOURCE_DATA: Readonly<Record<SourceType, SourceInfo>> = {
   [SourceType.particle]: {
     name: "Particle",
     description: "Particle",
+  },
+  [SourceType.tally]: {
+    name: "Tally",
+    description: "Launch, manage, and grow the value of your token",
+  },
+  [SourceType.icebreaker]: {
+    name: "Icebreaker",
+    description: "Open professional network",
   },
 } as const;
