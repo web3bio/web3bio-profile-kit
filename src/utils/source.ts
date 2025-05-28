@@ -29,8 +29,6 @@ export enum SourceType {
   gmgn = "gmgn",
   nostr = "nostr",
   talentprotocol = "talentprotocol",
-  firefly_campaigns = "firefly_campaigns",
-  mask_stake = "mask_stake",
   crowdsourcing = "crowdsourcing",
   particle = "particle",
   tally = "tally",
@@ -162,14 +160,6 @@ export const SOURCE_DATA: Readonly<Record<SourceType, SourceInfo>> = {
   [SourceType.talentprotocol]: {
     name: "Talent",
     description: "Decentralized onchain passport",
-  },
-  [SourceType.firefly_campaigns]: {
-    name: "Firefly",
-    description: "Firefly campaigns",
-  },
-  [SourceType.mask_stake]: {
-    name: "MASK",
-    description: "MASK campaigns",
   },
   [SourceType.crowdsourcing]: {
     name: "Crowdsourcing",
