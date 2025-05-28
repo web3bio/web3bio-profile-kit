@@ -1,6 +1,12 @@
 import type { PlatformType } from "./platform";
 import type { SourceType } from "./source";
 
+export type AddressRecord = {
+  address: string;
+  network: string;
+  __typename: "Address";
+};
+
 export type SocialLinksItem = {
   link: string | null;
   handle: string | null;
@@ -9,11 +15,11 @@ export type SocialLinksItem = {
 
 export type SocialLinks = Record<string, SocialLinksItem>;
 
-export type SocialRecord = [
-  uid: number | null,
-  follower: number,
-  following: number,
-];
+export type SocialRecord = {
+  uid: number | null;
+  follower: number;
+  following: number;
+};
 
 export interface ProfileResponse {
   identity: string;
@@ -58,7 +64,7 @@ export interface DomainResponse {
   expiredAt: string | null;
   contenthash: string | null;
   texts: Record<string, string>;
-  addresses: Record<string, string>;
+  addresses: AddressRecord;
 }
 
 export type QueryOptions = {
