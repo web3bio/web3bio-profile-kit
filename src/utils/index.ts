@@ -1,4 +1,4 @@
-export * from "./cointype";
+export * from "../types/cointype";
 export * from "./regex";
 export * from "./helpers";
 export * from "./network";

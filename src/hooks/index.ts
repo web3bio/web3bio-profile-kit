@@ -1,3 +1,4 @@
+"use client";
 export { useProfile } from "./useProfile";
 export { useNS } from "./useNS";
 export { useUniversalProfile } from "./useUniversalProfile";
