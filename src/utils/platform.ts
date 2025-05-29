@@ -1,113 +1,10 @@
-export enum PlatformType {
-  ens = "ens",
-  dotbit = "dotbit",
-  lens = "lens",
-  box = "box",
-  ethereum = "ethereum",
-  twitter = "twitter",
-  nextid = "nextid",
-  bitcoin = "bitcoin",
-  keybase = "keybase",
-  reddit = "reddit",
-  github = "github",
-  unstoppableDomains = "unstoppabledomains",
-  basenames = "basenames",
-  linea = "linea",
-  ckb = "ckb",
-  farcaster = "farcaster",
-  space_id = "space_id",
-  telegram = "telegram",
-  instagram = "instagram",
-  cyberconnect = "cyberconnect",
-  opensea = "opensea",
-  discord = "discord",
-  calendly = "calendly",
-  url = "url",
-  website = "website",
-  linkedin = "linkedin",
-  dns = "dns",
-  tron = "tron",
-  hey = "hey",
-  facebook = "facebook",
-  threads = "threads",
-  whatsapp = "whatsapp",
-  weibo = "weibo",
-  youtube = "youtube",
-  tiktok = "tiktok",
-  bilibili = "bilibili",
-  medium = "medium",
-  mirror = "mirror",
-  zerion = "zerion",
-  aave = "aave",
-  rainbow = "rainbow",
-  bluesky = "bluesky",
-  nostr = "nostr",
-  poap = "poap",
-  uniswap = "uniswap",
-  degenscore = "degenscore",
-  firefly = "firefly",
-  solana = "solana",
-  sns = "sns",
-  mstdnjp = "mstdnjp",
-  lobsters = "lobsters",
-  hackernews = "hackernews",
-  crossbell = "crossbell",
-  minds = "minds",
-  paragraph = "paragraph",
-  genome = "genome",
-  gnosis = "gnosis",
-  webacy = "webacy",
-  clusters = "clusters",
-  guild = "guild",
-  ton = "ton",
-  snapshot = "snapshot",
-  coingecko = "coingecko",
-  gitcoin = "gitcoin",
-  humanpassport = "humanpassport",
-  talent = "talentprotocol",
-  doge = "doge",
-  bsc = "bsc",
-  aptos = "aptos",
-  near = "near",
-  stacks = "stacks",
-  cosmos = "cosmos",
-  zeta = "zeta",
-  mode = "mode",
-  arbitrum = "arbitrum",
-  scroll = "scroll",
-  taiko = "taiko",
-  mint = "mint",
-  zkfair = "zkfair",
-  manta = "manta",
-  lightlink = "lightlink",
-  merlin = "merlin",
-  alienx = "alienx",
-  edgeless = "edgeless",
-  tomo = "tomo",
-  ailayer = "ailayer",
-  philand = "philand",
-  efp = "efp",
-  gravity = "gravity",
-}
+import { Platform, PlatformSystem, type PlatformType } from "../types/platform";
 
-export type SocialPlatform = {
-  color?: string;
-  icon?: string;
-  label: string;
-  description?: string;
-  urlPrefix?: string;
-  ensText?: string[];
-  registerlink?: string;
-  editUrlPrefix?: string;
-  system: PlatformSystem;
-};
-
-export enum PlatformSystem {
-  web2 = 0,
-  web3 = 1,
-}
-
-export const DEFAULT_PLATFORM: Readonly<SocialPlatform> = {
+/**
+ * Default data
+ * @internal
+ */
+export const DEFAULT_PLATFORM: Readonly<PlatformType> = {
   color: "#000000",
   icon: "",
   label: "",
@@ -119,12 +16,16 @@ export const DEFAULT_PLATFORM: Readonly<SocialPlatform> = {
   system: PlatformSystem.web3,
 };
 
+/**
+ * Platform data
+ * @public
+ */
 export const PLATFORM_DATA: ReadonlyMap<
-  PlatformType,
-  Readonly<SocialPlatform>
+  Platform,
+  Readonly<PlatformType>
 > = new Map([
   [
-    PlatformType.twitter,
+    Platform.twitter,
     {
       color: "#000000",
       icon: "icons/icon-x.svg",
@@ -135,7 +36,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.ens,
+    Platform.ens,
     {
       color: "#0080bc",
       icon: "icons/icon-ens.svg",
@@ -148,7 +49,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.ethereum,
+    Platform.ethereum,
     {
       color: "#3741ba",
       icon: "icons/icon-ethereum.svg",
@@ -159,7 +60,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.farcaster,
+    Platform.farcaster,
     {
       color: "#432C8D",
       icon: "icons/icon-farcaster.svg",
@@ -174,7 +75,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.github,
+    Platform.github,
     {
       color: "#000000",
       icon: "icons/icon-github.svg",
@@ -185,7 +86,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.keybase,
+    Platform.keybase,
     {
       color: "#4162E2",
       icon: "icons/icon-keybase.svg",
@@ -196,7 +97,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.lens,
+    Platform.lens,
     {
       color: "#2CC256",
       icon: "icons/icon-lens.svg",
@@ -210,7 +111,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.box,
+    Platform.box,
     {
       color: "#1a1a1a",
       icon: "icons/icon-box.svg",
@@ -220,7 +121,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.nextid,
+    Platform.nextid,
     {
       color: "#000000",
       icon: "icons/icon-nextid.svg",
@@ -230,7 +131,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.bitcoin,
+    Platform.bitcoin,
     {
       color: "#F7931A",
       icon: "icons/icon-bitcoin.svg",
@@ -240,7 +141,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.reddit,
+    Platform.reddit,
     {
       color: "#ff4500",
       icon: "icons/icon-reddit.svg",
@@ -251,7 +152,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.space_id,
+    Platform.space_id,
     {
       color: "#71EBAA",
       icon: "icons/icon-spaceid.svg",
@@ -262,7 +163,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.unstoppableDomains,
+    Platform.unstoppableDomains,
     {
       color: "#2E65F5",
       icon: "icons/icon-unstoppabledomains.svg",
@@ -276,7 +177,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.basenames,
+    Platform.basenames,
     {
       color: "#0052ff",
       icon: "icons/icon-base.svg",
@@ -289,7 +190,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.linea,
+    Platform.linea,
     {
       color: "#591FE6",
       icon: "icons/icon-linea.svg",
@@ -302,7 +203,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.ckb,
+    Platform.ckb,
     {
       color: "#000000",
       icon: "icons/icon-ckb.svg",
@@ -312,7 +213,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.telegram,
+    Platform.telegram,
     {
       color: "#0088cc",
       icon: "icons/icon-telegram.svg",
@@ -323,7 +224,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.instagram,
+    Platform.instagram,
     {
       color: "#E1306C",
       icon: "icons/icon-instagram.svg",
@@ -334,7 +235,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.weibo,
+    Platform.weibo,
     {
       color: "#df2029",
       label: "Weibo",
@@ -343,7 +244,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.dotbit,
+    Platform.dotbit,
     {
       color: "#0e7dff",
       icon: "icons/icon-dotbit.svg",
@@ -354,7 +255,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.cyberconnect,
+    Platform.cyberconnect,
     {
       color: "#000000",
       icon: "icons/icon-cyberconnect.svg",
@@ -365,7 +266,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.opensea,
+    Platform.opensea,
     {
       color: "#407FDB",
       icon: "icons/icon-opensea.svg",
@@ -375,7 +276,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.discord,
+    Platform.discord,
     {
       color: "#5865f2",
       icon: "icons/icon-discord.svg",
@@ -386,7 +287,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.calendly,
+    Platform.calendly,
     {
       color: "#2F69F6",
       icon: "icons/icon-calendly.svg",
@@ -397,7 +298,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.url,
+    Platform.url,
     {
       color: "#121212",
       icon: "icons/icon-web.svg",
@@ -407,7 +308,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.website,
+    Platform.website,
     {
       color: "#121212",
       icon: "icons/icon-web.svg",
@@ -418,7 +319,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.linkedin,
+    Platform.linkedin,
     {
       color: "#195DB4",
       icon: "icons/icon-linkedin.svg",
@@ -429,7 +330,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.dns,
+    Platform.dns,
     {
       color: "#000000",
       icon: "icons/icon-web.svg",
@@ -439,7 +340,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.tron,
+    Platform.tron,
     {
       color: "#EB0029",
       icon: "icons/icon-tron.svg",
@@ -449,7 +350,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.hey,
+    Platform.hey,
     {
       color: "#E84F64",
       icon: "icons/icon-hey.svg",
@@ -459,7 +360,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.facebook,
+    Platform.facebook,
     {
       color: "#385898",
       icon: "icons/icon-facebook.svg",
@@ -470,7 +371,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.threads,
+    Platform.threads,
     {
       color: "#000000",
       icon: "icons/icon-threads.svg",
@@ -480,7 +381,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.whatsapp,
+    Platform.whatsapp,
     {
       color: "#25d366",
       icon: "icons/icon-whatsapp.svg",
@@ -491,7 +392,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.youtube,
+    Platform.youtube,
     {
       color: "#FF0000",
       icon: "icons/icon-youtube.svg",
@@ -502,7 +403,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.tiktok,
+    Platform.tiktok,
     {
       color: "#000000",
       icon: "icons/icon-tiktok.svg",
@@ -512,7 +413,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.bilibili,
+    Platform.bilibili,
     {
       color: "#00aeec",
       icon: "icons/icon-bilibili.svg",
@@ -522,7 +423,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.medium,
+    Platform.medium,
     {
       color: "#000000",
       icon: "icons/icon-medium.svg",
@@ -532,7 +433,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.mirror,
+    Platform.mirror,
     {
       color: "#007aff",
       icon: "icons/icon-mirror.svg",
@@ -542,7 +443,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.zerion,
+    Platform.zerion,
     {
       color: "#3560E5",
       icon: "icons/icon-zerion.svg",
@@ -551,7 +452,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.aave,
+    Platform.aave,
     {
       color: "#9896FF",
       icon: "icons/icon-aave.svg",
@@ -560,7 +461,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.rainbow,
+    Platform.rainbow,
     {
       color: "#000000",
       icon: "icons/icon-rainbow.svg",
@@ -569,7 +470,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.bluesky,
+    Platform.bluesky,
     {
       color: "#0085ff",
       icon: "icons/icon-bluesky.svg",
@@ -580,7 +481,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.nostr,
+    Platform.nostr,
     {
       color: "#5E287D",
       icon: "icons/icon-nostr.svg",
@@ -591,7 +492,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.poap,
+    Platform.poap,
     {
       color: "#5E58A5",
       icon: "icons/icon-poap.svg",
@@ -601,7 +502,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.uniswap,
+    Platform.uniswap,
     {
       color: "#ff007a",
       icon: "icons/icon-uniswap.svg",
@@ -611,7 +512,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.degenscore,
+    Platform.degenscore,
     {
       color: "#a855f7",
       icon: "icons/icon-degenscore.svg",
@@ -621,7 +522,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.webacy,
+    Platform.webacy,
     {
       color: "#000000",
       icon: "icons/icon-webacy.svg",
@@ -631,7 +532,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.firefly,
+    Platform.firefly,
     {
       color: "#1A183D",
       icon: "icons/icon-firefly.svg",
@@ -641,7 +542,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.solana,
+    Platform.solana,
     {
       color: "#9945FF",
       icon: "icons/icon-solana.svg",
@@ -652,7 +553,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.sns,
+    Platform.sns,
     {
       color: "#6363E1",
       icon: "icons/icon-sns.svg",
@@ -665,7 +566,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.mstdnjp,
+    Platform.mstdnjp,
     {
       color: "#595aff",
       icon: "icons/icon-mastodon.svg",
@@ -675,7 +576,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.lobsters,
+    Platform.lobsters,
     {
       color: "#ac130d",
       icon: "icons/icon-lobsters.svg",
@@ -685,7 +586,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.hackernews,
+    Platform.hackernews,
     {
       color: "#ff6600",
       icon: "icons/icon-hackernews.svg",
@@ -695,7 +596,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.crossbell,
+    Platform.crossbell,
     {
       color: "#FFCF55",
       icon: "icons/icon-crossbell.svg",
@@ -706,7 +607,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.minds,
+    Platform.minds,
     {
       color: "#f7d354",
       icon: "icons/icon-minds.svg",
@@ -716,7 +617,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.paragraph,
+    Platform.paragraph,
     {
       color: "#2563eb",
       icon: "icons/icon-paragraph.svg",
@@ -726,7 +627,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.genome,
+    Platform.genome,
     {
       color: "#6DD85D",
       icon: "icons/icon-gnosis.svg",
@@ -737,7 +638,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.gnosis,
+    Platform.gnosis,
     {
       color: "#1c352a",
       icon: "icons/icon-gnosis.svg",
@@ -747,7 +648,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.clusters,
+    Platform.clusters,
     {
       color: "#f0555d",
       icon: "icons/icon-clusters.svg",
@@ -758,7 +659,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.guild,
+    Platform.guild,
     {
       color: "#6062eb",
       icon: "icons/icon-guild.svg",
@@ -768,7 +669,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.ton,
+    Platform.ton,
     {
       color: "#0098EA",
       icon: "icons/icon-ton.svg",
@@ -778,7 +679,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.snapshot,
+    Platform.snapshot,
     {
       color: "#ffb503",
       icon: "icons/icon-snapshot.svg",
@@ -788,7 +689,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.coingecko,
+    Platform.coingecko,
     {
       color: "#4BCC00",
       icon: "icons/icon-coingecko.svg",
@@ -798,7 +699,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.gitcoin,
+    Platform.gitcoin,
     {
       color: "#4A47D3",
       icon: "icons/icon-gitcoin.svg",
@@ -808,7 +709,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.humanpassport,
+    Platform.humanpassport,
     {
       color: "#006b57",
       icon: "icons/icon-humanpassport.svg",
@@ -818,7 +719,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.talent,
+    Platform.talent,
     {
       color: "#715AE4",
       icon: "icons/icon-talent.svg",
@@ -828,7 +729,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.doge,
+    Platform.doge,
     {
       color: "#dfc66d",
       icon: "icons/icon-doge.svg",
@@ -838,7 +739,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.bsc,
+    Platform.bsc,
     {
       color: "#f0b90b",
       icon: "icons/icon-bsc.svg",
@@ -848,7 +749,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.aptos,
+    Platform.aptos,
     {
       color: "#6fe0b2",
       icon: "icons/icon-aptos.svg",
@@ -858,7 +759,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.near,
+    Platform.near,
     {
       color: "#000000",
       icon: "icons/icon-near.svg",
@@ -869,7 +770,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.stacks,
+    Platform.stacks,
     {
       color: "#725DF6",
       icon: "icons/icon-stacks.svg",
@@ -879,7 +780,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.cosmos,
+    Platform.cosmos,
     {
       color: "#000000",
       icon: "icons/icon-cosmos.svg",
@@ -889,7 +790,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.zeta,
+    Platform.zeta,
     {
       color: "#005741",
       icon: "icons/icon-zeta.svg",
@@ -900,7 +801,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.mode,
+    Platform.mode,
     {
       color: "#E5FD52",
       icon: "icons/icon-mode.svg",
@@ -911,7 +812,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.arbitrum,
+    Platform.arbitrum,
     {
       color: "#2949d4",
       icon: "icons/icon-arbitrum.svg",
@@ -922,7 +823,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.scroll,
+    Platform.scroll,
     {
       color: "#b78544",
       icon: "icons/icon-scroll.svg",
@@ -932,7 +833,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.taiko,
+    Platform.taiko,
     {
       color: "#E81899",
       icon: "icons/icon-taiko.svg",
@@ -943,7 +844,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.mint,
+    Platform.mint,
     {
       color: "#00A57C",
       icon: "icons/icon-mint.svg",
@@ -954,7 +855,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.zkfair,
+    Platform.zkfair,
     {
       color: "#D43F36",
       icon: "icons/icon-zkfair.svg",
@@ -965,7 +866,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.manta,
+    Platform.manta,
     {
       color: "#0091ff",
       icon: "icons/icon-manta.svg",
@@ -976,7 +877,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.lightlink,
+    Platform.lightlink,
     {
       color: "#00BFFF",
       icon: "icons/icon-lightlink.svg",
@@ -987,7 +888,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.merlin,
+    Platform.merlin,
     {
       color: "#5A32A3",
       icon: "icons/icon-merlin.svg",
@@ -998,7 +899,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.alienx,
+    Platform.alienx,
     {
       color: "#D5F462",
       icon: "icons/icon-alienx.svg",
@@ -1009,7 +910,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.edgeless,
+    Platform.edgeless,
     {
       color: "#a0eb67",
       icon: "icons/icon-edgeless.svg",
@@ -1020,7 +921,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.tomo,
+    Platform.tomo,
     {
       color: "#DE3A7E",
       icon: "icons/icon-tomo.svg",
@@ -1030,7 +931,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.ailayer,
+    Platform.ailayer,
     {
       color: "#A283FF",
       icon: "icons/icon-ailayer.svg",
@@ -1041,7 +942,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.philand,
+    Platform.philand,
     {
       color: "#8080F7",
       icon: "icons/icon-phi.svg",
@@ -1051,7 +952,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.efp,
+    Platform.efp,
     {
       color: "#FFE067",
       icon: "icons/icon-efp.svg",
@@ -1061,7 +962,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    PlatformType.gravity,
+    Platform.gravity,
     {
       color: "#FFAC43",
       icon: "icons/icon-gravity.svg",
@@ -1071,3 +972,13 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
 ]);
+
+/**
+ * Get Platform data by key
+ * @param platform - Platform
+ * @returns Platform data or default
+ * @public
+ */
+export function getPlatformData(platform: Platform): Readonly<PlatformType> {
+  return PLATFORM_DATA.get(platform) || DEFAULT_PLATFORM;
+}

@@ -1,5 +1,7 @@
-import { REGEX } from "./constants";
-import { PlatformType } from "./platform";
+import { Platform } from "../types";
+import { REGEX } from "./regex";
+
+export const API_ENDPOINT = "https://api.web3.bio";
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -11,12 +13,12 @@ export const resolveIdentity = (input: string): string | null => {
 
   const parts = input.split(",");
 
-  let platform: PlatformType;
+  let platform: Platform;
   let identity: string;
 
   if (parts.length === 2) {
     // Format is already "platform,identity"
-    platform = parts[0] as PlatformType;
+    platform = parts[0] as Platform;
     identity = prettify(parts[1]);
   } else if (parts.length === 1) {
     // Auto-detect platform from the identity string
@@ -61,44 +63,42 @@ export const prettify = (input: string): string => {
 /**
  * Check if the platform is supported for API queries
  */
-export const isSupportedPlatform = (
-  platform?: PlatformType | null,
-): boolean => {
+export const isSupportedPlatform = (platform?: Platform | null): boolean => {
   if (!platform) return false;
-  return Object.values(PlatformType).includes(platform as PlatformType);
+  return Object.values(Platform).includes(platform as Platform);
 };
 
 /**
  * Detect platform from identity string based on regex patterns
  */
-export const detectPlatform = (term: string): PlatformType => {
-  if (term.endsWith(".farcaster.eth")) return PlatformType.farcaster;
+export const detectPlatform = (term: string): Platform => {
+  if (term.endsWith(".farcaster.eth")) return Platform.farcaster;
 
-  const platformMap: [RegExp, PlatformType][] = [
-    [REGEX.BASENAMES, PlatformType.basenames],
-    [REGEX.LINEA, PlatformType.linea],
-    [REGEX.ENS, PlatformType.ens],
-    [REGEX.ETH_ADDRESS, PlatformType.ethereum],
-    [REGEX.LENS, PlatformType.lens],
-    [REGEX.UNSTOPPABLE_DOMAINS, PlatformType.unstoppableDomains],
-    [REGEX.SPACE_ID, PlatformType.space_id],
-    [REGEX.DOTBIT, PlatformType.dotbit],
-    [REGEX.SNS, PlatformType.sns],
-    [REGEX.BTC_ADDRESS, PlatformType.bitcoin],
-    [REGEX.SOLANA_ADDRESS, PlatformType.solana],
-    [REGEX.FARCASTER, PlatformType.farcaster],
-    [REGEX.TWITTER, PlatformType.twitter],
-    [REGEX.NEXT_ID, PlatformType.nextid],
+  const platformMap: [RegExp, Platform][] = [
+    [REGEX.BASENAMES, Platform.basenames],
+    [REGEX.LINEA, Platform.linea],
+    [REGEX.ENS, Platform.ens],
+    [REGEX.ETH_ADDRESS, Platform.ethereum],
+    [REGEX.LENS, Platform.lens],
+    [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
+    [REGEX.SPACE_ID, Platform.space_id],
+    [REGEX.DOTBIT, Platform.dotbit],
+    [REGEX.SNS, Platform.sns],
+    [REGEX.BTC_ADDRESS, Platform.bitcoin],
+    [REGEX.SOLANA_ADDRESS, Platform.solana],
+    [REGEX.FARCASTER, Platform.farcaster],
+    [REGEX.TWITTER, Platform.twitter],
+    [REGEX.NEXT_ID, Platform.nextid],
   ];
 
-  for (const [regex, platformType] of platformMap) {
+  for (const [regex, Platform] of platformMap) {
     if (regex.test(term)) {
-      return platformType;
+      return Platform;
     }
   }
 
   // Default fallback
-  return term.includes(".") ? PlatformType.ens : PlatformType.farcaster;
+  return term.includes(".") ? Platform.ens : Platform.farcaster;
 };
 
 /**

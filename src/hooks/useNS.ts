@@ -1,10 +1,10 @@
-import type {
-  NSResponse,
-  QueryOptions,
-  IdentityString,
-  NSResult,
-} from "../utils/types";
-import { QueryEndpoint } from "../utils/constants";
+import {
+  type NSResponse,
+  type QueryOptions,
+  type IdentityString,
+  type NSResult,
+  QueryEndpoint,
+} from "../types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**

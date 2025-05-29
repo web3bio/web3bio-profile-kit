@@ -1,10 +1,10 @@
-import type {
-  IdentityString,
-  ProfileResponse,
-  ProfileResult,
-  QueryOptions,
-} from "../utils/types";
-import { QueryEndpoint } from "../utils/constants";
+import {
+  type IdentityString,
+  type ProfileResponse,
+  type ProfileResult,
+  type QueryOptions,
+  QueryEndpoint,
+} from "../types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**

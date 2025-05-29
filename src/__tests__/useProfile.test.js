@@ -1,17 +1,16 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { useProfile } from '../hooks/useProfile';
-import { QueryEndpoint } from '../utils/constants';
-import { useBaseQuery } from '../hooks/useBaseQuery';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useProfile, useBaseQuery } from "../hooks";
+import { QueryEndpoint } from "../types";
 
 // Mock the useBaseQuery hook to avoid actual API calls
-jest.mock('../hooks/useBaseQuery');
+jest.mock("../hooks/useBaseQuery");
 
-describe('useProfile', () => {
+describe("useProfile", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should call useBaseQuery with correct parameters', () => {
+  it("should call useBaseQuery with correct parameters", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -20,8 +19,8 @@ describe('useProfile', () => {
     });
 
     // Set up test parameters
-    const identity = 'vitalik.eth';
-    const options = { apiKey: 'test-key' };
+    const identity = "vitalik.eth";
+    const options = { apiKey: "test-key" };
 
     // Execute the hook
     renderHook(() => useProfile(identity, options));
@@ -31,17 +30,17 @@ describe('useProfile', () => {
       identity,
       QueryEndpoint.PROFILE,
       false,
-      options
+      options,
     );
   });
 
-  it('should handle successful data fetching', async () => {
+  it("should handle successful data fetching", async () => {
     // Mock profile data
     const mockProfileData = {
-      identity: 'vitalik.eth',
-      address: '0x123',
-      avatar: 'https://example.com/avatar.jpg',
-      displayName: 'Vitalik',
+      identity: "vitalik.eth",
+      address: "0x123",
+      avatar: "https://example.com/avatar.jpg",
+      displayName: "Vitalik",
     };
 
     // Mock implementation with successful data
@@ -52,7 +51,7 @@ describe('useProfile', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useProfile('vitalik.eth'));
+    const { result } = renderHook(() => useProfile("vitalik.eth"));
 
     // Verify the data is returned correctly
     await waitFor(() => {
@@ -62,9 +61,9 @@ describe('useProfile', () => {
     });
   });
 
-  it('should handle errors', async () => {
+  it("should handle errors", async () => {
     // Mock error
-    const mockError = new Error('API Error');
+    const mockError = new Error("API Error");
 
     // Mock implementation with error
     useBaseQuery.mockReturnValue({
@@ -74,7 +73,7 @@ describe('useProfile', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useProfile('invalid-identity'));
+    const { result } = renderHook(() => useProfile("invalid-identity"));
 
     // Verify the error is handled correctly
     await waitFor(() => {
@@ -84,7 +83,7 @@ describe('useProfile', () => {
     });
   });
 
-  it('should use default values for options', () => {
+  it("should use default values for options", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -93,14 +92,14 @@ describe('useProfile', () => {
     });
 
     // Execute the hook without optional parameters
-    renderHook(() => useProfile('vitalik.eth'));
+    renderHook(() => useProfile("vitalik.eth"));
 
     // Verify defaults were used
     expect(useBaseQuery).toHaveBeenCalledWith(
-      'vitalik.eth',
+      "vitalik.eth",
       QueryEndpoint.PROFILE,
       false, // universal is always false for useProfile
-      {} // default empty options
+      {}, // default empty options
     );
   });
 });

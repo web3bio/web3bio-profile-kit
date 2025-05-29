@@ -1,53 +1,6 @@
-export enum Network {
-  aptos = "aptos",
-  arbitrum = "arbitrum",
-  arbitrum_nova = "arbitrum_nova",
-  arbitrum_one = "arbitrum_one",
-  apechain = "apechain",
-  arweave = "arweave",
-  avalanche = "avalanche",
-  base = "base",
-  bitcoin = "bitcoin",
-  binanceSmartChain = "binance-smart-chain",
-  bsc = "bsc",
-  conflux = "conflux",
-  crossbell = "crossbell",
-  erc1577 = "erc1577",
-  ethereum = "ethereum",
-  fantom = "fantom",
-  farcaster = "farcaster",
-  flow = "flow",
-  gnosis = "gnosis",
-  lens = "lens",
-  linea = "linea",
-  mastodon = "mastodon",
-  optimism = "optimism",
-  polygon = "polygon",
-  scroll = "scroll",
-  snapshot = "snapshot",
-  solana = "solana",
-  vsl = "vsl",
-  xLayer = "x-layer",
-  zksync_era = "zksync_era",
-  zora = "zora",
-  unichain = "unichain",
-}
+import { Network, type NetworkType } from "../types/network";
 
-export interface NetworkMetaData {
-  assetPrefix?: string;
-  bgColor: string;
-  chainId?: number;
-  icon: string;
-  key: string;
-  label: string;
-  primaryColor: string;
-  scanLabel?: string;
-  scanPrefix: string;
-  scanPrefixTx?: string;
-  short?: string;
-}
-
-export const NETWORK_DATA: { [key in Network]: NetworkMetaData } = {
+export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   [Network.ethereum]: {
     assetPrefix: "https://app.zerion.io/",
     bgColor: "#ebecf8",

@@ -1,10 +1,10 @@
-import type {
-  DomainResponse,
-  DomainResult,
-  IdentityString,
-  QueryOptions,
-} from "../utils/types";
-import { QueryEndpoint } from "../utils/constants";
+import {
+  type DomainResponse,
+  type DomainResult,
+  type IdentityString,
+  type QueryOptions,
+  QueryEndpoint,
+} from "../types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**

@@ -19,8 +19,7 @@ export default function Home() {
   const { data: nsData, isLoading: nsLoading } = useNS("vitalik.eth");
 
   // useDomain
-  const { data: domainData, isLoading: domainLoading } =
-    useDomain("yanzzz.eth");
+  const { data: domainData, isLoading: domainLoading } = useDomain("nick.eth");
 
   // useUniversalNS
   const { data: universalNsData, isLoading: universalNsLoading } =
@@ -33,7 +32,7 @@ export default function Home() {
   // useBatchNS
   const { data: batchNsData, isLoading: batchNsLoading } = useBatchNS([
     "vitalik.eth",
-    "yanzzz.eth",
+    "brantly.eth",
     "sujiyan.eth",
   ]);
 
