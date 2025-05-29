@@ -1,3 +1,7 @@
+/**
+ * Supported blockchain networks and protocols
+ * @public
+ */
 export enum Network {
   aptos = "aptos",
   arbitrum = "arbitrum",
@@ -33,6 +37,10 @@ export enum Network {
   unichain = "unichain",
 }
 
+/**
+ * Network metadata interface containing display and functional information
+ * @public
+ */
 export interface NetworkMetaData {
   assetPrefix?: string;
   bgColor: string;

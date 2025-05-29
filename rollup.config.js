@@ -4,11 +4,28 @@ import commonjs from "@rollup/plugin-commonjs";
 
 const external = ["react", "react-dom"];
 
-const createConfig = (input, output) => ({
-  input,
+export default {
+  input: {
+    index: "src/index.ts",
+    "hooks/index": "src/hooks/index.ts",
+    "types/index": "src/types/index.ts",
+    "utils/index": "src/utils/index.ts",
+  },
   output: [
-    { file: `dist/${output}.js`, format: "esm" },
-    { file: `dist/${output}.cjs`, format: "cjs", exports: "named" },
+    {
+      dir: "dist",
+      format: "esm",
+      entryFileNames: "[name].js",
+      preserveModules: true,
+      preserveModulesRoot: "src",
+    },
+    {
+      dir: "dist",
+      format: "cjs",
+      entryFileNames: "[name].cjs",
+      preserveModules: true,
+      preserveModulesRoot: "src",
+    },
   ],
   external,
   plugins: [
@@ -16,19 +33,9 @@ const createConfig = (input, output) => ({
       tsconfig: "./tsconfig.json",
       declaration: true,
       declarationDir: "./dist",
+      rootDir: "src",
     }),
     resolve(),
     commonjs(),
   ],
-});
-
-const entryPoints = [
-  { input: "src/index.ts", output: "index" },
-  { input: "src/hooks/index.ts", output: "hooks/index" },
-  { input: "src/types/index.ts", output: "types/index" },
-  { input: "src/utils/index.ts", output: "utils/index" },
-];
-
-export default entryPoints.map(({ input, output }) =>
-  createConfig(input, output),
-);
+};
