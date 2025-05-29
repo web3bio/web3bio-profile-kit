@@ -8,7 +8,7 @@ import {
   useUniversalProfile,
   useBatchNS,
   useBatchProfile,
-} from "web3bio-profile-kit/hooks";
+} from "web3bio-profile-kit";
 
 export default function Home() {
   // useProfile
