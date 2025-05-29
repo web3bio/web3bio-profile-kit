@@ -1,17 +1,16 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { useUniversalProfile } from '../hooks/useUniversalProfile';
-import { QueryEndpoint } from '../utils/constants';
-import { useBaseQuery } from '../hooks/useBaseQuery';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useUniversalProfile, useBaseQuery } from "../hooks";
+import { QueryEndpoint } from "../types";
 
 // Mock the useBaseQuery hook to avoid actual API calls
-jest.mock('../hooks/useBaseQuery');
+jest.mock("../hooks/useBaseQuery");
 
-describe('useUniversalProfile', () => {
+describe("useUniversalProfile", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should call useBaseQuery with correct parameters and universal set to true', () => {
+  it("should call useBaseQuery with correct parameters and universal set to true", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -20,8 +19,8 @@ describe('useUniversalProfile', () => {
     });
 
     // Set up test parameters
-    const identity = 'vitalik.eth';
-    const options = { apiKey: 'test-key' };
+    const identity = "vitalik.eth";
+    const options = { apiKey: "test-key" };
 
     // Execute the hook
     renderHook(() => useUniversalProfile(identity, options));
@@ -31,17 +30,17 @@ describe('useUniversalProfile', () => {
       identity,
       QueryEndpoint.PROFILE,
       true,
-      options
+      options,
     );
   });
 
-  it('should handle successful data fetching', async () => {
+  it("should handle successful data fetching", async () => {
     // Mock profile data
     const mockProfileData = {
-      identity: 'vitalik.eth',
-      address: '0x123',
-      avatar: 'https://example.com/avatar.jpg',
-      displayName: 'Vitalik',
+      identity: "vitalik.eth",
+      address: "0x123",
+      avatar: "https://example.com/avatar.jpg",
+      displayName: "Vitalik",
     };
 
     // Mock implementation with successful data
@@ -52,7 +51,7 @@ describe('useUniversalProfile', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useUniversalProfile('vitalik.eth'));
+    const { result } = renderHook(() => useUniversalProfile("vitalik.eth"));
 
     // Verify the data is returned correctly
     await waitFor(() => {
@@ -62,9 +61,9 @@ describe('useUniversalProfile', () => {
     });
   });
 
-  it('should handle errors', async () => {
+  it("should handle errors", async () => {
     // Mock error
-    const mockError = new Error('API Error');
+    const mockError = new Error("API Error");
 
     // Mock implementation with error
     useBaseQuery.mockReturnValue({
@@ -74,7 +73,9 @@ describe('useUniversalProfile', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useUniversalProfile('invalid-identity'));
+    const { result } = renderHook(() =>
+      useUniversalProfile("invalid-identity"),
+    );
 
     // Verify the error is handled correctly
     await waitFor(() => {
@@ -84,7 +85,7 @@ describe('useUniversalProfile', () => {
     });
   });
 
-  it('should use default values for options', () => {
+  it("should use default values for options", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -93,18 +94,18 @@ describe('useUniversalProfile', () => {
     });
 
     // Execute the hook without optional parameters
-    renderHook(() => useUniversalProfile('dwr.farcaster'));
+    renderHook(() => useUniversalProfile("dwr.farcaster"));
 
     // Verify defaults were used
     expect(useBaseQuery).toHaveBeenCalledWith(
-      'dwr.farcaster',
+      "dwr.farcaster",
       QueryEndpoint.PROFILE,
       true, // universal is always true for useUniversalProfile
-      {} // default empty options
+      {}, // default empty options
     );
   });
 
-  it('should work with different identity formats', () => {
+  it("should work with different identity formats", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -114,20 +115,20 @@ describe('useUniversalProfile', () => {
 
     // Test with various identity formats
     const identities = [
-      'vitalik.eth',
-      'dwr.farcaster',
-      '0x123456789',
-      'test.lens'
+      "vitalik.eth",
+      "dwr.farcaster",
+      "0x123456789",
+      "test.lens",
     ];
 
-    identities.forEach(identity => {
+    identities.forEach((identity) => {
       renderHook(() => useUniversalProfile(identity));
-      
+
       expect(useBaseQuery).toHaveBeenCalledWith(
         identity,
         QueryEndpoint.PROFILE,
         true,
-        {}
+        {},
       );
     });
   });

@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useBaseQuery } from "../hooks/useBaseQuery";
-import { API_ENDPOINT, ErrorMessages, QueryEndpoint } from "../utils/constants";
-import { getApiKey, resolveIdentity } from "../utils/helpers";
+import { useBaseQuery } from "../hooks";
+import { ErrorMessages, QueryEndpoint } from "../types";
+import { API_ENDPOINT, getApiKey, resolveIdentity } from "../utils";
 
 // Mock the fetch API
 global.fetch = jest.fn();

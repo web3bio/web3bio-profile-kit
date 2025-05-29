@@ -1,7 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useUniversalNS } from "../hooks/useUniversalNS";
-import { QueryEndpoint } from "../utils/constants";
-import { useBaseQuery } from "../hooks/useBaseQuery";
+import { useUniversalNS, useBaseQuery } from "../hooks";
+import { QueryEndpoint } from "../types";
 
 // Mock the useBaseQuery hook to avoid actual API calls
 jest.mock("../hooks/useBaseQuery");

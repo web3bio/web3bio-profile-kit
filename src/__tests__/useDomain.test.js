@@ -1,17 +1,16 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { useDomain } from '../hooks/useDomain';
-import { QueryEndpoint } from '../utils/constants';
-import { useBaseQuery } from '../hooks/useBaseQuery';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useDomain, useBaseQuery } from "../hooks";
+import { QueryEndpoint } from "../types";
 
 // Mock the useBaseQuery hook to avoid actual API calls
-jest.mock('../hooks/useBaseQuery');
+jest.mock("../hooks/useBaseQuery");
 
-describe('useDomain', () => {
+describe("useDomain", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should call useBaseQuery with correct parameters', () => {
+  it("should call useBaseQuery with correct parameters", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -20,8 +19,8 @@ describe('useDomain', () => {
     });
 
     // Set up test parameters
-    const identity = 'vitalik.eth';
-    const options = { apiKey: 'test-key' };
+    const identity = "vitalik.eth";
+    const options = { apiKey: "test-key" };
 
     // Execute the hook
     renderHook(() => useDomain(identity, options));
@@ -31,28 +30,28 @@ describe('useDomain', () => {
       identity,
       QueryEndpoint.DOMAIN,
       false,
-      options
+      options,
     );
   });
 
-  it('should handle successful data fetching', async () => {
+  it("should handle successful data fetching", async () => {
     // Mock domain data
     const mockDomainData = {
-      identity: 'vitalik.eth',
-      platform: 'ens',
-      resolvedAddress: '0x123',
-      ownerAddress: '0x456',
-      managerAddress: '0x789',
-      displayName: 'Vitalik',
+      identity: "vitalik.eth",
+      platform: "ens",
+      resolvedAddress: "0x123",
+      ownerAddress: "0x456",
+      managerAddress: "0x789",
+      displayName: "Vitalik",
       isPrimary: true,
-      status: 'active',
+      status: "active",
       texts: {
-        email: 'test@example.com',
-        url: 'https://example.com'
+        email: "test@example.com",
+        url: "https://example.com",
       },
       addresses: {
-        ETH: '0x123'
-      }
+        ETH: "0x123",
+      },
     };
 
     // Mock implementation with successful data
@@ -63,7 +62,7 @@ describe('useDomain', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useDomain('vitalik.eth'));
+    const { result } = renderHook(() => useDomain("vitalik.eth"));
 
     // Verify the data is returned correctly
     await waitFor(() => {
@@ -73,9 +72,9 @@ describe('useDomain', () => {
     });
   });
 
-  it('should handle errors', async () => {
+  it("should handle errors", async () => {
     // Mock error
-    const mockError = new Error('API Error');
+    const mockError = new Error("API Error");
 
     // Mock implementation with error
     useBaseQuery.mockReturnValue({
@@ -85,7 +84,7 @@ describe('useDomain', () => {
     });
 
     // Execute the hook
-    const { result } = renderHook(() => useDomain('invalid-identity'));
+    const { result } = renderHook(() => useDomain("invalid-identity"));
 
     // Verify the error is handled correctly
     await waitFor(() => {
@@ -95,7 +94,7 @@ describe('useDomain', () => {
     });
   });
 
-  it('should use default values for options', () => {
+  it("should use default values for options", () => {
     // Mock implementation
     useBaseQuery.mockReturnValue({
       data: null,
@@ -104,14 +103,14 @@ describe('useDomain', () => {
     });
 
     // Execute the hook without optional parameters
-    renderHook(() => useDomain('vitalik.eth'));
+    renderHook(() => useDomain("vitalik.eth"));
 
     // Verify defaults were used
     expect(useBaseQuery).toHaveBeenCalledWith(
-      'vitalik.eth',
+      "vitalik.eth",
       QueryEndpoint.DOMAIN,
       false, // universal is always false for useDomain
-      {} // default empty options
+      {}, // default empty options
     );
   });
 });
