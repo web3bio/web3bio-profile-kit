@@ -1,44 +1,4 @@
-export enum SourceType {
-  ethereum = "ethereum",
-  ens = "ens",
-  twitter = "twitter",
-  keybase = "keybase",
-  nextid = "nextid",
-  rss3 = "rss3",
-  dotbit = "dotbit",
-  unstoppabledomains = "unstoppabledomains",
-  lens = "lens",
-  farcaster = "farcaster",
-  space_id = "space_id",
-  crossbell = "crossbell",
-  clusters = "clusters",
-  solana = "solana",
-  sns = "sns",
-  opensea = "opensea",
-  firefly = "firefly",
-  basenames = "basenames",
-  dentity = "dentity",
-  nftd = "nftd",
-  mirror = "mirror",
-  paragraph = "paragraph",
-  foundation = "foundation",
-  rarible = "rarible",
-  soundxyz = "soundxyz",
-  gravity = "gravity",
-  linea = "linea",
-  gmgn = "gmgn",
-  nostr = "nostr",
-  talentprotocol = "talentprotocol",
-  crowdsourcing = "crowdsourcing",
-  particle = "particle",
-  tally = "tally",
-  icebreaker = "icebreaker",
-}
-
-export interface SourceInfo {
-  name: string;
-  description: string;
-}
+import { SourceInfo, SourceType } from "../types/source";
 
 export const SOURCE_DATA: Readonly<Record<SourceType, SourceInfo>> = {
   [SourceType.ethereum]: {
@@ -177,4 +137,4 @@ export const SOURCE_DATA: Readonly<Record<SourceType, SourceInfo>> = {
     name: "Icebreaker",
     description: "Open professional network",
   },
-} as const;
+};

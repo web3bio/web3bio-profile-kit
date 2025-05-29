@@ -1,6 +1,12 @@
-import type { IdentityString, QueryOptions, QueryResult } from "../utils/types";
+import {
+  type IdentityString,
+  type QueryOptions,
+  type QueryResult,
+  ErrorMessages,
+  QueryEndpoint,
+} from "../types";
 import { useState, useEffect, useRef } from "react";
-import { API_ENDPOINT, ErrorMessages, QueryEndpoint } from "../utils/constants";
+import { API_ENDPOINT } from "../utils";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
 
 /**

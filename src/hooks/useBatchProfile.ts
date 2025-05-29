@@ -1,10 +1,10 @@
-import type {
-  IdentityString,
-  ProfileBatchResult,
-  ProfileResponse,
-  QueryOptions,
-} from "../utils/types";
-import { QueryEndpoint } from "../utils/constants";
+import {
+  type IdentityString,
+  type ProfileBatchResult,
+  type ProfileResponse,
+  type QueryOptions,
+  QueryEndpoint,
+} from "../types";
 import { useBaseQuery } from "./useBaseQuery";
 
 /**

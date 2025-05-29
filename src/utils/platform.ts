@@ -1,112 +1,13 @@
-export enum PlatformType {
-  ens = "ens",
-  dotbit = "dotbit",
-  lens = "lens",
-  box = "box",
-  ethereum = "ethereum",
-  twitter = "twitter",
-  nextid = "nextid",
-  bitcoin = "bitcoin",
-  keybase = "keybase",
-  reddit = "reddit",
-  github = "github",
-  unstoppableDomains = "unstoppabledomains",
-  basenames = "basenames",
-  linea = "linea",
-  ckb = "ckb",
-  farcaster = "farcaster",
-  space_id = "space_id",
-  telegram = "telegram",
-  instagram = "instagram",
-  cyberconnect = "cyberconnect",
-  opensea = "opensea",
-  discord = "discord",
-  calendly = "calendly",
-  url = "url",
-  website = "website",
-  linkedin = "linkedin",
-  dns = "dns",
-  tron = "tron",
-  hey = "hey",
-  facebook = "facebook",
-  threads = "threads",
-  whatsapp = "whatsapp",
-  weibo = "weibo",
-  youtube = "youtube",
-  tiktok = "tiktok",
-  bilibili = "bilibili",
-  medium = "medium",
-  mirror = "mirror",
-  zerion = "zerion",
-  aave = "aave",
-  rainbow = "rainbow",
-  bluesky = "bluesky",
-  nostr = "nostr",
-  poap = "poap",
-  uniswap = "uniswap",
-  degenscore = "degenscore",
-  firefly = "firefly",
-  solana = "solana",
-  sns = "sns",
-  mstdnjp = "mstdnjp",
-  lobsters = "lobsters",
-  hackernews = "hackernews",
-  crossbell = "crossbell",
-  minds = "minds",
-  paragraph = "paragraph",
-  genome = "genome",
-  gnosis = "gnosis",
-  webacy = "webacy",
-  clusters = "clusters",
-  guild = "guild",
-  ton = "ton",
-  snapshot = "snapshot",
-  coingecko = "coingecko",
-  gitcoin = "gitcoin",
-  humanpassport = "humanpassport",
-  talent = "talentprotocol",
-  doge = "doge",
-  bsc = "bsc",
-  aptos = "aptos",
-  near = "near",
-  stacks = "stacks",
-  cosmos = "cosmos",
-  zeta = "zeta",
-  mode = "mode",
-  arbitrum = "arbitrum",
-  scroll = "scroll",
-  taiko = "taiko",
-  mint = "mint",
-  zkfair = "zkfair",
-  manta = "manta",
-  lightlink = "lightlink",
-  merlin = "merlin",
-  alienx = "alienx",
-  edgeless = "edgeless",
-  tomo = "tomo",
-  ailayer = "ailayer",
-  philand = "philand",
-  efp = "efp",
-  gravity = "gravity",
-}
+import {
+  PlatformType,
+  PlatformSystem,
+  type SocialPlatform,
+} from "../types/platform";
 
-export type SocialPlatform = {
-  color?: string;
-  icon?: string;
-  label: string;
-  description?: string;
-  urlPrefix?: string;
-  ensText?: string[];
-  registerlink?: string;
-  editUrlPrefix?: string;
-  system: PlatformSystem;
-};
-
-export enum PlatformSystem {
-  web2 = 0,
-  web3 = 1,
-}
-
+/**
+ * Default data
+ * @internal
+ */
 export const DEFAULT_PLATFORM: Readonly<SocialPlatform> = {
   color: "#000000",
   icon: "",
@@ -119,6 +20,10 @@ export const DEFAULT_PLATFORM: Readonly<SocialPlatform> = {
   system: PlatformSystem.web3,
 };
 
+/**
+ * Platform data
+ * @public
+ */
 export const PLATFORM_DATA: ReadonlyMap<
   PlatformType,
   Readonly<SocialPlatform>
@@ -1071,3 +976,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
 ]);
+
+/**
+ * Get Platform data by key
+ * @param platform - PlatformType
+ * @returns Platform data or default
+ * @public
+ */
+export function getPlatformData(
+  platform: PlatformType,
+): Readonly<SocialPlatform> {
+  return PLATFORM_DATA.get(platform) || DEFAULT_PLATFORM;
+}

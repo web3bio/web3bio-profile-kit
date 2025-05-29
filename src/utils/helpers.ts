@@ -1,5 +1,7 @@
-import { REGEX } from "./constants";
-import { PlatformType } from "./platform";
+import { PlatformType } from "../types";
+import { REGEX } from "./regex";
+
+export const API_ENDPOINT = "https://api.web3.bio";
 
 /**
  * Resolves an identity string to a platform and identifier
