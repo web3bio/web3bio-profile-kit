@@ -1,6 +1,6 @@
-import { Network, type NetworkMetaData } from "../types/network";
+import { Network, type NetworkType } from "../types/network";
 
-export const NETWORK_DATA: { [key in Network]: NetworkMetaData } = {
+export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   [Network.ethereum]: {
     assetPrefix: "https://app.zerion.io/",
     bgColor: "#ebecf8",

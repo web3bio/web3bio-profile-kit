@@ -1,139 +1,139 @@
-import { SourceInfo, SourceType } from "../types/source";
+import { SourceType, Source } from "../types/source";
 
-export const SOURCE_DATA: Readonly<Record<SourceType, SourceInfo>> = {
-  [SourceType.ethereum]: {
+export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
+  [Source.ethereum]: {
     name: "Ethereum",
     description: "Ethereum",
   },
-  [SourceType.ens]: {
+  [Source.ens]: {
     name: "ENS",
     description: "Ethereum Name Service",
   },
-  [SourceType.twitter]: {
+  [Source.twitter]: {
     name: "Twitter (X)",
     description: "Twitter (X) social platform",
   },
-  [SourceType.keybase]: {
+  [Source.keybase]: {
     name: "Keybase",
     description: "Secure messaging and file-sharing",
   },
-  [SourceType.nextid]: {
+  [Source.nextid]: {
     name: "Next.ID",
     description: "Decentralized identity protocol",
   },
-  [SourceType.rss3]: {
+  [Source.rss3]: {
     name: "RSS3",
     description: "Open information syndication protocol",
   },
-  [SourceType.dotbit]: {
+  [Source.dotbit]: {
     name: ".bit",
     description: "Decentralized cross-chain identity system",
   },
-  [SourceType.unstoppabledomains]: {
+  [Source.unstoppabledomains]: {
     name: "Unstoppable Domains",
     description: "Blockchain domain name provider",
   },
-  [SourceType.lens]: {
+  [Source.lens]: {
     name: "Lens",
     description: "Web3 social graph protocol",
   },
-  [SourceType.farcaster]: {
+  [Source.farcaster]: {
     name: "Farcaster",
     description: "Decentralized social network protocol",
   },
-  [SourceType.space_id]: {
+  [Source.space_id]: {
     name: "SpaceID",
     description: "Multi-chain name service",
   },
-  [SourceType.gravity]: {
+  [Source.gravity]: {
     name: "Gravity",
     description: "Gravity alpha mainnet name service",
   },
-  [SourceType.crossbell]: {
+  [Source.crossbell]: {
     name: "Crossbell",
     description: "Decentralized publishing protocol",
   },
-  [SourceType.clusters]: {
+  [Source.clusters]: {
     name: "Clusters",
     description: "On-chain social protocol",
   },
-  [SourceType.solana]: {
+  [Source.solana]: {
     name: "Solana",
     description: "High-performance blockchain",
   },
-  [SourceType.sns]: {
+  [Source.sns]: {
     name: "SNS",
     description: "Solana Name Service",
   },
-  [SourceType.opensea]: {
+  [Source.opensea]: {
     name: "OpenSea",
     description: "NFT marketplace",
   },
-  [SourceType.firefly]: {
+  [Source.firefly]: {
     name: "Firefly",
     description: "Web3 social platform",
   },
-  [SourceType.basenames]: {
+  [Source.basenames]: {
     name: "Basenames",
     description: "The domain system on Base",
   },
-  [SourceType.dentity]: {
+  [Source.dentity]: {
     name: "Dentity",
     description: "Digital Credentials",
   },
-  [SourceType.nftd]: {
+  [Source.nftd]: {
     name: "NF.TD",
     description: "Be your own checkmark",
   },
-  [SourceType.mirror]: {
+  [Source.mirror]: {
     name: "Mirror",
     description: "Decentralized publishing protocol",
   },
-  [SourceType.paragraph]: {
+  [Source.paragraph]: {
     name: "Paragraph",
     description: "Decentralized publishing protocol",
   },
-  [SourceType.foundation]: {
+  [Source.foundation]: {
     name: "Foundation",
     description: "NFT marketplace",
   },
-  [SourceType.rarible]: {
+  [Source.rarible]: {
     name: "Rarible",
     description: "NFT marketplace",
   },
-  [SourceType.soundxyz]: {
+  [Source.soundxyz]: {
     name: "Sound.xyz",
     description: "Decentralized audio platform",
   },
-  [SourceType.linea]: {
+  [Source.linea]: {
     name: "Linea",
     description: "L2 based on ZK",
   },
-  [SourceType.gmgn]: {
+  [Source.gmgn]: {
     name: "GMGN",
     description: "Web3 social platform",
   },
-  [SourceType.nostr]: {
+  [Source.nostr]: {
     name: "Nostr",
     description: "Web3 social platform",
   },
-  [SourceType.talentprotocol]: {
+  [Source.talentprotocol]: {
     name: "Talent",
     description: "Decentralized onchain passport",
   },
-  [SourceType.crowdsourcing]: {
+  [Source.crowdsourcing]: {
     name: "Crowdsourcing",
     description: "Crowdsourcing",
   },
-  [SourceType.particle]: {
+  [Source.particle]: {
     name: "Particle",
     description: "Particle",
   },
-  [SourceType.tally]: {
+  [Source.tally]: {
     name: "Tally",
     description: "Launch, manage, and grow the value of your token",
   },
-  [SourceType.icebreaker]: {
+  [Source.icebreaker]: {
     name: "Icebreaker",
     description: "Open professional network",
   },

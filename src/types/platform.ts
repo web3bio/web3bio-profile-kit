@@ -3,7 +3,7 @@
  * Includes blockchain networks, name services, and social platforms
  * @public
  */
-export enum PlatformType {
+export enum Platform {
   ens = "ens",
   dotbit = "dotbit",
   lens = "lens",
@@ -100,7 +100,7 @@ export enum PlatformType {
  * Contains display and functional information about a platform
  * @public
  */
-export interface SocialPlatform {
+export interface PlatformType {
   color?: string;
   icon?: string;
   label: string;

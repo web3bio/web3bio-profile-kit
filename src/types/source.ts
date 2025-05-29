@@ -3,7 +3,7 @@
  * Includes blockchain networks, name services, social platforms, and aggregators
  * @public
  */
-export enum SourceType {
+export enum Source {
   ethereum = "ethereum",
   ens = "ens",
   twitter = "twitter",
@@ -44,7 +44,7 @@ export enum SourceType {
  * Metadata about a data source
  * @public
  */
-export interface SourceInfo {
+export interface SourceType {
   name: string;
   description: string;
 }

@@ -41,7 +41,7 @@ export enum Network {
  * Network metadata interface containing display and functional information
  * @public
  */
-export interface NetworkMetaData {
+export interface NetworkType {
   assetPrefix?: string;
   bgColor: string;
   chainId?: number;

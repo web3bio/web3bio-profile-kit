@@ -1,6 +1,6 @@
 import type { Network } from "./network";
-import type { PlatformType } from "./platform";
-import type { SourceType } from "./source";
+import type { Platform } from "./platform";
+import type { Source } from "./source";
 
 /**
  * Standard error messages used across the library
@@ -61,7 +61,7 @@ export type SocialLinksItem = {
   /** Username or handle on the platform */
   handle: string | null;
   /** Data sources that provided this information */
-  sources: SourceType[];
+  sources: Source[];
 };
 
 /**
@@ -137,7 +137,7 @@ export interface DomainResponse {
   /** Domain identifier */
   identity: string;
   /** Platform type */
-  platform: PlatformType;
+  platform: Platform;
   /** Address resolved by this domain */
   resolvedAddress: string | null;
   /** Owner's address */
@@ -180,7 +180,7 @@ export type QueryOptions = {
  * Can be a plain string or a platform-prefixed string
  * @public
  */
-export type IdentityString = string | `${PlatformType},${string}`;
+export type IdentityString = string | `${Platform},${string}`;
 
 /**
  * Generic query result containing data, loading state, and errors
