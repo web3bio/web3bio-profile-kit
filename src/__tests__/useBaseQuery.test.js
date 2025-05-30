@@ -1,7 +1,11 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { useBaseQuery } from "../hooks";
 import { ErrorMessages, QueryEndpoint } from "../types";
-import { API_ENDPOINT, getApiKey, resolveIdentity } from "../utils";
+import {
+  PROD_API_ENDPOINT,
+  getApiKey,
+  resolveIdentity,
+} from "../utils/helpers";
 
 // Mock the fetch API
 global.fetch = jest.fn();
@@ -55,7 +59,7 @@ describe("useBaseQuery", () => {
 
     // Verify URL construction
     expect(global.fetch).toHaveBeenCalledWith(
-      `${API_ENDPOINT}/${QueryEndpoint.PROFILE}/ens/vitalik.eth`,
+      `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/ens/vitalik.eth`,
       {
         headers: {
           "x-api-key": "default-key",
@@ -94,7 +98,7 @@ describe("useBaseQuery", () => {
 
     // Verify URL construction for batch request
     expect(global.fetch).toHaveBeenCalledWith(
-      `${API_ENDPOINT}/${QueryEndpoint.PROFILE}/batch/${encodeURIComponent(JSON.stringify(identities))}`,
+      `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/batch/${encodeURIComponent(JSON.stringify(identities))}`,
       {
         headers: {
           "x-api-key": "default-key",
@@ -133,7 +137,7 @@ describe("useBaseQuery", () => {
 
     // Verify universal URL format
     expect(global.fetch).toHaveBeenCalledWith(
-      `${API_ENDPOINT}/${QueryEndpoint.PROFILE}/${identity}`,
+      `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/${identity}`,
       {
         headers: {
           "x-api-key": "default-key",
