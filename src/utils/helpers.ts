@@ -90,13 +90,26 @@ export const uglify = (input: string, platform: Platform) => {
       return input;
   }
 };
-
 /**
  * Check if the platform is supported for API queries
  */
-export const isSupportedPlatform = (platform?: Platform | null): boolean => {
+export const isSupportedPlatform = (platform?: Platform | null) => {
   if (!platform) return false;
-  return Object.values(Platform).includes(platform as Platform);
+  return [
+    Platform.ens,
+    Platform.basenames,
+    Platform.linea,
+    Platform.ethereum,
+    Platform.twitter,
+    Platform.github,
+    Platform.farcaster,
+    Platform.lens,
+    Platform.unstoppableDomains,
+    Platform.nextid,
+    Platform.dotbit,
+    Platform.solana,
+    Platform.sns,
+  ].includes(platform);
 };
 
 const platformMap = new Map([
