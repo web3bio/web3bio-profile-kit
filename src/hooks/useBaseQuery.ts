@@ -6,7 +6,7 @@ import {
   QueryEndpoint,
 } from "../types";
 import { useState, useEffect, useRef } from "react";
-import { PROD_API_ENDPOINT } from "../utils";
+import { PROD_API_ENDPOINT } from "../utils/helpers";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
 
 /**

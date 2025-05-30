@@ -15,7 +15,6 @@ export enum Source {
   lens = "lens",
   farcaster = "farcaster",
   space_id = "space_id",
-  crossbell = "crossbell",
   clusters = "clusters",
   solana = "solana",
   sns = "sns",

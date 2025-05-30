@@ -1,4 +1,4 @@
-import { SourceType, Source } from "../types/source";
+import { Source, type SourceType } from "../types/source";
 
 export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ethereum]: {
@@ -48,10 +48,6 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.gravity]: {
     name: "Gravity",
     description: "Gravity alpha mainnet name service",
-  },
-  [Source.crossbell]: {
-    name: "Crossbell",
-    description: "Decentralized publishing protocol",
   },
   [Source.clusters]: {
     name: "Clusters",

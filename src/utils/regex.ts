@@ -15,7 +15,6 @@ export const REGEX = {
   GENOME: /^.+\.gno$/i,
   UNSTOPPABLE_DOMAINS:
     /^.+\.(?:crypto|888|nft|blockchain|bitcoin|dao|x|klever|hi|zil|kresus|polygon|wallet|binanceus|anime|go|manga|eth)$/i,
-  CROSSBELL: /^.+\.csb$/i,
   DOTBIT: /^.+\.bit$/i,
   SNS: /^.+\.sol$/i,
   ETH_ADDRESS: /^0x[a-fA-F0-9]{40}$/i,

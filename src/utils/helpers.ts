@@ -2,7 +2,7 @@ import { Platform } from "../types";
 import { REGEX } from "./regex";
 
 export const PROD_API_ENDPOINT = "https://api.web3.bio";
-export const STAGING_API_ENDPOINT = "https://api.web3.bio";
+export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -121,7 +121,6 @@ const platformMap = new Map([
   [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
   [REGEX.SPACE_ID, Platform.space_id],
   [REGEX.GRAVITY, Platform.gravity],
-  [REGEX.CROSSBELL, Platform.crossbell],
   [REGEX.DOTBIT, Platform.dotbit],
   [REGEX.SNS, Platform.sns],
   [REGEX.GENOME, Platform.genome],
@@ -180,7 +179,6 @@ export const isSameAddress = (
 
 const web3AddressRegexes = [
   REGEX.ETH_ADDRESS,
-  REGEX.CROSSBELL,
   REGEX.BTC_ADDRESS,
   REGEX.SOLANA_ADDRESS,
   REGEX.NEXT_ID,
