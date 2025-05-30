@@ -185,3 +185,27 @@ export const isWeb3Address = (address: string): boolean => {
   if (!address) return false;
   return web3AddressRegexes.some((regex) => regex.test(address));
 };
+
+/**
+ * Validates if a string is a valid Ethereum address
+ * Checks both the address format and excludes common burn/empty addresses
+ *
+ * @param address - The string to validate as an Ethereum address
+ * @returns True if the address is valid and not a burn/empty address, false otherwise
+ */
+export const isValidEthereumAddress = (address: string) => {
+  if (!REGEX.ETH_ADDRESS.test(address)) return false; // invalid ethereum address
+  if (address.match(/^0x0*.$|0x[123468abef]*$|0x0*dead$/i)) return false; // empty & burn address
+  return true;
+};
+
+/**
+ * Validates if a string is a valid Solana address
+ * Checks if the string matches the Solana address format
+ *
+ * @param address - The string to validate as a Solana address
+ * @returns True if the string is a valid Solana address, false otherwise
+ */
+export const isValidSolanaAddress = (address: string) => {
+  return REGEX.SOLANA_ADDRESS.test(address);
+};
