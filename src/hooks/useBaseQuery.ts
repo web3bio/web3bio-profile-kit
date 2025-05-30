@@ -6,7 +6,7 @@ import {
   QueryEndpoint,
 } from "../types";
 import { useState, useEffect, useRef } from "react";
-import { API_ENDPOINT } from "../utils";
+import { PROD_API_ENDPOINT } from "../utils";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
 
 /**
@@ -19,12 +19,12 @@ const buildApiUrl = (
 ): string | null => {
   // Handle batch requests
   if (Array.isArray(identity)) {
-    return `${API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
+    return `${PROD_API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
   }
 
   // Handle universal queries
   if (universal) {
-    return `${API_ENDPOINT}/${endpoint}/${identity}`;
+    return `${PROD_API_ENDPOINT}/${endpoint}/${identity}`;
   }
 
   // Handle platform-specific queries
@@ -33,12 +33,12 @@ const buildApiUrl = (
 
   // Domain endpoint uses resolved ID directly
   if (endpoint === QueryEndpoint.DOMAIN) {
-    return `${API_ENDPOINT}/${endpoint}/${resolvedId}`;
+    return `${PROD_API_ENDPOINT}/${endpoint}/${resolvedId}`;
   }
 
   // Other endpoints need platform/handle split
   const [platform, handle] = resolvedId.split(",");
-  return `${API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
+  return `${PROD_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
 };
 
 // Generate a stable cache key for this request

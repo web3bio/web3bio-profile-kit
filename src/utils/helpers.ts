@@ -1,7 +1,8 @@
 import { Platform } from "../types";
 import { REGEX } from "./regex";
 
-export const API_ENDPOINT = "https://api.web3.bio";
+export const PROD_API_ENDPOINT = "https://api.web3.bio";
+export const STAGING_API_ENDPOINT = "https://api.web3.bio";
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -146,4 +147,26 @@ export const getApiKey = (userProvidedKey?: string): string | undefined => {
     process.env.NEXT_PUBLIC_WEB3BIO_API_KEY ||
     process.env.VITE_WEB3BIO_API_KEY
   );
+};
+
+export const isSameAddress = (
+  address?: string | undefined,
+  otherAddress?: string | undefined,
+): boolean => {
+  if (!address || !otherAddress) return false;
+  return address.toLowerCase() === otherAddress.toLowerCase();
+};
+
+const web3AddressRegexes = [
+  REGEX.ETH_ADDRESS,
+  REGEX.CROSSBELL,
+  REGEX.BTC_ADDRESS,
+  REGEX.SOLANA_ADDRESS,
+  REGEX.NEXT_ID,
+  REGEX.NOSTR,
+];
+
+export const isWeb3Address = (address: string): boolean => {
+  if (!address) return false;
+  return web3AddressRegexes.some((regex) => regex.test(address));
 };
