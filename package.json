@@ -31,6 +31,19 @@
       "require": "./dist/utils/index.cjs"
     }
   },
+  "typesVersions": {
+    "*": {
+      "types": [
+        "./dist/types/index.d.ts"
+      ],
+      "hooks": [
+        "./dist/hooks/index.d.ts"
+      ],
+      "utils": [
+        "./dist/utils/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],

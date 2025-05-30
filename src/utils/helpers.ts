@@ -149,6 +149,14 @@ export const getApiKey = (userProvidedKey?: string): string | undefined => {
   );
 };
 
+/**
+ * Compare two addresses for equality in a case-insensitive manner
+ * Used for blockchain address comparison where case doesn't affect validity
+ *
+ * @param address The first address to compare
+ * @param otherAddress The second address to compare
+ * @returns True if addresses match (ignoring case), false otherwise
+ */
 export const isSameAddress = (
   address?: string | undefined,
   otherAddress?: string | undefined,
@@ -166,6 +174,13 @@ const web3AddressRegexes = [
   REGEX.NOSTR,
 ];
 
+/**
+ * Determines if a string is a valid Web3 address
+ * Checks against multiple blockchain address formats
+ *
+ * @param address The string to check
+ * @returns True if the string matches any supported Web3 address format, false otherwise
+ */
 export const isWeb3Address = (address: string): boolean => {
   if (!address) return false;
   return web3AddressRegexes.some((regex) => regex.test(address));
