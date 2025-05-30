@@ -59,6 +59,36 @@ export const prettify = (input: string): string => {
   }
   return input;
 };
+/**
+ * Fufill and standardize identity format
+ */
+export const uglify = (input: string, platform: Platform) => {
+  if (!input) return "";
+  switch (platform) {
+    case Platform.farcaster:
+      return input.endsWith(".farcaster") ||
+        input.endsWith(".fcast.id") ||
+        input.endsWith(".farcaster.eth")
+        ? input
+        : `${input}.farcaster`;
+    case Platform.lens:
+      return input.endsWith(".lens") ? input : `${input}.lens`;
+    case Platform.basenames:
+      return input.endsWith(".base.eth")
+        ? input
+        : input.endsWith(".base")
+          ? `${input}.eth`
+          : `${input}.base.eth`;
+    case Platform.linea:
+      return input.endsWith(".linea.eth")
+        ? input
+        : input.endsWith(".linea")
+          ? `${input}.eth`
+          : `${input}.linea.eth`;
+    default:
+      return input;
+  }
+};
 
 /**
  * Check if the platform is supported for API queries
@@ -68,28 +98,32 @@ export const isSupportedPlatform = (platform?: Platform | null): boolean => {
   return Object.values(Platform).includes(platform as Platform);
 };
 
+const platformMap = new Map([
+  [REGEX.BASENAMES, Platform.basenames],
+  [REGEX.LINEA, Platform.linea],
+  [REGEX.ENS, Platform.ens],
+  [REGEX.ETH_ADDRESS, Platform.ethereum],
+  [REGEX.LENS, Platform.lens],
+  [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
+  [REGEX.SPACE_ID, Platform.space_id],
+  [REGEX.GRAVITY, Platform.gravity],
+  [REGEX.CROSSBELL, Platform.crossbell],
+  [REGEX.DOTBIT, Platform.dotbit],
+  [REGEX.SNS, Platform.sns],
+  [REGEX.GENOME, Platform.genome],
+  [REGEX.BTC_ADDRESS, Platform.bitcoin],
+  [REGEX.SOLANA_ADDRESS, Platform.solana],
+  [REGEX.FARCASTER, Platform.farcaster],
+  [REGEX.CLUSTER, Platform.clusters],
+  [REGEX.NEXT_ID, Platform.nextid],
+  [REGEX.NOSTR, Platform.nostr],
+  [REGEX.TWITTER, Platform.twitter],
+]);
 /**
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
   if (term.endsWith(".farcaster.eth")) return Platform.farcaster;
-
-  const platformMap: [RegExp, Platform][] = [
-    [REGEX.BASENAMES, Platform.basenames],
-    [REGEX.LINEA, Platform.linea],
-    [REGEX.ENS, Platform.ens],
-    [REGEX.ETH_ADDRESS, Platform.ethereum],
-    [REGEX.LENS, Platform.lens],
-    [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
-    [REGEX.SPACE_ID, Platform.space_id],
-    [REGEX.DOTBIT, Platform.dotbit],
-    [REGEX.SNS, Platform.sns],
-    [REGEX.BTC_ADDRESS, Platform.bitcoin],
-    [REGEX.SOLANA_ADDRESS, Platform.solana],
-    [REGEX.FARCASTER, Platform.farcaster],
-    [REGEX.TWITTER, Platform.twitter],
-    [REGEX.NEXT_ID, Platform.nextid],
-  ];
 
   for (const [regex, Platform] of platformMap) {
     if (regex.test(term)) {

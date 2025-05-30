@@ -46,7 +46,7 @@ export type AddressRecord = {
   /** The blockchain address */
   address: string;
   /** Network identifier */
-  network: string;
+  network: Network;
   /** Type identifier */
   __typename: "Address";
 };
@@ -122,7 +122,7 @@ export interface NSResponse {
   /** Profile description */
   description: string | null;
   /** Platform identifier */
-  platform: string;
+  platform: Platform;
   /** Human-readable display name */
   displayName: string | null;
   /** Alternative identities */

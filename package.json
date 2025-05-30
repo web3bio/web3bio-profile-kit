@@ -17,15 +17,18 @@
     },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.js"
+      "import": "./dist/hooks/index.js",
+      "require": "./dist/hooks/index.cjs"
     },
     "./types": {
       "types": "./dist/types/index.d.ts",
-      "default": "./dist/types/index.js"
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.cjs"
     },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.cjs"
     }
   },
   "files": [
