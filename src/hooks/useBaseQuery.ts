@@ -1,4 +1,3 @@
-"use client";
 import {
   type IdentityString,
   type QueryOptions,
@@ -18,32 +17,28 @@ const buildApiUrl = (
   endpoint: QueryEndpoint,
   universal: boolean,
 ): string | null => {
-  // Handle batch requests
   if (Array.isArray(identity)) {
     return `${PROD_API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
   }
 
-  // Handle universal queries
   if (universal) {
     return `${PROD_API_ENDPOINT}/${endpoint}/${identity}`;
   }
 
-  // Handle platform-specific queries
   const resolvedId = resolveIdentity(identity);
   if (!resolvedId) return null;
 
-  // Domain endpoint uses resolved ID directly
   if (endpoint === QueryEndpoint.DOMAIN) {
     return `${PROD_API_ENDPOINT}/${endpoint}/${resolvedId}`;
   }
 
-  // Other endpoints need platform/handle split
   const [platform, handle] = resolvedId.split(",");
   return `${PROD_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
 };
 
 /**
  * Core hook for querying Web3.bio Profile API with React Query
+ * This hook is meant to be used only in client components
  */
 export function useBaseQuery<T>(
   identity: IdentityString | IdentityString[],
@@ -54,7 +49,6 @@ export function useBaseQuery<T>(
   const { apiKey: userApiKey, enabled = true } = options;
   const apiKey = getApiKey(userApiKey);
 
-  // Generate query key based on the parameters
   const queryKey = ["baseQuery", endpoint, universal, identity];
 
   const queryFn = async (): Promise<T> => {
@@ -86,23 +80,20 @@ export function useBaseQuery<T>(
     return responseData as T;
   };
 
-  // Configure React Query options
   const queryOptions: UseQueryOptions<T, Error> = {
     queryKey,
     queryFn,
     enabled: Boolean(enabled && identity),
     refetchOnWindowFocus: false,
-    staleTime: 10 * 60 * 1000, // 5 minutes stale time
+    staleTime: 10 * 60 * 1000,
     retry: 2,
-    ...options, // Allow users to override query options
+    ...options,
   };
 
-  // Execute the query using React Query
   const { data, isLoading, error, ...restQueryInfo } = useQuery<T, Error>({
     ...queryOptions,
   });
 
-  // Return result in the same format as before
   return {
     data: data || null,
     isLoading,

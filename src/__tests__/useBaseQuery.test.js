@@ -6,15 +6,32 @@ import {
   getApiKey,
   resolveIdentity,
 } from "../utils/helpers";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Mock the fetch API
 global.fetch = jest.fn();
 
 // Mock helper functions
 jest.mock("../utils/helpers", () => ({
+  PROD_API_ENDPOINT: "https://api.web3.bio",
   getApiKey: jest.fn(),
   resolveIdentity: jest.fn(),
 }));
+
+// 创建一个用于测试的包装器，提供 QueryClient
+const createWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false, // 测试中禁用重试
+      },
+    },
+  });
+
+  return ({ children }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
 
 describe("useBaseQuery", () => {
   beforeEach(() => {
@@ -47,9 +64,10 @@ describe("useBaseQuery", () => {
 
     resolveIdentity.mockReturnValue("ens,vitalik.eth");
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for fetch to be called
@@ -72,6 +90,9 @@ describe("useBaseQuery", () => {
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
     });
+
+    // Verify data
+    expect(result.current.data).toEqual(mockData);
   });
 
   it("should construct batch URL for array of identities", async () => {
@@ -86,9 +107,10 @@ describe("useBaseQuery", () => {
       }),
     );
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery(identities, QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery(identities, QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for fetch to be called
@@ -125,9 +147,10 @@ describe("useBaseQuery", () => {
       }),
     );
 
-    // Execute hook with universal=true
-    const { result } = renderHook(() =>
-      useBaseQuery(identity, QueryEndpoint.PROFILE, true),
+    // Execute hook with universal=true and wrapper
+    const { result } = renderHook(
+      () => useBaseQuery(identity, QueryEndpoint.PROFILE, true),
+      { wrapper: createWrapper() },
     );
 
     // Wait for fetch to be called
@@ -166,9 +189,11 @@ describe("useBaseQuery", () => {
       }),
     );
 
-    // Execute hook with API key
-    const { result } = renderHook(() =>
-      useBaseQuery("184.liena.eth", QueryEndpoint.PROFILE, false, { apiKey }),
+    // Execute hook with API key and wrapper
+    const { result } = renderHook(
+      () =>
+        useBaseQuery("184.liena.eth", QueryEndpoint.PROFILE, false, { apiKey }),
+      { wrapper: createWrapper() },
     );
 
     // Wait for fetch to be called
@@ -191,11 +216,13 @@ describe("useBaseQuery", () => {
   });
 
   it("should not execute query when enabled=false", async () => {
-    // Execute hook with enabled=false
-    renderHook(() =>
-      useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false, {
-        enabled: false,
-      }),
+    // Execute hook with enabled=false and wrapper
+    renderHook(
+      () =>
+        useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false, {
+          enabled: false,
+        }),
+      { wrapper: createWrapper() },
     );
 
     // Pause briefly to allow any potential async operations
@@ -209,9 +236,10 @@ describe("useBaseQuery", () => {
     // Setup
     resolveIdentity.mockReturnValue(null);
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery("invalid", QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery("invalid", QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for loading to complete
@@ -237,9 +265,10 @@ describe("useBaseQuery", () => {
       }),
     );
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for loading to complete
@@ -258,9 +287,10 @@ describe("useBaseQuery", () => {
 
     global.fetch.mockImplementation(() => Promise.reject(networkError));
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for loading to complete
@@ -283,9 +313,10 @@ describe("useBaseQuery", () => {
       }),
     );
 
-    // Execute hook
-    const { result } = renderHook(() =>
-      useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false),
+    // Execute hook with wrapper
+    const { result } = renderHook(
+      () => useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false),
+      { wrapper: createWrapper() },
     );
 
     // Wait for loading to complete
@@ -301,9 +332,10 @@ describe("useBaseQuery", () => {
   it("should use cached data when available", async () => {
     // Setup
     const mockData = { result: "cached data" };
+    const wrapper = createWrapper(); // 使用同一个包装器确保共享缓存
 
     // Setup for first render
-    global.fetch.mockImplementation(() =>
+    global.fetch.mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve(mockData),
@@ -311,8 +343,9 @@ describe("useBaseQuery", () => {
     );
 
     // First render to populate cache
-    const { result: firstResult } = renderHook(() =>
-      useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+    const { result: firstResult, unmount: firstUnmount } = renderHook(
+      () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+      { wrapper },
     );
 
     // Wait for first request to complete
@@ -324,23 +357,30 @@ describe("useBaseQuery", () => {
     // Reset fetch mock
     global.fetch.mockClear();
 
+    // Unmount first hook
+    firstUnmount();
+
     // Second render should use cached data
-    const { result: secondResult } = renderHook(() =>
-      useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+    const { result: secondResult } = renderHook(
+      () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+      { wrapper },
     );
 
-    // Verify data is immediately available from cache
-    expect(secondResult.current.data).toEqual(mockData);
+    // Verify data is available from cache
+    await waitFor(() => {
+      expect(secondResult.current.data).toEqual(mockData);
+    });
 
-    // Verify no new fetch was made
+    // Verify no new fetch was made (or only one was made)
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
   it("should not fetch again when parameters haven't changed", async () => {
     // Setup
     const mockData = { result: "test data" };
+    const wrapper = createWrapper();
 
-    global.fetch.mockImplementation(() =>
+    global.fetch.mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve(mockData),
@@ -356,6 +396,7 @@ describe("useBaseQuery", () => {
           endpoint: QueryEndpoint.PROFILE,
           universal: false,
         },
+        wrapper,
       },
     );
 
@@ -383,9 +424,10 @@ describe("useBaseQuery", () => {
   });
 
   it("should fetch new data when parameters change", async () => {
-    // Setup for first render
+    // Setup
     const firstMockData = { result: "first data" };
     const secondMockData = { result: "second data" };
+    const wrapper = createWrapper();
 
     // First, set up fetch to return firstMockData
     global.fetch.mockImplementationOnce(() =>
@@ -412,6 +454,7 @@ describe("useBaseQuery", () => {
           endpoint: QueryEndpoint.PROFILE,
           universal: false,
         },
+        wrapper,
       },
     );
 

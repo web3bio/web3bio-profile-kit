@@ -1,4 +1,3 @@
-"use client";
 import {
   type NSResponse,
   type QueryOptions,
