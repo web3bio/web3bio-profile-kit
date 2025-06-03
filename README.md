@@ -313,8 +313,7 @@ Fetches basic name service data for multiple identities in a single request.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `identity` | `string` | Identity to query |
-| `identities` | `string[]` | Array of identities for batch queries |
+| `identity` | `string` or `string[]` | Identity to query or array of identities for batch queries |
 | `options` | `object` | Optional configuration with TanStack Query options plus `apiKey` |
 
 ### Return Values
@@ -324,7 +323,7 @@ All hooks return a TanStack Query result object with:
 | Property | Type | Description |
 |-----------|------|-------------|
 | `data` | `object` or `null` | The profile data when successful |
-| `isLoading` | `boolean` | `true` during the initial fetch operation |
+| `isLoading` | `boolean` | `true` during the fetch operation |
 | `error` | `Error` or `null` | Error object if the request failed |
 | `refetch` | `function` | Function to manually trigger a refetch |
 | ... | ... | Other TanStack Query result properties |
