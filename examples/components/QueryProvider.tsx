@@ -7,6 +7,7 @@ export default function QueryProvider({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("page2");
   useEffect(() => {
     console.log("queryProvider loaded");
   }, []);
