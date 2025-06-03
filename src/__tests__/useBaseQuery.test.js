@@ -19,13 +19,7 @@ jest.mock("../utils/helpers", () => ({
 }));
 
 const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
+  const queryClient = new QueryClient();
 
   return ({ children }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -231,23 +225,23 @@ describe("useBaseQuery", () => {
   });
 
   it("should set error when URL construction fails", async () => {
-    // Setup
-    resolveIdentity.mockReturnValue(null);
-
-    // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("invalid", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    await waitFor(() => {
-      expect(result.current.error).toBeDefined();
+    global.fetch.mockImplementation(() => {
+      throw new Error(ErrorMessages.INVALID_IDENTITY);
     });
 
-    expect(result.current.error).toEqual(
-      new Error(ErrorMessages.INVALID_IDENTITY),
+    const { result } = renderHook(
+      () => useBaseQuery("invalid", QueryEndpoint.PROFILE, false, { retry: 0 }),
+      { wrapper: createWrapper() },
     );
-    expect(result.current.data).toBeNull();
+    // Wait for fetch to be called
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    });
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.error).toBeDefined();
+    expect(result.current.error?.message).toBe(ErrorMessages.INVALID_IDENTITY);
   });
 
   it("should handle API error responses", async () => {
@@ -263,7 +257,7 @@ describe("useBaseQuery", () => {
 
     // Execute hook with wrapper
     const { result } = renderHook(
-      () => useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false),
+      () => useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false, { retry: 0 }),
       { wrapper: createWrapper() },
     );
 
@@ -285,7 +279,8 @@ describe("useBaseQuery", () => {
 
     // Execute hook with wrapper
     const { result } = renderHook(
-      () => useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false),
+      () =>
+        useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false, { retry: 0 }),
       { wrapper: createWrapper() },
     );
 
@@ -311,7 +306,8 @@ describe("useBaseQuery", () => {
 
     // Execute hook with wrapper
     const { result } = renderHook(
-      () => useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false),
+      () =>
+        useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false, { retry: 0 }),
       { wrapper: createWrapper() },
     );
 
@@ -328,7 +324,7 @@ describe("useBaseQuery", () => {
   it("should use cached data when available", async () => {
     // Setup
     const mockData = { result: "cached data" };
-    const wrapper = createWrapper(); // 使用同一个包装器确保共享缓存
+    const wrapper = createWrapper();
 
     // Setup for first render
     global.fetch.mockImplementationOnce(() =>

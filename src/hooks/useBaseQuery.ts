@@ -46,7 +46,7 @@ export function useBaseQuery<T>(
   universal: boolean = false,
   options: QueryOptions = {},
 ): QueryResult<T> {
-  const { apiKey: userApiKey, enabled = true } = options;
+  const { apiKey: userApiKey, enabled = true, retry } = options;
   const apiKey = getApiKey(userApiKey);
 
   const queryKey = ["baseQuery", endpoint, universal, identity, options];
@@ -86,7 +86,7 @@ export function useBaseQuery<T>(
     enabled: Boolean(enabled && identity),
     refetchOnWindowFocus: false,
     staleTime: 10 * 60 * 1000,
-    retry: 1,
+    retry: retry || 2,
     ...options,
   };
 
