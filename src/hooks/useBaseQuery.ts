@@ -49,13 +49,13 @@ export function useBaseQuery<T>(
   const { apiKey: userApiKey, enabled = true } = options;
   const apiKey = getApiKey(userApiKey);
 
-  const queryKey = ["baseQuery", endpoint, universal, identity];
+  const queryKey = ["baseQuery", endpoint, universal, identity, options];
 
   const queryFn = async (): Promise<T> => {
     const url = buildApiUrl(identity, endpoint, universal);
 
     if (!url) {
-      throw new Error(ErrorMessages.INVALID_IDENTITY);
+      return Promise.reject(new Error(ErrorMessages.INVALID_IDENTITY));
     }
 
     const headers: HeadersInit = apiKey ? { "x-api-key": apiKey } : {};
@@ -68,13 +68,13 @@ export function useBaseQuery<T>(
     const response = await fetch(url, fetchOptions);
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      return Promise.reject(new Error(`API error: ${response.status}`));
     }
 
     const responseData = await response.json();
 
     if (responseData?.error) {
-      throw new Error(responseData.error);
+      return Promise.reject(new Error(responseData.error));
     }
 
     return responseData as T;
@@ -86,7 +86,7 @@ export function useBaseQuery<T>(
     enabled: Boolean(enabled && identity),
     refetchOnWindowFocus: false,
     staleTime: 10 * 60 * 1000,
-    retry: 2,
+    retry: 1,
     ...options,
   };
 

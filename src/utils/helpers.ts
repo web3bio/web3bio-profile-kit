@@ -1,7 +1,7 @@
 import { Platform } from "../types";
 import { REGEX } from "./regex";
 
-export const PROD_API_ENDPOINT = "https://api.web3.bio";
+export const PROD_API_ENDPOINT = "https://api-staging.web3.bio";
 export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
 
 /**
