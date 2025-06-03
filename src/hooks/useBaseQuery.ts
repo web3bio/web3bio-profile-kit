@@ -5,7 +5,7 @@ import {
   ErrorMessages,
   QueryEndpoint,
 } from "../types";
-import { useState, useEffect, useRef } from "react";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { PROD_API_ENDPOINT } from "../utils/helpers";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
 
@@ -41,24 +41,8 @@ const buildApiUrl = (
   return `${PROD_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
 };
 
-// Generate a stable cache key for this request
-const getCacheKey = (
-  identity: IdentityString | IdentityString[],
-  endpoint: QueryEndpoint,
-  universal: boolean,
-): string => {
-  return JSON.stringify({
-    identity,
-    endpoint,
-    universal,
-  });
-};
-
-// Create a cache to store results across component instances and re-renders
-const globalRequestCache = new Map<string, any>();
-
 /**
- * Core hook for querying Web3.bio Profile API
+ * Core hook for querying Web3.bio Profile API with React Query
  */
 export function useBaseQuery<T>(
   identity: IdentityString | IdentityString[],
@@ -69,95 +53,59 @@ export function useBaseQuery<T>(
   const { apiKey: userApiKey, enabled = true } = options;
   const apiKey = getApiKey(userApiKey);
 
-  const [data, setData] = useState<T | null>(() => {
-    // Initialize state from cache if available
-    const cacheKey = getCacheKey(identity, endpoint, universal);
-    return (globalRequestCache.get(cacheKey) as T) || null;
-  });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
+  // Generate query key based on the parameters
+  const queryKey = ["baseQuery", endpoint, universal, identity];
 
-  // Use ref to track in-flight requests and prevent race conditions
-  const requestIdRef = useRef<number>(0);
-  const prevParamsRef = useRef<string>("");
+  const queryFn = async (): Promise<T> => {
+    const url = buildApiUrl(identity, endpoint, universal);
 
-  // Current request parameters as a string for comparison
-  const currentParams = JSON.stringify({
-    identity,
-    endpoint,
-    universal,
-  });
-
-  useEffect(() => {
-    // Don't run the query if disabled or no identity
-    if (!enabled || !identity) return;
-
-    // Skip if parameters haven't changed
-    if (currentParams === prevParamsRef.current && data !== null) {
-      return;
+    if (!url) {
+      throw new Error(ErrorMessages.INVALID_IDENTITY);
     }
 
-    // Update previous parameters
-    prevParamsRef.current = currentParams;
+    const headers: HeadersInit = apiKey ? { "x-api-key": apiKey } : {};
 
-    // Generate cache key
-    const cacheKey = getCacheKey(identity, endpoint, universal);
-
-    // Check if we already have cached data
-    const cachedData = globalRequestCache.get(cacheKey) as T | undefined;
-    if (cachedData) {
-      setData(cachedData);
-      return;
-    }
-
-    // Increment request ID to track the latest request
-    const requestId = ++requestIdRef.current;
-
-    setIsLoading(true);
-    setError(null);
-
-    const fetchData = async () => {
-      try {
-        const url = buildApiUrl(identity, endpoint, universal);
-
-        if (!url) {
-          throw new Error(ErrorMessages.INVALID_IDENTITY);
-        }
-
-        const headers: HeadersInit = apiKey ? { "x-api-key": apiKey } : {};
-
-        const fetchOptions: RequestInit = {
-          method: "GET",
-          headers,
-        };
-
-        const response = await fetch(url, fetchOptions);
-
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-
-        const responseData = await response.json();
-
-        if (responseData?.error) {
-          throw new Error(responseData.error);
-        }
-
-        if (requestId === requestIdRef.current) {
-          globalRequestCache.set(cacheKey, responseData);
-          setData(responseData as T);
-          setIsLoading(false);
-        }
-      } catch (err) {
-        if (requestId === requestIdRef.current) {
-          setError(err instanceof Error ? err : new Error(String(err)));
-          setIsLoading(false);
-        }
-      }
+    const fetchOptions: RequestInit = {
+      method: "GET",
+      headers,
     };
 
-    fetchData();
-  }, [currentParams, enabled]);
+    const response = await fetch(url, fetchOptions);
 
-  return { data, isLoading, error };
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+
+    if (responseData?.error) {
+      throw new Error(responseData.error);
+    }
+
+    return responseData as T;
+  };
+
+  // Configure React Query options
+  const queryOptions: UseQueryOptions<T, Error> = {
+    queryKey,
+    queryFn,
+    enabled: Boolean(enabled && identity),
+    refetchOnWindowFocus: false,
+    staleTime: 10 * 60 * 1000, // 5 minutes stale time
+    retry: 2,
+    ...options, // Allow users to override query options
+  };
+
+  // Execute the query using React Query
+  const { data, isLoading, error, ...restQueryInfo } = useQuery<T, Error>({
+    ...queryOptions,
+  });
+
+  // Return result in the same format as before
+  return {
+    data: data || null,
+    isLoading,
+    error,
+    ...restQueryInfo,
+  };
 }
