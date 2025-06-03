@@ -49,7 +49,7 @@ export function useBaseQuery<T>(
   const { apiKey: userApiKey, enabled = true, retry } = options;
   const apiKey = getApiKey(userApiKey);
 
-  const queryKey = ["baseQuery", endpoint, universal, identity, options];
+  const queryKey = [endpoint, universal, identity, options];
 
   const queryFn = async (): Promise<T> => {
     const url = buildApiUrl(identity, endpoint, universal);
@@ -86,7 +86,7 @@ export function useBaseQuery<T>(
     enabled: Boolean(enabled && identity),
     refetchOnWindowFocus: false,
     staleTime: 10 * 60 * 1000,
-    retry: retry || 2,
+    retry: retry || 1,
     ...options,
   };
 
