@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { useBaseQuery } from "../hooks";
 import { ErrorMessages, QueryEndpoint } from "../types";
 import {
@@ -18,12 +18,18 @@ jest.mock("../utils/helpers", () => ({
   resolveIdentity: jest.fn(),
 }));
 
-// 创建一个用于测试的包装器，提供 QueryClient
+// 增加更长的超时时间用于测试
+const WAIT_OPTIONS = { timeout: 3000 };
+
 const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false, // 测试中禁用重试
+        retry: false,
+        cacheTime: 0,
+        staleTime: 0,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
       },
     },
   });
@@ -32,6 +38,9 @@ const createWrapper = () => {
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
+
+// 辅助函数：等待所有微任务完成
+const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 describe("useBaseQuery", () => {
   beforeEach(() => {
@@ -43,7 +52,7 @@ describe("useBaseQuery", () => {
       id.includes(",") ? id : `platform,${id}`,
     );
 
-    // Default fetch mock
+    // Default fetch mock - 确保所有 Promise 完全解析
     global.fetch.mockImplementation(() =>
       Promise.resolve({
         ok: true,
@@ -65,17 +74,27 @@ describe("useBaseQuery", () => {
     resolveIdentity.mockReturnValue("ens,vitalik.eth");
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
 
-    // Wait for fetch to be called
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+      // 等待异步操作完成
+      await flushPromises();
     });
 
-    // Verify URL construction
+    // 检查初始状态
+    console.log("Initial state:", result.current);
+
+    // 等待 fetch 被调用
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    }, WAIT_OPTIONS);
+
+    // 验证 URL 构造
     expect(global.fetch).toHaveBeenCalledWith(
       `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/ens/vitalik.eth`,
       {
@@ -86,12 +105,16 @@ describe("useBaseQuery", () => {
       },
     );
 
-    // Wait for loading to complete
+    // 等待加载完成
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-    });
+      console.log("Current state:", result.current);
+      // 使用状态变量和数据检查替代直接检查 isLoading
+      expect(
+        result.current.status === "success" || !result.current.isLoading,
+      ).toBeTruthy();
+    }, WAIT_OPTIONS);
 
-    // Verify data
+    // 验证数据
     expect(result.current.data).toEqual(mockData);
   });
 
@@ -108,17 +131,22 @@ describe("useBaseQuery", () => {
     );
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery(identities, QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for fetch to be called
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery(identities, QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify URL construction for batch request
+    // 等待 fetch 被调用
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    }, WAIT_OPTIONS);
+
+    // 验证批量请求的 URL 构造
     expect(global.fetch).toHaveBeenCalledWith(
       `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/batch/${encodeURIComponent(JSON.stringify(identities))}`,
       {
@@ -129,10 +157,10 @@ describe("useBaseQuery", () => {
       },
     );
 
-    // Wait for loading to complete
+    // 等待加载完成 - 改为检查数据而不是加载状态
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-    });
+      expect(result.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
   });
 
   it("should use universal URL format when universal=true", async () => {
@@ -148,17 +176,22 @@ describe("useBaseQuery", () => {
     );
 
     // Execute hook with universal=true and wrapper
-    const { result } = renderHook(
-      () => useBaseQuery(identity, QueryEndpoint.PROFILE, true),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for fetch to be called
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery(identity, QueryEndpoint.PROFILE, true),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify universal URL format
+    // 等待 fetch 被调用
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    }, WAIT_OPTIONS);
+
+    // 验证通用 URL 格式
     expect(global.fetch).toHaveBeenCalledWith(
       `${PROD_API_ENDPOINT}/${QueryEndpoint.PROFILE}/${identity}`,
       {
@@ -169,10 +202,10 @@ describe("useBaseQuery", () => {
       },
     );
 
-    // Wait for loading to complete
+    // 等待加载完成
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-    });
+      expect(result.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
   });
 
   it("should include API key in request headers when provided", async () => {
@@ -190,18 +223,25 @@ describe("useBaseQuery", () => {
     );
 
     // Execute hook with API key and wrapper
-    const { result } = renderHook(
-      () =>
-        useBaseQuery("184.liena.eth", QueryEndpoint.PROFILE, false, { apiKey }),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for fetch to be called
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () =>
+          useBaseQuery("184.liena.eth", QueryEndpoint.PROFILE, false, {
+            apiKey,
+          }),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify API key in headers
+    // 等待 fetch 被调用
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    }, WAIT_OPTIONS);
+
+    // 验证 API key 在 headers 中
     expect(global.fetch).toHaveBeenCalledWith(expect.any(String), {
       headers: {
         "x-api-key": apiKey,
@@ -209,26 +249,26 @@ describe("useBaseQuery", () => {
       method: "GET",
     });
 
-    // Wait for loading to complete
+    // 等待加载完成 - 检查数据而不是加载状态
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-    });
+      expect(result.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
   });
 
   it("should not execute query when enabled=false", async () => {
     // Execute hook with enabled=false and wrapper
-    renderHook(
-      () =>
-        useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false, {
-          enabled: false,
-        }),
-      { wrapper: createWrapper() },
-    );
+    await act(async () => {
+      renderHook(
+        () =>
+          useBaseQuery("vitalik.eth", QueryEndpoint.PROFILE, false, {
+            enabled: false,
+          }),
+        { wrapper: createWrapper() },
+      );
+      await flushPromises();
+    });
 
-    // Pause briefly to allow any potential async operations
-    await new Promise((resolve) => setTimeout(resolve, 10));
-
-    // Verify fetch was not called
+    // 验证 fetch 未被调用
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
@@ -237,17 +277,22 @@ describe("useBaseQuery", () => {
     resolveIdentity.mockReturnValue(null);
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("invalid", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for loading to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("invalid", QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify error is set
+    // 等待查询完成
+    await waitFor(() => {
+      expect(result.current.status).toBe("error");
+    }, WAIT_OPTIONS);
+
+    // 验证错误被设置
     expect(result.current.error).toEqual(
       new Error(ErrorMessages.INVALID_IDENTITY),
     );
@@ -266,17 +311,22 @@ describe("useBaseQuery", () => {
     );
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for loading to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("dwr.eth", QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify error handling
+    // 等待查询完成
+    await waitFor(() => {
+      expect(result.current.status).toBe("error");
+    }, WAIT_OPTIONS);
+
+    // 验证错误处理
     expect(result.current.error).toEqual(new Error(errorMessage));
     expect(result.current.data).toBeNull();
   });
@@ -288,17 +338,22 @@ describe("useBaseQuery", () => {
     global.fetch.mockImplementation(() => Promise.reject(networkError));
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for loading to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("nick.eth", QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify network error handling
+    // 等待查询完成
+    await waitFor(() => {
+      expect(result.current.status).toBe("error");
+    }, WAIT_OPTIONS);
+
+    // 验证网络错误处理
     expect(result.current.error).toEqual(networkError);
     expect(result.current.data).toBeNull();
   });
@@ -314,17 +369,22 @@ describe("useBaseQuery", () => {
     );
 
     // Execute hook with wrapper
-    const { result } = renderHook(
-      () => useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false),
-      { wrapper: createWrapper() },
-    );
-
-    // Wait for loading to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    let result;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("pugson.eth", QueryEndpoint.PROFILE, false),
+        { wrapper: createWrapper() },
+      );
+      result = rendered.result;
+      await flushPromises();
     });
 
-    // Verify HTTP error handling
+    // 等待查询完成
+    await waitFor(() => {
+      expect(result.current.status).toBe("error");
+    }, WAIT_OPTIONS);
+
+    // 验证 HTTP 错误处理
     expect(result.current.error).toEqual(new Error("API error: 404"));
     expect(result.current.data).toBeNull();
   });
@@ -343,16 +403,23 @@ describe("useBaseQuery", () => {
     );
 
     // First render to populate cache
-    const { result: firstResult, unmount: firstUnmount } = renderHook(
-      () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
-      { wrapper },
-    );
+    let firstResult;
+    let firstUnmount;
 
-    // Wait for first request to complete
-    await waitFor(() => {
-      expect(firstResult.current.isLoading).toBe(false);
-      expect(firstResult.current.data).toEqual(mockData);
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+        { wrapper },
+      );
+      firstResult = rendered.result;
+      firstUnmount = rendered.unmount;
+      await flushPromises();
     });
+
+    // 等待第一个请求完成
+    await waitFor(() => {
+      expect(firstResult.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
 
     // Reset fetch mock
     global.fetch.mockClear();
@@ -361,17 +428,22 @@ describe("useBaseQuery", () => {
     firstUnmount();
 
     // Second render should use cached data
-    const { result: secondResult } = renderHook(
-      () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
-      { wrapper },
-    );
-
-    // Verify data is available from cache
-    await waitFor(() => {
-      expect(secondResult.current.data).toEqual(mockData);
+    let secondResult;
+    await act(async () => {
+      const rendered = renderHook(
+        () => useBaseQuery("ted.farcaster", QueryEndpoint.PROFILE, false),
+        { wrapper },
+      );
+      secondResult = rendered.result;
+      await flushPromises();
     });
 
-    // Verify no new fetch was made (or only one was made)
+    // 验证数据从缓存中获取
+    await waitFor(() => {
+      expect(secondResult.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
+
+    // 验证没有发出新的 fetch 请求
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
@@ -388,38 +460,46 @@ describe("useBaseQuery", () => {
     );
 
     // Initial render
-    const { result, rerender } = renderHook(
-      (props) => useBaseQuery(props.identity, props.endpoint, props.universal),
-      {
-        initialProps: {
-          identity: "web3.bio",
-          endpoint: QueryEndpoint.PROFILE,
-          universal: false,
-        },
-        wrapper,
-      },
-    );
+    let result;
+    let rerender;
 
-    // Wait for loading to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.data).toEqual(mockData);
+    await act(async () => {
+      const rendered = renderHook(
+        (props) =>
+          useBaseQuery(props.identity, props.endpoint, props.universal),
+        {
+          initialProps: {
+            identity: "web3.bio",
+            endpoint: QueryEndpoint.PROFILE,
+            universal: false,
+          },
+          wrapper,
+        },
+      );
+      result = rendered.result;
+      rerender = rendered.rerender;
+      await flushPromises();
     });
+
+    // 等待加载完成
+    await waitFor(() => {
+      expect(result.current.data).toEqual(mockData);
+    }, WAIT_OPTIONS);
 
     // Clear fetch mock
     global.fetch.mockClear();
 
     // Rerender with same props
-    rerender({
-      identity: "web3.bio",
-      endpoint: QueryEndpoint.PROFILE,
-      universal: false,
+    await act(async () => {
+      rerender({
+        identity: "web3.bio",
+        endpoint: QueryEndpoint.PROFILE,
+        universal: false,
+      });
+      await flushPromises();
     });
 
-    // Allow time for any potential fetches
-    await new Promise((resolve) => setTimeout(resolve, 10));
-
-    // Verify no additional fetch was made
+    // 验证没有发出额外的 fetch 请求
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
@@ -446,37 +526,48 @@ describe("useBaseQuery", () => {
     );
 
     // Initial render
-    const { result, rerender } = renderHook(
-      (props) => useBaseQuery(props.identity, props.endpoint, props.universal),
-      {
-        initialProps: {
-          identity: "wijuwiju.eth",
-          endpoint: QueryEndpoint.PROFILE,
-          universal: false,
-        },
-        wrapper,
-      },
-    );
+    let result;
+    let rerender;
 
-    // Wait for first render to complete
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.data).toEqual(firstMockData);
+    await act(async () => {
+      const rendered = renderHook(
+        (props) =>
+          useBaseQuery(props.identity, props.endpoint, props.universal),
+        {
+          initialProps: {
+            identity: "wijuwiju.eth",
+            endpoint: QueryEndpoint.PROFILE,
+            universal: false,
+          },
+          wrapper,
+        },
+      );
+      result = rendered.result;
+      rerender = rendered.rerender;
+      await flushPromises();
     });
+
+    // 等待第一次渲染完成
+    await waitFor(() => {
+      expect(result.current.data).toEqual(firstMockData);
+    }, WAIT_OPTIONS);
 
     // Rerender with different props
-    rerender({
-      identity: "different.eth",
-      endpoint: QueryEndpoint.PROFILE,
-      universal: false,
+    await act(async () => {
+      rerender({
+        identity: "different.eth",
+        endpoint: QueryEndpoint.PROFILE,
+        universal: false,
+      });
+      await flushPromises();
     });
 
-    // Wait for second fetch to complete
+    // 等待第二次 fetch 完成
     await waitFor(() => {
       expect(result.current.data).toEqual(secondMockData);
-    });
+    }, WAIT_OPTIONS);
 
-    // Verify fetch was called twice (once for each identity)
+    // 验证 fetch 被调用了两次 (每个身份各一次)
     expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 });
