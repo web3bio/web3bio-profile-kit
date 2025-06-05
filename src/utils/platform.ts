@@ -972,3 +972,13 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
 ]);
+
+/**
+ * Get platform data by platform key
+ * @public
+ */
+export const getPlatform = (platform: Platform): Readonly<PlatformType> => {
+  return (
+    PLATFORM_DATA.get(platform) || { ...DEFAULT_PLATFORM, label: platform }
+  );
+};
