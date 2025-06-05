@@ -2,7 +2,7 @@ import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 
-const external = ["react", "react-dom"];
+const external = ["react", "react-dom", "@tanstack/react-query"];
 
 export default {
   input: {

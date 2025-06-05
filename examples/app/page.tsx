@@ -1,5 +1,4 @@
 "use client";
-
 import {
   useProfile,
   useNS,
@@ -9,8 +8,7 @@ import {
   useBatchNS,
   useBatchProfile,
 } from "web3bio-profile-kit";
-
-export default function Home() {
+export default function HookTester() {
   // useProfile
   const { data: profileData, isLoading: profileLoading } =
     useProfile("ens,sujiyan.eth");
@@ -42,6 +40,9 @@ export default function Home() {
       "ethereum,0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
       "ens,sujiyan.eth",
     ]);
+  const { error: errorMsg, isLoading: errorLoading } = useProfile("nick.eth", {
+    apiKey: "invalid key",
+  });
 
   const formatJSON = (data: unknown) => {
     return <pre>{JSON.stringify(data, null, 4)}</pre>;
@@ -108,6 +109,14 @@ export default function Home() {
 
           {batchProfileLoading && <p>Loading batch profile data...</p>}
           {batchProfileData && <div>{formatJSON(batchProfileData)}</div>}
+        </section>
+
+        {/* useProfile Error */}
+        <section>
+          <h2>useProfile Error</h2>
+
+          {errorLoading && <p>Loading profile data...</p>}
+          {errorMsg && <div>{errorMsg.message}</div>}
         </section>
       </div>
     </main>

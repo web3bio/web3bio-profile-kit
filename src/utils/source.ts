@@ -1,5 +1,8 @@
 import { Source, type SourceType } from "../types/source";
-
+/**
+ * Source data
+ * @public
+ */
 export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ethereum]: {
     name: "Ethereum",
@@ -134,3 +137,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "Open professional network",
   },
 };
+/**
+ * Gets source metadata for a given source key
+ * @param sourceKey - The source identifier to look up
+ * @returns Source metadata including name and description
+ * @public
+ */
+export const getSource = (sourceKey: Source): SourceType =>
+  SOURCE_DATA[sourceKey] || { name: sourceKey, description: "Unknown source" };

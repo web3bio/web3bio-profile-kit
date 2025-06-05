@@ -11,11 +11,30 @@ More information about the Web3.bio Profile API can be found in the [document](h
 ## Installation
 
 ```bash
-npm install web3bio-profile-kit
+npm install web3bio-profile-kit @tanstack/react-query
 # or
-yarn add web3bio-profile-kit
+yarn add web3bio-profile-kit @tanstack/react-query
 # or
-pnpm add web3bio-profile-kit
+pnpm add web3bio-profile-kit @tanstack/react-query
+```
+
+## Setup
+
+This library is built on TanStack Query (formerly React Query). You need to set up the QueryClientProvider in your application:
+
+```jsx
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Create a client
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* Your application components */}
+    </QueryClientProvider>
+  );
+}
 ```
 
 ## API Key
@@ -185,15 +204,63 @@ function BatchProfileComponent() {
 }
 ```
 
-### Advanced Usage: Controlling Query Execution
+### Advanced Usage: TanStack Query Features
 
-You can control when the query executes using the `enabled` option:
+You can use all TanStack Query features with our hooks:
 
 ```jsx
-const [searchTerm, setSearchTerm] = useState("");
-const { data, isLoading } = useProfile(searchTerm, {
-  enabled: searchTerm.length > 0
-});
+import { useProfile } from "web3bio-profile-kit";
+
+function AdvancedProfileComponent() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const {
+    data,
+    isLoading,
+    error,
+    isFetching,
+    refetch,
+    isRefetching
+  } = useProfile(searchTerm, {
+    // React Query options
+    enabled: searchTerm.length > 0,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      console.log("Profile loaded:", data);
+    },
+    onError: (error) => {
+      console.error("Failed to load profile:", error);
+    }
+  });
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Enter ENS, address, or handle"
+      />
+
+      <button onClick={() => refetch()} disabled={isRefetching}>
+        Refresh
+      </button>
+
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error.message}</div>
+      ) : data ? (
+        <div>
+          <h2>{data.displayName}</h2>
+          {data.avatar && <img src={data.avatar} alt="Profile" />}
+          {isFetching && <span>Refreshing...</span>}
+        </div>
+      ) : null}
+    </div>
+  );
+}
 ```
 
 ## Supported Identity Formats
@@ -247,17 +314,19 @@ Fetches basic name service data for multiple identities in a single request.
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `identity` | `string` or `string[]` | Identity to query or array of identities for batch queries |
-| `options` | `object` | Optional configuration with `apiKey` and `enabled` |
+| `options` | `object` | Optional configuration with TanStack Query options plus `apiKey` |
 
 ### Return Values
 
-All hooks return an object with:
+All hooks return a TanStack Query result object with:
 
 | Property | Type | Description |
 |-----------|------|-------------|
 | `data` | `object` or `null` | The profile data when successful |
 | `isLoading` | `boolean` | `true` during the fetch operation |
 | `error` | `Error` or `null` | Error object if the request failed |
+| `refetch` | `function` | Function to manually trigger a refetch |
+| ... | ... | Other TanStack Query result properties |
 
 ## License
 

@@ -1,5 +1,8 @@
 import { Network, type NetworkType } from "../types/network";
-
+/**
+ * Network data
+ * @public
+ */
 export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   [Network.ethereum]: {
     assetPrefix: "https://app.zerion.io/",
@@ -348,4 +351,40 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
     scanPrefix: "https://uniscan.xyz/address/",
     scanPrefixTx: "https://uniscan.xyz/tx/",
   },
+};
+
+/**
+ * Gets network metadata for a given network identifier
+ * Supports lookup by network key, network short name, or chainId
+ *
+ * @param networkIdentifier - Network identifier (key, short name, or chain ID)
+ * @returns Network metadata object
+ */
+export const getNetwork = (networkIdentifier: string | number): NetworkType => {
+  const isNumberParam = !isNaN(Number(networkIdentifier));
+  if (isNumberParam) {
+    const networkByChainId = Object.values(NETWORK_DATA).find(
+      (x) => x.chainId === Number(networkIdentifier),
+    );
+    if (networkByChainId) return networkByChainId;
+  } else {
+    if (NETWORK_DATA[networkIdentifier as Network])
+      return NETWORK_DATA[networkIdentifier as Network];
+    const networkByShort = Object.values(NETWORK_DATA).find(
+      (network) => network.short === networkIdentifier,
+    );
+
+    if (networkByShort) {
+      return networkByShort;
+    }
+  }
+
+  return {
+    key: String(networkIdentifier),
+    icon: "",
+    label: String(networkIdentifier),
+    primaryColor: "#000000",
+    bgColor: "#efefef",
+    scanPrefix: "",
+  };
 };

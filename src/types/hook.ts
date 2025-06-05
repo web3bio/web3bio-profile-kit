@@ -173,6 +173,8 @@ export type QueryOptions = {
   apiKey?: string;
   /** Whether the query should execute */
   enabled?: boolean;
+  /** Times the query should retry */
+  retry?: number;
 };
 
 /**

@@ -1,8 +1,8 @@
 export * from "../types/cointype";
 export { REGEX } from "./regex";
-export { DEFAULT_PLATFORM, PLATFORM_DATA } from "./platform";
-export { NETWORK_DATA } from "./network";
-export { SOURCE_DATA } from "./source";
+export { DEFAULT_PLATFORM, PLATFORM_DATA, getPlatform } from "./platform";
+export { NETWORK_DATA, getNetwork } from "./network";
+export { SOURCE_DATA, getSource } from "./source";
 
 export {
   resolveIdentity,

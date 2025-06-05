@@ -63,7 +63,7 @@ export const prettify = (input: string): string => {
 /**
  * Fufill and standardize identity format
  */
-export const uglify = (input: string, platform: Platform) => {
+export const uglify = (input: string, platform: Platform): string => {
   if (!input) return "";
   switch (platform) {
     case Platform.farcaster:
@@ -93,7 +93,7 @@ export const uglify = (input: string, platform: Platform) => {
 /**
  * Check if the platform is supported for API queries
  */
-export const isSupportedPlatform = (platform?: Platform | null) => {
+export const isSupportedPlatform = (platform?: Platform | null): boolean => {
   if (!platform) return false;
   return [
     Platform.ens,
@@ -204,7 +204,7 @@ export const isWeb3Address = (address: string): boolean => {
  * @param address - The string to validate as an Ethereum address
  * @returns True if the address is valid and not a burn/empty address, false otherwise
  */
-export const isValidEthereumAddress = (address: string) => {
+export const isValidEthereumAddress = (address: string): boolean => {
   if (!REGEX.ETH_ADDRESS.test(address)) return false; // invalid ethereum address
   if (address.match(/^0x0*.$|0x[123468abef]*$|0x0*dead$/i)) return false; // empty & burn address
   return true;
@@ -217,6 +217,6 @@ export const isValidEthereumAddress = (address: string) => {
  * @param address - The string to validate as a Solana address
  * @returns True if the string is a valid Solana address, false otherwise
  */
-export const isValidSolanaAddress = (address: string) => {
+export const isValidSolanaAddress = (address: string): boolean => {
   return REGEX.SOLANA_ADDRESS.test(address);
 };
