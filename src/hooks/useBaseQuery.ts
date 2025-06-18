@@ -66,15 +66,11 @@ export function useBaseQuery<T>(
     };
 
     const response = await fetch(url, fetchOptions);
-
-    if (!response.ok) {
-      return Promise.reject(new Error(`API error: ${response.status}`));
-    }
-
     const responseData = await response.json();
-
-    if (responseData?.error) {
-      return Promise.reject(new Error(responseData.error));
+    if (!response.ok) {
+      return Promise.reject(
+        new Error(`API error: ${responseData?.error || response.status}`),
+      );
     }
 
     return responseData as T;
