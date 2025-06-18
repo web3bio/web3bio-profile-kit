@@ -443,33 +443,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.zerion,
-    {
-      color: "#3560E5",
-      icon: "icons/icon-zerion.svg",
-      label: "Zerion",
-      system: PlatformSystem.web3,
-    },
-  ],
-  [
-    Platform.aave,
-    {
-      color: "#9896FF",
-      icon: "icons/icon-aave.svg",
-      label: "AAVE",
-      system: PlatformSystem.web3,
-    },
-  ],
-  [
-    Platform.rainbow,
-    {
-      color: "#000000",
-      icon: "icons/icon-rainbow.svg",
-      label: "Rainbow",
-      system: PlatformSystem.web3,
-    },
-  ],
-  [
     Platform.bluesky,
     {
       color: "#0085ff",
@@ -498,16 +471,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-poap.svg",
       label: "POAP",
       urlPrefix: "https://app.poap.xyz/scan/",
-      system: PlatformSystem.web3,
-    },
-  ],
-  [
-    Platform.uniswap,
-    {
-      color: "#ff007a",
-      icon: "icons/icon-uniswap.svg",
-      label: "Uniswap",
-      urlPrefix: "https://uniswap.org/",
       system: PlatformSystem.web3,
     },
   ],

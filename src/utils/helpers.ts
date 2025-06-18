@@ -100,10 +100,12 @@ export const isSupportedPlatform = (platform?: Platform | null): boolean => {
     Platform.basenames,
     Platform.linea,
     Platform.ethereum,
-    Platform.twitter,
-    Platform.github,
     Platform.farcaster,
     Platform.lens,
+    Platform.twitter,
+    Platform.github,
+    Platform.linkedin,
+    Platform.discord,
     Platform.unstoppableDomains,
     Platform.nextid,
     Platform.dotbit,
@@ -144,7 +146,6 @@ export const detectPlatform = (term: string): Platform => {
     }
   }
 
-  // Default fallback
   return term.includes(".") ? Platform.ens : Platform.farcaster;
 };
 
