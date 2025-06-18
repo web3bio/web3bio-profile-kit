@@ -251,7 +251,7 @@ describe("useBaseQuery", () => {
     global.fetch.mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ error: errorMessage }),
+        json: () => Promise.reject(new Error(errorMessage)),
       }),
     );
 
