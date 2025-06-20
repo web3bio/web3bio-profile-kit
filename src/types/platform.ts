@@ -62,6 +62,7 @@ export enum Platform {
   guild = "guild",
   ton = "ton",
   snapshot = "snapshot",
+  ethos = "ethos",
   coingecko = "coingecko",
   gitcoin = "gitcoin",
   humanpassport = "humanpassport",
