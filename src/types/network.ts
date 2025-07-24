@@ -35,7 +35,6 @@ export enum Network {
   zksync_era = "zksync_era",
   zora = "zora",
   unichain = "unichain",
-
   mantle = "mantle",
   zero = "zero",
   starknet = "starknet",
