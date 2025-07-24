@@ -944,6 +944,16 @@ export const PLATFORM_DATA: ReadonlyMap<
       system: PlatformSystem.web3,
     },
   ],
+  [
+    Platform.ecp,
+    {
+      color: "#000000",
+      icon: "icons/icon-ecp.svg",
+      label: "Ethereum Comments Protocol",
+      registerlink: "https://www.ethcomments.xyz/",
+      system: PlatformSystem.web3,
+    },
+  ],
 ]);
 
 /**
