@@ -28,13 +28,17 @@ export enum Network {
   optimism = "optimism",
   polygon = "polygon",
   scroll = "scroll",
-  snapshot = "snapshot",
   solana = "solana",
   vsl = "vsl",
   xLayer = "x-layer",
   zksync_era = "zksync_era",
   zora = "zora",
   unichain = "unichain",
+  mantle = "mantle",
+  zero = "zero",
+  starknet = "starknet",
+  abstract = "abstract",
+  world = "world",
 }
 
 /**

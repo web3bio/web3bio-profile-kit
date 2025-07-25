@@ -90,6 +90,7 @@ export enum Platform {
   philand = "philand",
   efp = "efp",
   gravity = "gravity",
+  ecp = "ecp",
 }
 
 /**
