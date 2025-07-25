@@ -28,7 +28,6 @@ export enum Network {
   optimism = "optimism",
   polygon = "polygon",
   scroll = "scroll",
-  snapshot = "snapshot",
   solana = "solana",
   vsl = "vsl",
   xLayer = "x-layer",
