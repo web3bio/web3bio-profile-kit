@@ -395,7 +395,7 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
     icon: "icons/icon-world.svg",
     key: Network.world,
     label: "World Chain",
-    primaryColor: "#33312E",
+    primaryColor: "#2D2C2C",
     scanLabel: "World Explorer",
     scanPrefix: "https://worldscan.org/address/",
     scanPrefixTx: "https://worldscan.org/tx/",
