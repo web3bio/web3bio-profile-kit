@@ -91,6 +91,7 @@ export enum Platform {
   efp = "efp",
   gravity = "gravity",
   ecp = "ecp",
+  pumpfun = "pumpfun",
 }
 
 /**
