@@ -81,8 +81,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       web3bio-profile-kit:
-        specifier: ^0.1.7
-        version: 0.1.7(@tanstack/react-query@5.79.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.1.11
+        version: 0.1.11(@tanstack/react-query@5.79.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -5703,8 +5703,8 @@ packages:
   wbuf@1.7.3:
     resolution: {integrity: sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==}
 
-  web3bio-profile-kit@0.1.7:
-    resolution: {integrity: sha512-KFSr22uDIe0Y/bhyHCjsYlWk639EaiSXnSWuuvQmG6jpCmYGHOVoVHRjwLw2+EFp4DBjkVJLypzwzol+Vn307w==}
+  web3bio-profile-kit@0.1.11:
+    resolution: {integrity: sha512-ZEqBqm5rPJo32KbuAD7L7WgOg6l89m25aovmxpn3CY2UdXTQ4/GVJc5tib7jr/JVIgPqcRh3r7e19BaMDpsKYQ==}
     peerDependencies:
       '@tanstack/react-query': ^4.0.0 || ^5.0.0
       react: '>=16.8.0'
@@ -12578,7 +12578,7 @@ snapshots:
     dependencies:
       minimalistic-assert: 1.0.1
 
-  web3bio-profile-kit@0.1.7(@tanstack/react-query@5.79.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  web3bio-profile-kit@0.1.11(@tanstack/react-query@5.79.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@tanstack/react-query': 5.79.2(react@18.3.1)
       react: 18.3.1
