@@ -112,13 +112,17 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "RSS3",
     description: "Open information syndication protocol",
   },
-  [Source.solana]: {
-    name: "Solana",
-    description: "High-performance blockchain",
+  [Source.seekerid]: {
+    name: "Seeker ID",
+    description: "Solana Mobile Identity",
   },
   [Source.sns]: {
     name: "SNS",
     description: "Solana Name Service",
+  },
+  [Source.solana]: {
+    name: "Solana",
+    description: "High-performance blockchain",
   },
   [Source.soundxyz]: {
     name: "Sound.xyz",

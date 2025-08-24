@@ -31,6 +31,7 @@ export enum Source {
   particle = "particle",
   rarible = "rarible",
   rss3 = "rss3",
+  seekerid = "seekerid",
   sns = "sns",
   solana = "solana",
   soundxyz = "soundxyz",
