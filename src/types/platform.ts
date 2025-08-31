@@ -66,6 +66,7 @@ export enum Platform {
   paragraph = "paragraph",
   philand = "philand",
   poap = "poap",
+  polymarket = "polymarket",
   pumpfun = "pumpfun",
   reddit = "reddit",
   scroll = "scroll",

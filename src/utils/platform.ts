@@ -678,6 +678,16 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.polymarket,
+    {
+      color: "#1652f0",
+      icon: "icons/icon-polymarket.svg",
+      label: "Polymarket",
+      urlPrefix: "https://polymarket.com/profile/",
+      system: PlatformSystem.web3,
+    },
+  ],
+  [
     Platform.pumpfun,
     {
       color: "#5fcb87",
