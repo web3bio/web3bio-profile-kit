@@ -606,6 +606,16 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.matters,
+    {
+      color: "#ffffff",
+      icon: "icons/icon-matters.svg",
+      label: "Matters",
+      urlPrefix: "https://matters.news/",
+      system: PlatformSystem.web3,
+    },
+  ],
+  [
     Platform.near,
     {
       color: "#000000",

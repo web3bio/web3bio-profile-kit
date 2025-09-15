@@ -57,6 +57,7 @@ export enum Platform {
   minds = "minds",
   mint = "mint",
   mirror = "mirror",
+  matters = "matters",
   mode = "mode",
   mstdnjp = "mstdnjp",
   near = "near",
