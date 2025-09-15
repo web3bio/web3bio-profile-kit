@@ -22,7 +22,7 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   },
   [Source.dentity]: {
     name: "Dentity",
-    description: "Digital Credentials",
+    description: "Digital credentials",
   },
   [Source.dotbit]: {
     name: ".bit",
@@ -35,6 +35,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ethereum]: {
     name: "Ethereum",
     description: "Ethereum",
+  },
+  [Source.exchange_art]: {
+    name: "Exchange Art",
+    description: "A digital art marketplace",
   },
   [Source.farcaster]: {
     name: "Farcaster",
@@ -76,6 +80,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Linea",
     description: "L2 based on ZK",
   },
+  [Source.metopia]: {
+    name: "Metopia",
+    description: "Web3 identity & learning platform",
+  },
   [Source.mirror]: {
     name: "Mirror",
     description: "Decentralized publishing protocol",
@@ -107,6 +115,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.rarible]: {
     name: "Rarible",
     description: "NFT marketplace",
+  },
+  [Source.rey]: {
+    name: "Rey",
+    description: "The world's attention marketplace",
   },
   [Source.rss3]: {
     name: "RSS3",
@@ -140,6 +152,7 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Tally",
     description: "Launch, manage, and grow the value of your token",
   },
+
   [Source.twitter]: {
     name: "Twitter (X)",
     description: "Twitter (X) social platform",

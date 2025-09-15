@@ -3,7 +3,7 @@
  * @public
  */
 export const REGEX = {
-  ENS: /^.+\.(?:eth|xyz|bio|app|luxe|kred|art|ceo|club|box|uni\.eth|cb\.id)$/i,
+  ENS: /^.+\.(?:eth|xyz|bio|app|luxe|kred|art|ceo|locker|club|box|uni\.eth|cb\.id|gemini\.eth)$/i,
   BASENAMES: /^.+\.base(\.eth)?$/i,
   LINEA: /^.+\.linea(\.eth)?$/i,
   FARCASTER:
