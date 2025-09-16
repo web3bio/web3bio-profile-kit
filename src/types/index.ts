@@ -1,15 +1,8 @@
 // Platform types
-export {
-  Platform,
-  PlatformSystem,
-  type PlatformType
-} from "./platform";
+export { Platform, type PlatformType } from "./platform";
 
 // Network types
-export {
-  Network,
-  type NetworkType
-} from "./network";
+export { Network, type NetworkType } from "./network";
 
 // Hook types and interfaces
 export {
@@ -31,16 +24,11 @@ export {
   type NSBatchResult,
   type ProfileUniversalResult,
   type NSUniversalResult,
-  type DomainResult
+  type DomainResult,
 } from "./hook";
 
 // Source types
-export {
-  Source,
-  type SourceType
-} from "./source";
+export { Source, type SourceType } from "./source";
 
 // Cointype enum
-export {
-  CoinType
-} from "./cointype";
+export { CoinType } from "./cointype";

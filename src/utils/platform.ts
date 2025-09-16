@@ -1,4 +1,4 @@
-import { Platform, PlatformSystem, type PlatformType } from "../types/platform";
+import { Platform, type PlatformType } from "../types/platform";
 
 /**
  * Default data
@@ -13,7 +13,6 @@ export const DEFAULT_PLATFORM: Readonly<PlatformType> = {
   ensText: [],
   registerlink: "",
   editUrlPrefix: "",
-  system: PlatformSystem.web3,
 };
 
 /**
@@ -32,7 +31,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "AILayer Name Service",
       urlPrefix: "https://mainnet-explorer.ailayer.xyz/address/",
       registerlink: "https://space.id/tld/19/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -43,7 +41,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "AlienX Name Service",
       urlPrefix: "https://explorer.alienxchain.io/address/",
       registerlink: "https://space.id/tld/17/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -53,7 +50,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-aptos.svg",
       label: "Aptos",
       urlPrefix: "https://explorer.aptoslabs.com/account/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -64,7 +60,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: ".arb Name Service",
       urlPrefix: "https://arbiscan.io/address/",
       registerlink: "https://space.id/tld/2/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -77,7 +72,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       urlPrefix: "https://www.base.org/name/",
       editUrlPrefix: "https://www.base.org/name/{name}",
       registerlink: "https://www.base.org/names?claim={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -87,7 +81,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-bilibili.svg",
       label: "Bilibili",
       urlPrefix: "https://www.bilibili.com/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -97,7 +90,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-bitcoin.svg",
       label: "Bitcoin",
       urlPrefix: "https://explorer.cloverpool.com/btc/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -108,7 +100,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Bluesky",
       urlPrefix: "https://bsky.app/profile/",
       ensText: ["app.bsky", "bluesky"],
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -118,7 +109,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-box.svg",
       label: "Box",
       registerlink: "https://my.box/buy/configure?domain={name}&ref=web3bio",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -128,7 +118,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-bsc.svg",
       label: "Binance Smart Chain",
       urlPrefix: "https://bscscan.com/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -139,7 +128,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Calendly",
       urlPrefix: "https://calendly.com/",
       ensText: ["calendly", "com.calendly"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -149,7 +137,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-ckb.svg",
       label: "Nervos",
       urlPrefix: "https://explorer.nervos.org/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -160,7 +147,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Clusters",
       urlPrefix: "https://clusters.xyz/",
       registerlink: "https://clusters.xyz/register/{name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -170,7 +156,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-coingecko.svg",
       label: "CoinGecko",
       urlPrefix: "https://www.coingecko.com/en/coins/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -180,7 +165,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-cosmos.svg",
       label: "Cosmos",
       urlPrefix: "https://www.mintscan.io/cosmos/account/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -191,7 +175,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Crossbell",
       urlPrefix: "https://crossbell.io/@",
       registerlink: "https://crossbell.io",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -202,7 +185,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "CyberConnect",
       urlPrefix: "https://link3.to/",
       registerlink: "",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -212,7 +194,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-degenscore.svg",
       label: "DegenScore",
       urlPrefix: "https://degenscore.com/beacon/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -223,7 +204,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Discord",
       urlPrefix: "",
       ensText: ["discord", "com.discord"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -233,7 +213,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-web.svg",
       label: "DNS",
       urlPrefix: "https://",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -243,7 +222,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-doge.svg",
       label: "Dogecoin",
       urlPrefix: "https://dogechain.info/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -254,7 +232,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: ".bit",
       urlPrefix: "https://d.id/",
       registerlink: "https://d.id/bit/account/create/{name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -264,7 +241,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-ecp.svg",
       label: "Ethereum Comments Protocol",
       registerlink: "https://www.ethcomments.xyz/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -275,7 +251,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Edgeless",
       urlPrefix: "https://explorer.edgeless.network/address/",
       registerlink: "",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -285,7 +260,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-efp.svg",
       label: "Ethereum Follow Protocol",
       urlPrefix: "https://ethfollow.xyz/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -298,7 +272,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       urlPrefix: "https://app.ens.domains/",
       registerlink: "https://app.ens.domains/{name}",
       editUrlPrefix: "https://app.ens.domains/{name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -309,7 +282,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Ethereum",
       urlPrefix: "https://etherscan.io/address/",
       editUrlPrefix: "https://app.ens.domains/{name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -320,7 +292,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Facebook",
       urlPrefix: "https://www.facebook.com/",
       ensText: ["com.facebook", "facebook"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -335,7 +306,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       ensText: ["farcaster", "xyz.farcaster"],
       registerlink:
         "https://farcaster.xyz/~/invite-page/1000?id=8ebad588&name={name}",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -345,7 +315,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-firefly.svg",
       label: "Firefly",
       urlPrefix: "https://firefly.social/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -356,7 +325,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Genome",
       urlPrefix: "https://genomedomains.com/name/",
       registerlink: "https://space.id/tld/14/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -367,7 +335,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "GitHub",
       urlPrefix: "https://github.com/",
       ensText: ["com.github", "vnd.github", "github"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -377,7 +344,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-gitcoin.svg",
       label: "Gitcoin Passport",
       urlPrefix: "https://passport.gitcoin.co/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -387,7 +353,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-gnosis.svg",
       label: "Gnosis",
       urlPrefix: "https://gnosisscan.io/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -397,7 +362,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-gravity.svg",
       label: "Gravity Name Service",
       registerlink: "https://space.id/tld/23/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -407,7 +371,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-guild.svg",
       label: "Guild",
       urlPrefix: "https://guild.xyz/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -417,7 +380,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-hackernews.svg",
       label: "Hacker News",
       urlPrefix: "https://news.ycombinator.com/user?id=",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -427,7 +389,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-hey.svg",
       label: "Hey",
       urlPrefix: "https://hey.xyz/u/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -437,7 +398,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-humanpassport.svg",
       label: "Human Passport",
       urlPrefix: "https://passport.human.tech/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -448,7 +408,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Instagram",
       urlPrefix: "https://www.instagram.com/",
       ensText: ["com.instagram", "instagram"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -459,7 +418,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Keybase",
       urlPrefix: "https://keybase.io/",
       ensText: ["io.keybase", "keybase"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -473,7 +431,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       editUrlPrefix: "https://hey.xyz/settings",
       ensText: ["lens"],
       registerlink: "https://www.lens.xyz/mint?name={name}",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -484,7 +441,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "LightLink Name Service",
       urlPrefix: "https://phoenix.lightlink.io/address/",
       registerlink: "https://space.id/tld/9/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -497,7 +453,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       urlPrefix: "https://names.linea.build/",
       editUrlPrefix: "https://names.linea.build/{name}",
       registerlink: "https://names.linea.build/{name}/register",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -508,7 +463,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "LinkedIn",
       urlPrefix: "https://www.linkedin.com/in/",
       ensText: ["com.linkedin", "linkedin"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -518,7 +472,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-lobsters.svg",
       label: "Lobsters",
       urlPrefix: "https://lobste.rs/~",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -529,7 +482,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Manta Name Service",
       urlPrefix: "https://pacific-explorer.manta.network/address/",
       registerlink: "https://space.id/tld/3/domains?query={name}",
-      system: PlatformSystem.web3,
+    },
+  ],
+  [
+    Platform.matters,
+    {
+      color: "#000000",
+      icon: "icons/icon-matters.svg",
+      label: "Matters",
+      urlPrefix: "https://matters.town/",
     },
   ],
   [
@@ -539,7 +500,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-medium.svg",
       label: "Medium",
       urlPrefix: "https://medium.com/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -550,7 +510,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Merlin Name Service",
       urlPrefix: "https://scan.merlinchain.io/address/",
       registerlink: "https://space.id/tld/12/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -560,7 +519,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-minds.svg",
       label: "Minds",
       urlPrefix: "https://www.minds.com/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -571,7 +529,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Mint Name Service",
       urlPrefix: "https://explorer.mintchain.io/address/",
       registerlink: "https://space.id/tld/18/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -582,7 +539,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Mode Name Service",
       urlPrefix: "https://explorer.mode.network/address/",
       registerlink: "https://space.id/tld/6/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -592,7 +548,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-mastodon.svg",
       label: "mstdn.jp",
       urlPrefix: "https://mstdn.jp/@",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -602,7 +557,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-mirror.svg",
       label: "Mirror",
       urlPrefix: "https://mirror.xyz/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -613,7 +567,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "NEAR Protocol",
       urlPrefix: "https://nearblocks.io/address/",
       registerlink: "https://app.mynearwallet.com/create/?name={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -623,7 +576,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-nextid.svg",
       label: "Next.ID",
       urlPrefix: "https://web3.bio/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -634,7 +586,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Nostr",
       urlPrefix: "https://app.coracle.social/",
       ensText: ["nostr"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -644,7 +595,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-opensea.svg",
       label: "OpenSea",
       urlPrefix: "https://opensea.io/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -654,7 +604,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-paragraph.svg",
       label: "Paragraph",
       urlPrefix: "https://paragraph.xyz/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -664,7 +613,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-phi.svg",
       label: "Phi",
       urlPrefix: "https://land.philand.xyz/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -674,7 +622,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-poap.svg",
       label: "POAP",
       urlPrefix: "https://app.poap.xyz/scan/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -684,7 +631,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-polymarket.svg",
       label: "Polymarket",
       urlPrefix: "https://polymarket.com/profile/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -694,7 +640,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-pumpfun.svg",
       label: "Pump.fun",
       urlPrefix: "https://pump.fun/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -705,7 +650,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Reddit",
       urlPrefix: "https://www.reddit.com/user/",
       ensText: ["com.reddit"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -715,7 +659,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-scroll.svg",
       label: "Scroll",
       urlPrefix: "https://scrollscan.com/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -724,7 +667,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       color: "#898cff",
       icon: "icons/icon-solana.svg",
       label: "Seeker ID",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -734,7 +676,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-snapshot.svg",
       label: "Snapshot",
       urlPrefix: "https://snapshot.org/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -747,7 +688,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       urlPrefix: "https://www.sns.id/search?search=",
       registerlink: "https://www.sns.id/search?search={name}",
       editUrlPrefix: "https://www.sns.id/domain?domain={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -758,7 +698,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Solana",
       urlPrefix: "https://solscan.io/address/",
       editUrlPrefix: "https://www.sns.id/domain?domain={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -769,7 +708,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "SPACE ID",
       registerlink: "https://space.id/search?query={name}",
       urlPrefix: "https://web3.bio/?s=",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -779,7 +717,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-stacks.svg",
       label: "Stacks",
       urlPrefix: "https://explorer.hiro.so/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -790,7 +727,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "DotTaiko Name Service",
       urlPrefix: "https://taikoscan.io/address/",
       registerlink: "https://space.id/tld/16/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -800,7 +736,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-talent.svg",
       label: "Talent",
       urlPrefix: "https://app.talentprotocol.com/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -811,7 +746,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Telegram",
       urlPrefix: "https://t.me/",
       ensText: ["org.telegram", "vnd.telegram", "telegram"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -821,7 +755,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-threads.svg",
       label: "Threads",
       urlPrefix: "https://www.threads.net/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -831,7 +764,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-tiktok.svg",
       label: "TikTok",
       urlPrefix: "https://www.tiktok.com/@",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -841,7 +773,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-tomo.svg",
       label: "Tomo Name Service",
       registerlink: "https://space.id/tld/10/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -851,7 +782,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-ton.svg",
       label: "TON",
       urlPrefix: "https://tonscan.org/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -861,7 +791,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-tron.svg",
       label: "Tron",
       urlPrefix: "https://tronscan.org/#/address/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -872,7 +801,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Twitter (X)",
       urlPrefix: "https://x.com/",
       ensText: ["com.twitter", "com.x", "vnd.twitter", "twitter"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -886,7 +814,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       urlPrefix: "https://web3.bio/",
       editUrlPrefix: "https://unstoppabledomains.com/d/{name}",
       registerlink: "https://unstoppabledomains.com/search?searchTerm={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -896,7 +823,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-web.svg",
       label: "Website",
       urlPrefix: "",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -906,7 +832,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-v2ex.svg",
       label: "V2EX",
       urlPrefix: "https://v2ex.com/member/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -916,7 +841,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-webacy.svg",
       label: "Webacy",
       urlPrefix: "https://dapp.webacy.com/",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -927,7 +851,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Website",
       urlPrefix: "",
       ensText: ["url", "website"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -936,7 +859,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       color: "#df2029",
       label: "Weibo",
       urlPrefix: "https://weibo.com/",
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -947,7 +869,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "WhatsApp",
       urlPrefix: "https://wa.me/",
       ensText: ["com.whatsapp", "whatsapp"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -958,7 +879,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Youtube",
       urlPrefix: "https://www.youtube.com/",
       ensText: ["com.youtube", "youtube"],
-      system: PlatformSystem.web2,
     },
   ],
   [
@@ -969,7 +889,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Zeta Name Service",
       urlPrefix: "https://explorer.zetachain.com/address/",
       registerlink: "https://space.id/tld/11/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -980,7 +899,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "zkFair",
       urlPrefix: "https://scan.zkfair.io/address/",
       registerlink: "https://space.id/tld/8/domains?query={name}",
-      system: PlatformSystem.web3,
     },
   ],
   [
@@ -990,7 +908,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-zora.svg",
       label: "Zora",
       urlPrefix: "https://zora.co/@",
-      system: PlatformSystem.web3,
     },
   ],
 ]);

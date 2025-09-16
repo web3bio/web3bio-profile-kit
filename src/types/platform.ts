@@ -52,6 +52,7 @@ export enum Platform {
   linea = "linea",
   lobsters = "lobsters",
   manta = "manta",
+  matters = "matters",
   medium = "medium",
   merlin = "merlin",
   minds = "minds",
@@ -112,16 +113,4 @@ export interface PlatformType {
   ensText?: string[];
   registerlink?: string;
   editUrlPrefix?: string;
-  system: PlatformSystem;
-}
-
-/**
- * Platform system classification
- * @public
- */
-export enum PlatformSystem {
-  /** Traditional web platforms */
-  web2 = 0,
-  /** Blockchain/decentralized platforms */
-  web3 = 1,
 }

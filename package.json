@@ -1,6 +1,6 @@
 {
   "name": "web3bio-profile-kit",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "React hooks for querying ENS, Farcaster, Lens and Web3 universal profiles",
   "author": "web3bio",
   "license": "MIT",
