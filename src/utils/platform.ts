@@ -485,6 +485,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.matters,
+    {
+      color: "#000000",
+      icon: "icons/icon-matters.svg",
+      label: "Matters",
+      urlPrefix: "https://matters.town/",
+    },
+  ],
+  [
     Platform.medium,
     {
       color: "#000000",
@@ -548,15 +557,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-mirror.svg",
       label: "Mirror",
       urlPrefix: "https://mirror.xyz/",
-    },
-  ],
-  [
-    Platform.matters,
-    {
-      color: "#ffffff",
-      icon: "icons/icon-matters.svg",
-      label: "Matters",
-      urlPrefix: "https://matters.news/",
     },
   ],
   [
