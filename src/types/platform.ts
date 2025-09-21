@@ -21,6 +21,7 @@ export enum Platform {
   cosmos = "cosmos",
   crossbell = "crossbell",
   cyberconnect = "cyberconnect",
+  deepdao = "deepdao",
   degenscore = "degenscore",
   discord = "discord",
   doge = "doge",

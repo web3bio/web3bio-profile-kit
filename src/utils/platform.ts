@@ -184,7 +184,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-cyberconnect.svg",
       label: "CyberConnect",
       urlPrefix: "https://link3.to/",
-      registerlink: "",
+    },
+  ],
+  [
+    Platform.deepdao,
+    {
+      color: "#337bff",
+      icon: "icons/icon-deepdao.svg",
+      label: "DeepDAO",
+      urlPrefix: "https://deepdao.io/user/",
     },
   ],
   [
