@@ -168,16 +168,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.crossbell,
-    {
-      color: "#FFCF55",
-      icon: "icons/icon-crossbell.svg",
-      label: "Crossbell",
-      urlPrefix: "https://crossbell.io/@",
-      registerlink: "https://crossbell.io",
-    },
-  ],
-  [
     Platform.cyberconnect,
     {
       color: "#000000",
@@ -416,6 +406,16 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Instagram",
       urlPrefix: "https://www.instagram.com/",
       ensText: ["com.instagram", "instagram"],
+    },
+  ],
+  [
+    Platform.interface,
+    {
+      color: "#000000",
+      icon: "icons/icon-interface.svg",
+      label: "Interface",
+      urlPrefix: "https://app.interface.social/",
+      ensText: ["interface"],
     },
   ],
   [
@@ -812,6 +812,14 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.uniswap,
+    {
+      color: "#F50DB4",
+      icon: "icons/icon-uniswap.svg",
+      label: "Uniswap",
+    },
+  ],
+  [
     Platform.unstoppableDomains,
     {
       color: "#2E65F5",
@@ -865,6 +873,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     Platform.weibo,
     {
       color: "#df2029",
+      icon: "icons/icon-weibo.svg",
       label: "Weibo",
       urlPrefix: "https://weibo.com/",
     },
@@ -877,6 +886,14 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "WhatsApp",
       urlPrefix: "https://wa.me/",
       ensText: ["com.whatsapp", "whatsapp"],
+    },
+  ],
+  [
+    Platform.world,
+    {
+      color: "#2d2d2c",
+      icon: "icons/icon-world.svg",
+      label: "World",
     },
   ],
   [
