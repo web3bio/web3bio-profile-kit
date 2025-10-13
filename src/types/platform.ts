@@ -43,6 +43,7 @@ export enum Platform {
   guild = "guild",
   hackernews = "hackernews",
   hey = "hey",
+  humanode = "humanode",
   humanpassport = "humanpassport",
   instagram = "instagram",
   interface = "interface",
@@ -73,6 +74,7 @@ export enum Platform {
   reddit = "reddit",
   scroll = "scroll",
   seekerid = "seekerid",
+  self_xyz = "self_xyz",
   sns = "sns",
   snapshot = "snapshot",
   solana = "solana",
@@ -95,10 +97,11 @@ export enum Platform {
   website = "website",
   weibo = "weibo",
   whatsapp = "whatsapp",
-  world = "world",
+  world_id = "world_id",
   youtube = "youtube",
   zeta = "zeta",
   zkfair = "zkfair",
+  zkme = "zkme",
   zora = "zora",
 }
 

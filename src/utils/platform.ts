@@ -390,6 +390,14 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.humanode,
+    {
+      color: "#ED583A",
+      icon: "icons/icon-humanode.svg",
+      label: "Humanode",
+    },
+  ],
+  [
     Platform.humanpassport,
     {
       color: "#006b57",
@@ -678,6 +686,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.self_xyz,
+    {
+      color: "#000000",
+      icon: "icons/icon-self.svg",
+      label: "Self",
+      urlPrefix: "https://self.xyz/",
+    },
+  ],
+  [
     Platform.snapshot,
     {
       color: "#ffb503",
@@ -889,7 +906,7 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.world,
+    Platform.world_id,
     {
       color: "#2d2d2c",
       icon: "icons/icon-world.svg",
@@ -924,6 +941,14 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "zkFair",
       urlPrefix: "https://scan.zkfair.io/address/",
       registerlink: "https://space.id/tld/8/domains?query={name}",
+    },
+  ],
+  [
+    Platform.zkme,
+    {
+      color: "#005563",
+      icon: "icons/icon-zkme.svg",
+      label: "zkMe",
     },
   ],
   [
