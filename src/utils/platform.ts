@@ -242,15 +242,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.ethos,
-    {
-      color: "#232320",
-      icon: "icons/icon-ethos.svg",
-      label: "Ethos",
-      urlPrefix: "https://app.ethos.network/",
-    },
-  ],
-  [
     Platform.edgeless,
     {
       color: "#a0eb67",
@@ -289,6 +280,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Ethereum",
       urlPrefix: "https://etherscan.io/address/",
       editUrlPrefix: "https://app.ens.domains/{name}",
+    },
+  ],
+  [
+    Platform.ethos,
+    {
+      color: "#1F2125",
+      icon: "icons/icon-ethos.svg",
+      label: "Ethos",
+      urlPrefix: "https://app.ethos.network/",
     },
   ],
   [
