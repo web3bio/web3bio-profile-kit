@@ -283,6 +283,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.ethos,
+    {
+      color: "#1F2125",
+      icon: "icons/icon-ethos.svg",
+      label: "Ethos",
+      urlPrefix: "https://app.ethos.network/",
+    },
+  ],
+  [
     Platform.facebook,
     {
       color: "#385898",
