@@ -84,6 +84,14 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.binance,
+    {
+      color: "#FCD535",
+      icon: "icons/icon-binance.svg",
+      label: "Binance",
+    },
+  ],
+  [
     Platform.bitcoin,
     {
       color: "#F7931A",
@@ -150,6 +158,14 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.coinbase,
+    {
+      color: "#2151F6",
+      icon: "icons/icon-coinbase.svg",
+      label: "Coinbase",
+    },
+  ],
+  [
     Platform.coingecko,
     {
       color: "#4BCC00",
@@ -191,7 +207,14 @@ export const PLATFORM_DATA: ReadonlyMap<
       color: "#a855f7",
       icon: "icons/icon-degenscore.svg",
       label: "DegenScore",
-      urlPrefix: "https://degenscore.com/beacon/",
+    },
+  ],
+  [
+    Platform.dentity,
+    {
+      color: "#030712",
+      icon: "icons/icon-dentity.svg",
+      label: "Dentity",
     },
   ],
   [
@@ -248,7 +271,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-edgeless.svg",
       label: "Edgeless",
       urlPrefix: "https://explorer.edgeless.network/address/",
-      registerlink: "",
     },
   ],
   [
@@ -322,6 +344,14 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-firefly.svg",
       label: "Firefly",
       urlPrefix: "https://firefly.social/",
+    },
+  ],
+  [
+    Platform.galxe,
+    {
+      color: "#492BFF",
+      icon: "icons/icon-galxe.svg",
+      label: "Galxe",
     },
   ],
   [
