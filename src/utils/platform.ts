@@ -326,7 +326,7 @@ export const PLATFORM_DATA: ReadonlyMap<
   [
     Platform.farcaster,
     {
-      color: "#432C8D",
+      color: "#6a3cff",
       icon: "icons/icon-farcaster.svg",
       label: "Farcaster",
       description: "Farcaster social identity (Fname handle)",
