@@ -38,4 +38,5 @@ export type {
   CredentialsCategory,
   CredentialsData,
   CredentialsResponse,
+  CredentialsType,
 } from "./credentials";
