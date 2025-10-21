@@ -34,9 +34,9 @@ export { Source, type SourceType } from "./source";
 export { CoinType } from "./cointype";
 
 // Credentials interfaces
-export type {
-  CredentialsCategory,
-  CredentialsData,
-  CredentialsResponse,
+export {
+  type CredentialsData,
+  type CredentialsResponse,
   CredentialsType,
+  CredentialsCategory,
 } from "./credentials";
