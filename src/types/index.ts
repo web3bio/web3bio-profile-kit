@@ -32,3 +32,10 @@ export { Source, type SourceType } from "./source";
 
 // Cointype enum
 export { CoinType } from "./cointype";
+
+// Credentials interfaces
+export type {
+  CredentialsCategory,
+  CredentialsData,
+  CredentialsResponse,
+} from "./credentials";
