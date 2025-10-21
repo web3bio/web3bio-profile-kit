@@ -24,7 +24,6 @@ export interface CredentialsMetaData {
   description: string;
   label: string;
   icon: string;
-  link: string;
 }
 
 export interface CredentialsData extends CredentialsMetaData {
@@ -34,6 +33,7 @@ export interface CredentialsData extends CredentialsMetaData {
   type: string;
   value: string;
   updatedAt: number;
+  link: string;
 }
 
 export interface CredentialsResponse {
