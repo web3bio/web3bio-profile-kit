@@ -18,17 +18,21 @@ export enum CredentialsType {
   // isSpam
   warpcast = "warpcast",
 }
-export interface CredentialsData {
+
+export interface CredentialsMetaData {
+  platform: Platform;
+  description: string;
+  label: string;
+  icon: string;
+  link: string;
+  updatedAt: number;
+}
+
+export interface CredentialsData extends CredentialsMetaData {
   category: CredentialsCategory;
   dataSource: CredentialsType;
-  platform: Platform;
   type: string;
   value: string;
-  updatedAt: string;
-  description?: string;
-  label?: string;
-  icon?: string;
-  link?: string;
 }
 
 export interface CredentialsResponse {

@@ -37,6 +37,7 @@ export { CoinType } from "./cointype";
 export {
   type CredentialsData,
   type CredentialsResponse,
+  type CredentialsMetaData,
   CredentialsType,
   CredentialsCategory,
 } from "./credentials";
