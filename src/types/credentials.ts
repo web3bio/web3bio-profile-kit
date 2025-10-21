@@ -28,6 +28,7 @@ export interface CredentialsMetaData {
 }
 
 export interface CredentialsData extends CredentialsMetaData {
+  id: string;
   category: CredentialsCategory;
   dataSource: CredentialsType;
   type: string;
