@@ -1,12 +1,12 @@
 import { Platform } from "./platform";
 
-export enum CredentialsCategory {
+export enum CredentialCategory {
   isHuman = "isHuman",
   isRisky = "isRisky",
   isSpam = "isSpam",
 }
 
-export enum CredentialsType {
+export enum CredentialSource {
   // isHuman
   talent = "talent",
   binance = "binance",
@@ -27,17 +27,17 @@ export enum CredentialsType {
   warpcast = "warpcast",
 }
 
-export interface CredentialsMetaData {
+export interface CredentialMetaData {
   platform?: Platform;
   description: string;
   label: string;
   icon: string;
 }
 
-export interface CredentialsData extends CredentialsMetaData {
+export interface CredentialData extends CredentialMetaData {
   id: string;
-  category: CredentialsCategory;
-  dataSource: CredentialsType;
+  category: CredentialCategory;
+  dataSource: CredentialSource;
   type: string;
   value: string;
   updatedAt: number | null;
@@ -45,8 +45,8 @@ export interface CredentialsData extends CredentialsMetaData {
   link: string | null;
 }
 
-export interface CredentialsResponse {
-  [CredentialsCategory.isHuman]: CredentialsData | null;
-  [CredentialsCategory.isRisky]: CredentialsData | null;
-  [CredentialsCategory.isSpam]: CredentialsData | null;
+export interface CredentialResponse {
+  [CredentialCategory.isHuman]: CredentialData[] | null;
+  [CredentialCategory.isRisky]: CredentialData[] | null;
+  [CredentialCategory.isSpam]: CredentialData[] | null;
 }

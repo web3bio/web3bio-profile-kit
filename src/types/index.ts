@@ -35,9 +35,9 @@ export { CoinType } from "./cointype";
 
 // Credentials interfaces
 export {
-  type CredentialsData,
-  type CredentialsResponse,
-  type CredentialsMetaData,
-  CredentialsType,
-  CredentialsCategory,
-} from "./credentials";
+  type CredentialData,
+  type CredentialResponse,
+  type CredentialMetaData,
+  CredentialSource,
+  CredentialCategory,
+} from "./ceredential";
