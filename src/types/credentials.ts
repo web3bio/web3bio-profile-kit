@@ -32,8 +32,9 @@ export interface CredentialsData extends CredentialsMetaData {
   dataSource: CredentialsType;
   type: string;
   value: string;
-  updatedAt: number;
-  link: string;
+  updatedAt: number | null;
+  expiredAt: number | null;
+  link: string | null;
 }
 
 export interface CredentialsResponse {

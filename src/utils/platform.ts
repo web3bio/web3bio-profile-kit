@@ -343,7 +343,7 @@ export const PLATFORM_DATA: ReadonlyMap<
       color: "#1A183D",
       icon: "icons/icon-firefly.svg",
       label: "Firefly",
-      urlPrefix: "https://firefly.social/",
+      urlPrefix: "https://firefly.social/profile/",
     },
   ],
   [
