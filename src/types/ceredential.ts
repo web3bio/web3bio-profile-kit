@@ -23,6 +23,7 @@ export enum CredentialSource {
   hacker = "hacker",
   hacked = "hacked",
   dmca = "dmca",
+  google = "google",
   // isSpam
   warpcast = "warpcast",
 }
