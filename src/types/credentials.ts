@@ -28,7 +28,7 @@ export enum CredentialsType {
 }
 
 export interface CredentialsMetaData {
-  platform: Platform;
+  platform?: Platform;
   description: string;
   label: string;
   icon: string;
