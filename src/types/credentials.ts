@@ -8,9 +8,17 @@ export enum CredentialsCategory {
 
 export enum CredentialsType {
   // isHuman
-  dentity = "dentity",
   talent = "talent",
-  human = "human",
+  binance = "binance",
+  coinbase = "coinbase",
+  farcasterPro = "farcaster-pro",
+  galxePassport = "galxe-passport",
+  world_id = "world_id",
+  humanPassport = "human-passport",
+  zkme = "zkme",
+  humanode = "humanode",
+  self_xyz = "self_xyz",
+  dentity = "dentity",
   // isRisky
   hacker = "hacker",
   hacked = "hacked",
