@@ -53,4 +53,5 @@ export enum Source {
 export interface SourceType {
   name: string;
   description: string;
+  icon?: string;
 }
