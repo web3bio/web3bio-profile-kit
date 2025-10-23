@@ -137,7 +137,8 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
-  if (/\.(farcaster\.eth|farcaster)$/.test(term)) return Platform.farcaster;
+  if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
+    return Platform.farcaster;
 
   for (const [regex, Platform] of platformMap) {
     if (regex.test(term)) {
