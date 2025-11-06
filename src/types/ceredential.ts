@@ -24,7 +24,7 @@ export enum CredentialSource {
   hacked = "hacked",
   dmca = "dmca",
   // isSpam
-  ["farcaster-spam"] = "farcaster-spam",
+  farcasterSpam = "farcaster-spam",
 }
 
 export interface CredentialMetaData {
