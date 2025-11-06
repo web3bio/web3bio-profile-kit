@@ -23,9 +23,8 @@ export enum CredentialSource {
   hacker = "hacker",
   hacked = "hacked",
   dmca = "dmca",
-  google = "google",
   // isSpam
-  warpcast = "warpcast",
+  ["farcaster-spam"] = "farcaster-spam",
 }
 
 export interface CredentialMetaData {
