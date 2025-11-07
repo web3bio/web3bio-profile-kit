@@ -221,3 +221,46 @@ export const isValidEthereumAddress = (address: string): boolean => {
 export const isValidSolanaAddress = (address: string): boolean => {
   return REGEX.SOLANA_ADDRESS.test(address);
 };
+
+/**
+ * Converts an identity string to a JSON object with platform and identity
+ * @param input The identity to convert
+ * @returns An object with platform and identity, or null if invalid
+ *
+ * @example
+ * idToJson("ens,sujiyan.eth") // { platform: "ens", identity: "sujiyan.eth" }
+ * idToJson("suji.farcaster") // { platform: "farcaster", identity: "suji" }
+ * idToJson("suji.base") // { platform: "basenames", identity: "suji.base.eth" }
+ */
+export const idToJson = (
+  input: string,
+): { platform: Platform; identity: string } | null => {
+  if (!input) return null;
+
+  const parts = input.split(",");
+
+  let platform: Platform;
+  let identity: string;
+
+  if (parts.length === 2) {
+    platform = parts[0] as Platform;
+    identity = prettify(parts[1]);
+  } else if (parts.length === 1) {
+    platform = detectPlatform(input);
+    identity = prettify(input);
+  } else {
+    return null;
+  }
+
+  if (!isSupportedPlatform(platform) || !identity) return null;
+
+  // Normalize case except for case-sensitive identities
+  const normalizedIdentity = REGEX.LOWERCASE_EXEMPT.test(identity)
+    ? identity
+    : identity.toLowerCase();
+
+  return {
+    platform,
+    identity: normalizedIdentity,
+  };
+};

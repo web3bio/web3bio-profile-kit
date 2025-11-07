@@ -33,7 +33,7 @@ export { Source, type SourceType } from "./source";
 // Cointype enum
 export { CoinType } from "./cointype";
 
-// Credentials interfaces
+// Credential interfaces
 export {
   type CredentialData,
   type CredentialResponse,
