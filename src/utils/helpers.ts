@@ -235,32 +235,11 @@ export const isValidSolanaAddress = (address: string): boolean => {
 export const idToJson = (
   input: string,
 ): { platform: Platform; identity: string } | null => {
-  if (!input) return null;
-
-  const parts = input.split(",");
-
-  let platform: Platform;
-  let identity: string;
-
-  if (parts.length === 2) {
-    platform = parts[0] as Platform;
-    identity = prettify(parts[1]);
-  } else if (parts.length === 1) {
-    platform = detectPlatform(input);
-    identity = prettify(input);
-  } else {
-    return null;
-  }
-
-  if (!isSupportedPlatform(platform) || !identity) return null;
-
-  // Normalize case except for case-sensitive identities
-  const normalizedIdentity = REGEX.LOWERCASE_EXEMPT.test(identity)
-    ? identity
-    : identity.toLowerCase();
-
+  const id = resolveIdentity(input);
+  if (!id) return null;
+  const [_platform, _idenitty] = id.split(",");
   return {
-    platform,
-    identity: normalizedIdentity,
+    platform: _platform as Platform,
+    identity: _idenitty,
   };
 };
