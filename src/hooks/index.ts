@@ -6,3 +6,4 @@ export { useBatchProfile } from "./useBatchProfile";
 export { useBatchNS } from "./useBatchNS";
 export { useDomain } from "./useDomain";
 export { useBaseQuery } from "./useBaseQuery";
+export { useCredential } from "./useCredential";

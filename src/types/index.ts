@@ -19,6 +19,7 @@ export {
   type IdentityString,
   type QueryResult,
   type ProfileResult,
+  type CredentialResult,
   type NSResult,
   type ProfileBatchResult,
   type NSBatchResult,
