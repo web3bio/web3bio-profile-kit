@@ -31,6 +31,7 @@ export enum Source {
   opensea = "opensea",
   paragraph = "paragraph",
   particle = "particle",
+  polymarket = "polymarket",
   rarible = "rarible",
   rey = "rey",
   rss3 = "rss3",
