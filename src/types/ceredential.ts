@@ -27,26 +27,22 @@ export enum CredentialSource {
   farcasterSpam = "farcaster-spam",
 }
 
-export interface CredentialMetaData {
-  platform?: Platform;
-  description: string;
-  label: string;
-  icon: string;
-}
-
-export interface CredentialData extends CredentialMetaData {
+export interface CredentialType {
   id: string;
+  platform: Platform;
   category: CredentialCategory;
-  dataSource: CredentialSource;
-  type: string;
-  value: string;
+  credentialSource: CredentialSource;
+  credentialType: string;
+  credentialValue: string;
+  label: string;
+  description: string;
+  link: string | null;
   updatedAt: number | null;
   expiredAt: number | null;
-  link: string | null;
 }
 
 export interface CredentialResponse {
-  [CredentialCategory.isHuman]: CredentialData[] | null;
-  [CredentialCategory.isRisky]: CredentialData[] | null;
-  [CredentialCategory.isSpam]: CredentialData[] | null;
+  [CredentialCategory.isHuman]: CredentialType[] | null;
+  [CredentialCategory.isRisky]: CredentialType[] | null;
+  [CredentialCategory.isSpam]: CredentialType[] | null;
 }

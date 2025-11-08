@@ -803,6 +803,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.tally,
+    {
+      color: "#735BFF",
+      icon: "icons/icon-tally.svg",
+      label: "Tally",
+      urlPrefix: "https://www.tally.xyz/profile/",
+    },
+  ],
+  [
     Platform.telegram,
     {
       color: "#0088cc",

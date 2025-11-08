@@ -196,7 +196,7 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.twitter]: {
     name: "Twitter (X)",
     description: "Twitter (X) social platform",
-    icon: "icons/icon-twitter.svg",
+    icon: "icons/icon-x.svg",
   },
   [Source.unstoppabledomains]: {
     name: "Unstoppable Domains",
