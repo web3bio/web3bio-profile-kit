@@ -19,6 +19,7 @@ export {
   type IdentityString,
   type QueryResult,
   type ProfileResult,
+  type CredentialResult,
   type NSResult,
   type ProfileBatchResult,
   type NSBatchResult,
@@ -33,11 +34,10 @@ export { Source, type SourceType } from "./source";
 // Cointype enum
 export { CoinType } from "./cointype";
 
-// Credentials interfaces
+// Credential interfaces
 export {
-  type CredentialData,
+  type CredentialType,
   type CredentialResponse,
-  type CredentialMetaData,
   CredentialSource,
   CredentialCategory,
 } from "./ceredential";

@@ -1,3 +1,4 @@
+import { CredentialResponse } from "./ceredential";
 import type { Network } from "./network";
 import type { Platform } from "./platform";
 import type { Source } from "./source";
@@ -36,6 +37,8 @@ export enum QueryEndpoint {
   PROFILE = "profile",
   /** Domain information endpoint */
   DOMAIN = "domain",
+  /** Credential information endpoint */
+  CREDENTIAL = "credential",
 }
 
 /**
@@ -208,3 +211,4 @@ export type NSBatchResult = QueryResult<NSResponse[]>;
 export type ProfileUniversalResult = QueryResult<ProfileResponse[]>;
 export type NSUniversalResult = QueryResult<NSResponse[]>;
 export type DomainResult = QueryResult<DomainResponse>;
+export type CredentialResult = QueryResult<CredentialResponse>;

@@ -6,6 +6,7 @@ export { SOURCE_DATA, getSource } from "./source";
 
 export {
   resolveIdentity,
+  idToJson,
   prettify,
   uglify,
   isSupportedPlatform,

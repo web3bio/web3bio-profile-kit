@@ -221,3 +221,25 @@ export const isValidEthereumAddress = (address: string): boolean => {
 export const isValidSolanaAddress = (address: string): boolean => {
   return REGEX.SOLANA_ADDRESS.test(address);
 };
+
+/**
+ * Converts an identity string to a JSON object with platform and identity
+ * @param input The identity to convert
+ * @returns An object with platform and identity, or null if invalid
+ *
+ * @example
+ * idToJson("ens,sujiyan.eth") // { platform: "ens", identity: "sujiyan.eth" }
+ * idToJson("suji.farcaster") // { platform: "farcaster", identity: "suji" }
+ * idToJson("suji.base") // { platform: "basenames", identity: "suji.base.eth" }
+ */
+export const idToJson = (
+  input: string,
+): { platform: Platform; identity: string } | null => {
+  const id = resolveIdentity(input);
+  if (!id) return null;
+  const [_platform, _idenitty] = id.split(",");
+  return {
+    platform: _platform as Platform,
+    identity: _idenitty,
+  };
+};

@@ -28,7 +28,7 @@ const buildApiUrl = (
   const resolvedId = resolveIdentity(identity);
   if (!resolvedId) return null;
 
-  if (endpoint === QueryEndpoint.DOMAIN) {
+  if ([QueryEndpoint.DOMAIN, QueryEndpoint.CREDENTIAL].includes(endpoint)) {
     return `${PROD_API_ENDPOINT}/${endpoint}/${resolvedId}`;
   }
 
