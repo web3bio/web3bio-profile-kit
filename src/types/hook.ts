@@ -1,4 +1,4 @@
-import { CredentialResponse } from "./ceredential";
+import { CredentialResponse } from "./credential";
 import type { Network } from "./network";
 import type { Platform } from "./platform";
 import type { Source } from "./source";

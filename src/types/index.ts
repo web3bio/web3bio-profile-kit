@@ -40,4 +40,4 @@ export {
   type CredentialResponse,
   CredentialSource,
   CredentialCategory,
-} from "./ceredential";
+} from "./credential";
