@@ -6,4 +6,5 @@ export {
   useBatchProfile,
   useBatchNS,
   useDomain,
+  useCredential,
 } from "./hooks";
