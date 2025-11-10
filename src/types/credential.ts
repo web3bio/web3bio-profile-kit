@@ -32,8 +32,8 @@ export interface CredentialType {
   platform: Platform;
   category: CredentialCategory;
   credentialSource: CredentialSource;
-  credentialType: string;
-  credentialValue: string;
+  type: string;
+  value: string;
   label: string;
   description: string;
   link: string | null;
