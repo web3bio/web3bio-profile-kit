@@ -51,7 +51,7 @@ export type AddressRecord = {
   /** Network identifier */
   network: Network;
   /** isPrimary identifier */
-  isPriamry: Boolean;
+  isPrimary: boolean;
   /** Type identifier */
   __typename: "Address";
 };
