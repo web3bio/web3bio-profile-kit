@@ -1,4 +1,5 @@
 import { Platform } from "../types";
+import { PLATFORM_DATA } from "./platform";
 import { REGEX } from "./regex";
 
 export const PROD_API_ENDPOINT = "https://api.web3.bio";
@@ -104,8 +105,15 @@ export const isSupportedPlatform = (platform?: Platform | null): boolean => {
     Platform.lens,
     Platform.twitter,
     Platform.github,
-    Platform.linkedin,
     Platform.discord,
+    Platform.linkedin,
+    Platform.instagram,
+    Platform.reddit,
+    Platform.facebook,
+    Platform.telegram,
+    Platform.keybase,
+    Platform.nostr,
+    Platform.bluesky,
     Platform.unstoppableDomains,
     Platform.nextid,
     Platform.dotbit,
@@ -137,6 +145,9 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
+  // support all web2 platform as  identity.platform format
+  const prefix = term.split(".")[term.split(".").length - 1];
+  if (PLATFORM_DATA.has(prefix as Platform)) return prefix as Platform;
   if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
     return Platform.farcaster;
 
