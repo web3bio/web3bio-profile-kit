@@ -5,6 +5,20 @@ import { REGEX } from "./regex";
 export const PROD_API_ENDPOINT = "https://api.web3.bio";
 export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
 
+const WBE2_PREFIX = [
+  Platform.twitter,
+  Platform.nextid,
+  Platform.keybase,
+  Platform.instagram,
+  Platform.github,
+  Platform.discord,
+  Platform.reddit,
+  Platform.linkedin,
+  Platform.nostr,
+  Platform.bluesky,
+  Platform.telegram,
+];
+
 /**
  * Resolves an identity string to a platform and identifier
  * @param input The identity to resolve
@@ -59,8 +73,9 @@ export const prettify = (input: string): string => {
   }
   // for all web2 platform prettify format as "identity.platform"
   const prefix = input.split(".")[input.split(".").length - 1];
-  if (PLATFORM_DATA.has(prefix as Platform))
+  if (WBE2_PREFIX.includes(prefix as Platform)) {
     return input.replace(`.${prefix}`, "");
+  }
   return input;
 };
 /**
