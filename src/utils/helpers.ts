@@ -5,7 +5,7 @@ import { REGEX } from "./regex";
 export const PROD_API_ENDPOINT = "https://api.web3.bio";
 export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
 
-const WBE2_PREFIX = [
+const WEB2_SUFFIXES = [
   Platform.twitter,
   Platform.nextid,
   Platform.keybase,
@@ -72,9 +72,9 @@ export const prettify = (input: string): string => {
     return input.split(".")[0] + "." + input.split(".").pop() + ".eth";
   }
   // for all web2 platform prettify format as "identity.platform"
-  const prefix = input.split(".")[input.split(".").length - 1];
-  if (WBE2_PREFIX.includes(prefix as Platform)) {
-    return input.replace(`.${prefix}`, "");
+  const suffix = input.split(".")[input.split(".").length - 1];
+  if (WEB2_SUFFIXES.includes(suffix as Platform)) {
+    return input.replace(`.${suffix}`, "");
   }
   return input;
 };
@@ -163,8 +163,8 @@ const platformMap = new Map([
  */
 export const detectPlatform = (term: string): Platform => {
   // support all web2 platform as  identity.platform format
-  const prefix = term.split(".")[term.split(".").length - 1];
-  if (PLATFORM_DATA.has(prefix as Platform)) return prefix as Platform;
+  const suffix = term.split(".")[term.split(".").length - 1];
+  if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
   if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
     return Platform.farcaster;
 
