@@ -45,8 +45,6 @@ export const resolveIdentity = (input: string): string | null => {
  */
 export const prettify = (input: string): string => {
   if (!input) return "";
-  if (input.endsWith(".twitter")) return input.replace(".twitter", "");
-  if (input.endsWith(".nextid")) return input.replace(".nextid", "");
   if (input.startsWith("farcaster,#"))
     return input.replace(/^(farcaster),/, "");
   if (
@@ -59,6 +57,10 @@ export const prettify = (input: string): string => {
   if (input.endsWith(".base") || input.endsWith(".linea")) {
     return input.split(".")[0] + "." + input.split(".").pop() + ".eth";
   }
+  // for all web2 platform prettify format as "identity.platform"
+  const prefix = input.split(".")[input.split(".").length - 1];
+  if (PLATFORM_DATA.has(prefix as Platform))
+    return input.replace(`.${prefix}`, "");
   return input;
 };
 /**
