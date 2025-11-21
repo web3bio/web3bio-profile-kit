@@ -1,8 +1,23 @@
 import { Platform } from "../types";
+import { PLATFORM_DATA } from "./platform";
 import { REGEX } from "./regex";
 
 export const PROD_API_ENDPOINT = "https://api.web3.bio";
 export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
+
+const WEB2_SUFFIXES = [
+  Platform.twitter,
+  Platform.nextid,
+  Platform.keybase,
+  Platform.instagram,
+  Platform.github,
+  Platform.discord,
+  Platform.reddit,
+  Platform.linkedin,
+  Platform.nostr,
+  Platform.bluesky,
+  Platform.telegram,
+];
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -44,8 +59,6 @@ export const resolveIdentity = (input: string): string | null => {
  */
 export const prettify = (input: string): string => {
   if (!input) return "";
-  if (input.endsWith(".twitter")) return input.replace(".twitter", "");
-  if (input.endsWith(".nextid")) return input.replace(".nextid", "");
   if (input.startsWith("farcaster,#"))
     return input.replace(/^(farcaster),/, "");
   if (
@@ -57,6 +70,11 @@ export const prettify = (input: string): string => {
   }
   if (input.endsWith(".base") || input.endsWith(".linea")) {
     return input.split(".")[0] + "." + input.split(".").pop() + ".eth";
+  }
+  // for all web2 platform prettify format as "identity.platform"
+  const suffix = input.split(".")[input.split(".").length - 1];
+  if (WEB2_SUFFIXES.includes(suffix as Platform)) {
+    return input.replace(`.${suffix}`, "");
   }
   return input;
 };
@@ -104,8 +122,15 @@ export const isSupportedPlatform = (platform?: Platform | null): boolean => {
     Platform.lens,
     Platform.twitter,
     Platform.github,
-    Platform.linkedin,
     Platform.discord,
+    Platform.linkedin,
+    Platform.instagram,
+    Platform.reddit,
+    Platform.facebook,
+    Platform.telegram,
+    Platform.keybase,
+    Platform.nostr,
+    Platform.bluesky,
     Platform.unstoppableDomains,
     Platform.nextid,
     Platform.dotbit,
@@ -137,6 +162,9 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
+  // support all web2 platform as  identity.platform format
+  const suffix = term.split(".")[term.split(".").length - 1];
+  if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
   if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
     return Platform.farcaster;
 
