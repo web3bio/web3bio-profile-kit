@@ -653,6 +653,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.opinion,
+    {
+      color: "#ed6432",
+      icon: "icons/icon-opinion.svg",
+      label: "Opinion",
+      urlPrefix: "https://app.opinion.trade/",
+    },
+  ],
+  [
     Platform.paragraph,
     {
       color: "#2563eb",

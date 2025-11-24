@@ -70,6 +70,7 @@ export enum Platform {
   nextid = "nextid",
   nostr = "nostr",
   opensea = "opensea",
+  opinion = "opinion",
   paragraph = "paragraph",
   philand = "philand",
   poap = "poap",
