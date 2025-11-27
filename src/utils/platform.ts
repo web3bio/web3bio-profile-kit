@@ -13,6 +13,7 @@ export const DEFAULT_PLATFORM: Readonly<PlatformType> = {
   ensText: [],
   registerlink: "",
   editUrlPrefix: "",
+  scanPrefixTx: "",
 };
 
 /**
@@ -659,6 +660,7 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-opinion.svg",
       label: "Opinion",
       urlPrefix: "https://app.opinion.trade/",
+      scanPrefixTx: "https://bscscan.com/tx/",
     },
   ],
   [
@@ -695,6 +697,7 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-polymarket.svg",
       label: "Polymarket",
       urlPrefix: "https://polymarket.com/profile/",
+      scanPrefixTx: "https://polygonscan.com/tx/",
     },
   ],
   [

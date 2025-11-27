@@ -125,4 +125,5 @@ export interface PlatformType {
   ensText?: string[];
   registerlink?: string;
   editUrlPrefix?: string;
+  scanPrefixTx?: string;
 }
