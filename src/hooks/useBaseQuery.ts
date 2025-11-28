@@ -6,7 +6,7 @@ import {
   QueryEndpoint,
 } from "../types";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { PROD_API_ENDPOINT } from "../utils/helpers";
+import { PROFILE_API_ENDPOINT } from "../utils/helpers";
 import { getApiKey, resolveIdentity } from "../utils/helpers";
 
 /**
@@ -18,22 +18,22 @@ const buildApiUrl = (
   universal: boolean,
 ): string | null => {
   if (Array.isArray(identity)) {
-    return `${PROD_API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/batch/${encodeURIComponent(JSON.stringify(identity))}`;
   }
 
   if (universal) {
-    return `${PROD_API_ENDPOINT}/${endpoint}/${identity}`;
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/${identity}`;
   }
 
   const resolvedId = resolveIdentity(identity);
   if (!resolvedId) return null;
 
   if ([QueryEndpoint.DOMAIN, QueryEndpoint.CREDENTIAL].includes(endpoint)) {
-    return `${PROD_API_ENDPOINT}/${endpoint}/${resolvedId}`;
+    return `${PROFILE_API_ENDPOINT}/${endpoint}/${resolvedId}`;
   }
 
   const [platform, handle] = resolvedId.split(",");
-  return `${PROD_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
+  return `${PROFILE_API_ENDPOINT}/${endpoint}/${platform}/${handle}`;
 };
 
 /**
