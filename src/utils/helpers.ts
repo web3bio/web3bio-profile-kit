@@ -2,9 +2,7 @@ import { Platform } from "../types";
 import { PLATFORM_DATA } from "./platform";
 import { REGEX } from "./regex";
 
-export const PROD_API_ENDPOINT = "https://api.web3.bio";
-export const STAGING_API_ENDPOINT = "https://api-staging.web3.bio";
-export const METADATA_API_ENDPOINT = "https://metadata.web3.bio";
+export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
 
 const WEB2_SUFFIXES = [
   Platform.twitter,

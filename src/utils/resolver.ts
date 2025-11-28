@@ -1,4 +1,4 @@
-import { isIPFS_Resource, resolveIPFS_URL } from "./ipfs";
+import { isIPFS, resolveIPFS_URL } from "./ipfs";
 
 const URL_RESOLVERS = new Map([
   ["data:", (url: string) => url],
@@ -15,7 +15,7 @@ export const resolveMediaURL = (url: string): string => {
     }
   }
 
-  if (isIPFS_Resource(url) || url.includes("ipfs:")) {
+  if (isIPFS(url) || url.includes("ipfs:")) {
     return resolveIPFS_URL(url) || "";
   }
 
