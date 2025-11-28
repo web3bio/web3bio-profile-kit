@@ -4,7 +4,7 @@ import { REGEX } from "./regex";
 
 export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
 
-const WEB2_SUFFIXES = [
+const WEB2_SUFFIXES = new Set([
   Platform.twitter,
   Platform.nextid,
   Platform.keybase,
@@ -16,7 +16,7 @@ const WEB2_SUFFIXES = [
   Platform.nostr,
   Platform.bluesky,
   Platform.telegram,
-];
+]);
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -68,12 +68,16 @@ export const prettify = (input: string): string => {
     return input.replace(/(\.farcaster|\.fcast\.id|\.farcaster\.eth)$/, "");
   }
   if (input.endsWith(".base") || input.endsWith(".linea")) {
-    return input.split(".")[0] + "." + input.split(".").pop() + ".eth";
+    const parts = input.split(".");
+    return `${parts[0]}.${parts[parts.length - 1]}.eth`;
   }
   // for all web2 platform prettify format as "identity.platform"
-  const suffix = input.split(".")[input.split(".").length - 1];
-  if (WEB2_SUFFIXES.includes(suffix as Platform)) {
-    return input.replace(`.${suffix}`, "");
+  const lastDotIndex = input.lastIndexOf(".");
+  if (lastDotIndex !== -1) {
+    const suffix = input.slice(lastDotIndex + 1);
+    if (WEB2_SUFFIXES.has(suffix as Platform)) {
+      return input.slice(0, lastDotIndex);
+    }
   }
   return input;
 };
@@ -107,35 +111,37 @@ export const uglify = (input: string, platform: Platform): string => {
       return input;
   }
 };
+const SUPPORTED_PLATFORMS = new Set([
+  Platform.ens,
+  Platform.basenames,
+  Platform.linea,
+  Platform.ethereum,
+  Platform.farcaster,
+  Platform.lens,
+  Platform.twitter,
+  Platform.github,
+  Platform.discord,
+  Platform.linkedin,
+  Platform.instagram,
+  Platform.reddit,
+  Platform.facebook,
+  Platform.telegram,
+  Platform.keybase,
+  Platform.nostr,
+  Platform.bluesky,
+  Platform.unstoppableDomains,
+  Platform.nextid,
+  Platform.dotbit,
+  Platform.solana,
+  Platform.sns,
+]);
+
 /**
  * Check if the platform is supported for API queries
  */
 export const isSupportedPlatform = (platform?: Platform | null): boolean => {
   if (!platform) return false;
-  return [
-    Platform.ens,
-    Platform.basenames,
-    Platform.linea,
-    Platform.ethereum,
-    Platform.farcaster,
-    Platform.lens,
-    Platform.twitter,
-    Platform.github,
-    Platform.discord,
-    Platform.linkedin,
-    Platform.instagram,
-    Platform.reddit,
-    Platform.facebook,
-    Platform.telegram,
-    Platform.keybase,
-    Platform.nostr,
-    Platform.bluesky,
-    Platform.unstoppableDomains,
-    Platform.nextid,
-    Platform.dotbit,
-    Platform.solana,
-    Platform.sns,
-  ].includes(platform);
+  return SUPPORTED_PLATFORMS.has(platform);
 };
 
 const platformMap = new Map([
@@ -162,8 +168,11 @@ const platformMap = new Map([
  */
 export const detectPlatform = (term: string): Platform => {
   // support all web2 platform as  identity.platform format
-  const suffix = term.split(".")[term.split(".").length - 1];
-  if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
+  const lastDotIndex = term.lastIndexOf(".");
+  if (lastDotIndex !== -1) {
+    const suffix = term.slice(lastDotIndex + 1);
+    if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
+  }
   if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
     return Platform.farcaster;
 
@@ -234,7 +243,7 @@ export const isWeb3Address = (address: string): boolean => {
  */
 export const isValidEthereumAddress = (address: string): boolean => {
   if (!REGEX.ETH_ADDRESS.test(address)) return false; // invalid ethereum address
-  if (address.match(/^0x0*.$|0x[123468abef]*$|0x0*dead$/i)) return false; // empty & burn address
+  if (/^0x0*.$|^0x[123468abef]*$|^0x0*dead$/i.test(address)) return false; // empty & burn address
   return true;
 };
 
@@ -264,9 +273,9 @@ export const idToJson = (
 ): { platform: Platform; identity: string } | null => {
   const id = resolveIdentity(input);
   if (!id) return null;
-  const [_platform, _idenitty] = id.split(",");
+  const [_platform, _identity] = id.split(",");
   return {
     platform: _platform as Platform,
-    identity: _idenitty,
+    identity: _identity,
   };
 };
