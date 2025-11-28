@@ -16,3 +16,7 @@ export {
   isValidEthereumAddress,
   isValidSolanaAddress,
 } from "./helpers";
+
+export { isIPFS_Resource, resolveIPFS_URL, resolveIPFS_CID } from "./ipfs";
+
+export { resolveMediaURL } from "./resolver";
