@@ -808,7 +808,7 @@ export const PLATFORM_DATA: ReadonlyMap<
       color: "#715AE4",
       icon: "icons/icon-talent.svg",
       label: "Talent",
-      urlPrefix: "https://app.talentprotocol.com/",
+      urlPrefix: "https://talent.app/",
     },
   ],
   [

@@ -34,6 +34,7 @@ export enum Source {
   polymarket = "polymarket",
   rarible = "rarible",
   rey = "rey",
+  rodeo = "rodeo",
   rss3 = "rss3",
   seekerid = "seekerid",
   sns = "sns",
@@ -44,6 +45,7 @@ export enum Source {
   talentprotocol = "talentprotocol",
   twitter = "twitter",
   unstoppabledomains = "unstoppabledomains",
+  zealy = "zealy",
   zora = "zora",
 }
 

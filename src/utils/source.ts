@@ -149,8 +149,13 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   },
   [Source.rey]: {
     name: "Rey",
-    description: "The world's attention marketplace",
+    description: "World's attention marketplace",
     icon: "icons/icon-rey.svg",
+  },
+  [Source.rodeo]: {
+    name: "Rodeo",
+    description: "Creative social network",
+    icon: "icons/icon-rodeo.svg",
   },
   [Source.rss3]: {
     name: "RSS3",
@@ -192,7 +197,6 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "Launch, manage, and grow the value of your token",
     icon: "icons/icon-tally.svg",
   },
-
   [Source.twitter]: {
     name: "Twitter (X)",
     description: "Twitter (X) social platform",
@@ -202,6 +206,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Unstoppable Domains",
     description: "Blockchain domain name provider",
     icon: "icons/icon-unstoppabledomains.svg",
+  },
+  [Source.zealy]: {
+    name: "Zealy",
+    description: "A customer engagement platform",
+    icon: "icons/icon-zealy.svg",
   },
   [Source.zora]: {
     name: "Zora",

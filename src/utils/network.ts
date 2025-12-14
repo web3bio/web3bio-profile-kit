@@ -161,11 +161,11 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
     scanPrefixTx: "https://ftmscan.com/tx/",
   },
   [Network.farcaster]: {
-    bgColor: "#efeaf8",
+    bgColor: "#F8F5FF",
     icon: "icons/icon-farcaster.svg",
     key: Network.farcaster,
     label: "Farcaster",
-    primaryColor: "#432C8D",
+    primaryColor: "#6a3cff",
     scanPrefix: "",
   },
   [Network.flow]: {
