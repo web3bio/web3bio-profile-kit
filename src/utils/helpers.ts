@@ -167,12 +167,6 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
-  // support all web2 platform as  identity.platform format
-  const lastDotIndex = term.lastIndexOf(".");
-  if (lastDotIndex !== -1) {
-    const suffix = term.slice(lastDotIndex + 1);
-    if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
-  }
   if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
     return Platform.farcaster;
 
@@ -180,6 +174,12 @@ export const detectPlatform = (term: string): Platform => {
     if (regex.test(term)) {
       return Platform;
     }
+  }
+
+  const lastDotIndex = term.lastIndexOf(".");
+  if (lastDotIndex !== -1) {
+    const suffix = term.slice(lastDotIndex + 1);
+    if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
   }
 
   return term.includes(".") ? Platform.ens : Platform.farcaster;
