@@ -32,6 +32,7 @@ export enum Source {
   paragraph = "paragraph",
   particle = "particle",
   polymarket = "polymarket",
+  ppl = "ppl",
   questn = "questn",
   rarible = "rarible",
   rey = "rey",

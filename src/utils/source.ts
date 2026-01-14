@@ -142,6 +142,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "Decentralized prediction market",
     icon: "icons/icon-polymarket.svg",
   },
+  [Source.ppl]: {
+    name: "0xPPL",
+    description: "Web3 social platform",
+  },
   [Source.questn]: {
     name: "QuestN",
     description: "Airdrop publishing and claiming platform",
