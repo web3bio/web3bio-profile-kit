@@ -75,6 +75,18 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.baseapp,
+    {
+      color: "#0052ff",
+      icon: "icons/icon-base.svg",
+      label: "BaseApp",
+      description:
+        "One place to trade, create, build, discover mini apps, and chat securely.",
+      urlPrefix: "https://www.base.app/",
+      registerlink: "https://join.base.app",
+    },
+  ],
+  [
     Platform.bilibili,
     {
       color: "#00aeec",
@@ -126,6 +138,16 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-bsc.svg",
       label: "Binance Smart Chain",
       urlPrefix: "https://bscscan.com/address/",
+    },
+  ],
+  [
+    Platform.clicker,
+    {
+      color: "#2F69F6",
+      icon: "icons/icon-clicker.svg",
+      label: "Clicker",
+      urlPrefix: "https://clicker.xyz/",
+      editUrlPrefix: "https://clicker.xyz/profile/{name}",
     },
   ],
   [
@@ -321,6 +343,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Facebook",
       urlPrefix: "https://www.facebook.com/",
       ensText: ["com.facebook", "facebook"],
+    },
+  ],
+  [
+    Platform.fomo,
+    {
+      color: "#385898",
+      icon: "icons/icon-fomo.svg",
+      label: "FOMO",
+      urlPrefix: "https://fomo.family/",
     },
   ],
   [
