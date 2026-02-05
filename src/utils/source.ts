@@ -4,6 +4,11 @@ import { Source, type SourceType } from "../types/source";
  * @public
  */
 export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
+  [Source.baseapp]: {
+    name: "Base App",
+    description: "The Base Wallet app",
+    icon: "icons/icon-baseapp.svg",
+  },
   [Source.basenames]: {
     name: "Basenames",
     description: "The domain system on Base",
@@ -12,6 +17,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.camp_network]: {
     name: "Camp Network",
     description: "Modernize intellectual property infrastructure",
+  },
+  [Source.clicker]: {
+    name: "Clicker",
+    description: "The social network for traders",
   },
   [Source.clusters]: {
     name: "Clusters",
@@ -56,6 +65,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Firefly",
     description: "Web3 social platform",
     icon: "icons/icon-firefly.svg",
+  },
+  [Source.fomo]: {
+    name: "fomo",
+    description: "The Social-First Crypto Trading Platform",
+    icon: "icons/icon-fomo.svg",
   },
   [Source.foundation]: {
     name: "Foundation",

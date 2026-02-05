@@ -4,8 +4,10 @@
  * @public
  */
 export enum Source {
+  baseapp = "baseapp",
   basenames = "basenames",
   camp_network = "camp_network",
+  clicker = "clicker",
   clusters = "clusters",
   crowdsourcing = "crowdsourcing",
   dentity = "dentity",
@@ -15,6 +17,7 @@ export enum Source {
   exchange_art = "exchange_art",
   farcaster = "farcaster",
   firefly = "firefly",
+  fomo = "fomo",
   foundation = "foundation",
   gallery = "gallery",
   gmgn = "gmgn",
