@@ -192,7 +192,7 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   },
   [Network.lens]: {
     bgColor: "#d9f1dc",
-    chainId: 137,
+    chainId: 232,
     icon: "icons/icon-lens.svg",
     key: Network.lens,
     label: "Lens",
