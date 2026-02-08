@@ -279,7 +279,7 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   [Network.solana]: {
     assetPrefix: "https://portfolio.jup.ag/portfolio/",
     bgColor: "#F0E3FF",
-    chainId: 534352,
+    chainId: 101,
     icon: "icons/icon-solana.svg",
     key: Network.solana,
     label: "Solana",
