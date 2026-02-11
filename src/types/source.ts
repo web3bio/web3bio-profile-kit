@@ -34,6 +34,7 @@ export enum Source {
   opensea = "opensea",
   paragraph = "paragraph",
   particle = "particle",
+  privy = "privy",
   polymarket = "polymarket",
   ppl = "ppl",
   questn = "questn",
