@@ -160,6 +160,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "0xPPL",
     description: "Web3 social platform",
   },
+  [Source.privy]: {
+    name: "Privy",
+    description: "Wallet infrastructure",
+    icon: "icons/icon-privy.svg",
+  },
   [Source.questn]: {
     name: "QuestN",
     description: "Airdrop publishing and claiming platform",
