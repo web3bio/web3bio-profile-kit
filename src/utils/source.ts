@@ -151,11 +151,6 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "Particle",
     icon: "icons/icon-particle.svg",
   },
-  [Source.privy]: {
-    name: "Privy",
-    description: "Privy",
-    icon: "icons/icon-privy.svg",
-  },
   [Source.polymarket]: {
     name: "Polymarket",
     description: "Decentralized prediction market",
@@ -164,6 +159,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ppl]: {
     name: "0xPPL",
     description: "Web3 social platform",
+  },
+  [Source.privy]: {
+    name: "Privy",
+    description: "Wallet infrastructure",
+    icon: "icons/icon-privy.svg",
   },
   [Source.questn]: {
     name: "QuestN",
