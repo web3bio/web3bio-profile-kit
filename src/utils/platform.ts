@@ -971,6 +971,14 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.xmtp,
+    {
+      color: "#EF4444",
+      icon: "icons/icon-xmtp.svg",
+      label: "XMTP",
+    },
+  ],
+  [
     Platform.youtube,
     {
       color: "#FF0000",

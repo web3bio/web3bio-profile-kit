@@ -104,6 +104,7 @@ export enum Platform {
   weibo = "weibo",
   whatsapp = "whatsapp",
   world_id = "world_id",
+  xmtp = "xmtp",
   youtube = "youtube",
   zeta = "zeta",
   zkfair = "zkfair",
