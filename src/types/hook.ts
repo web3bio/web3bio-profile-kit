@@ -108,7 +108,7 @@ export interface ProfileResponse extends NSResponse {
   /** Social platform links */
   links: SocialLinks;
   /** Web3bio profile page config **/
-  ["web3.bio"]: string;
+  widgets: string;
   /** Social metrics */
   social: SocialRecord | {};
   /** Error message if any */
