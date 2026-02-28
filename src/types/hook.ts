@@ -105,12 +105,14 @@ export interface ProfileResponse extends NSResponse {
   createdAt: string | null;
   /** Profile status */
   status: string | null;
-  /** Error message if any */
-  error?: string;
   /** Social platform links */
   links: SocialLinks;
+  /** Web3bio profile page config **/
+  widgets: string;
   /** Social metrics */
   social: SocialRecord | {};
+  /** Error message if any */
+  error?: string;
 }
 
 /**
