@@ -973,7 +973,7 @@ export const PLATFORM_DATA: ReadonlyMap<
   [
     Platform.xmtp,
     {
-      color: "#EF4444",
+      color: "#5046E5",
       icon: "icons/icon-xmtp.svg",
       label: "XMTP",
     },
