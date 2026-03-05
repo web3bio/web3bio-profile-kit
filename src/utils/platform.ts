@@ -53,6 +53,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.appstore,
+    {
+      color: "#007AFF",
+      icon: "icons/icon-appstore.svg",
+      label: "App Store",
+      urlPrefix: "https://apps.apple.com/",
+    },
+  ],
+  [
     Platform.arbitrum,
     {
       color: "#2949d4",
