@@ -7,7 +7,6 @@ export enum Platform {
   ailayer = "ailayer",
   alienx = "alienx",
   aptos = "aptos",
-  appstore = "appstore",
   arbitrum = "arbitrum",
   basenames = "basenames",
   bilibili = "bilibili",
