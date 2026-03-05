@@ -793,6 +793,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.substack,
+    {
+      color: "#FF6719",
+      icon: "icons/icon-substack.svg",
+      label: "Substack",
+      urlPrefix: "https://substack.com/@",
+    },
+  ],
+  [
     Platform.taiko,
     {
       color: "#E81899",
