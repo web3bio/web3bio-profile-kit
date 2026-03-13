@@ -85,6 +85,7 @@ export enum Platform {
   solana = "solana",
   space_id = "space_id",
   stacks = "stacks",
+  substack = "substack",
   taiko = "taiko",
   talent = "talentprotocol",
   tally = "tally",
