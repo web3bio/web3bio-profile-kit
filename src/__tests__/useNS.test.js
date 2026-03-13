@@ -41,6 +41,8 @@ describe("useNS", () => {
       address: "0x123",
       avatar: "https://example.com/avatar.jpg",
       displayName: "Vitalik",
+      header: null,
+      status: null,
     };
 
     // Mock implementation with successful data
