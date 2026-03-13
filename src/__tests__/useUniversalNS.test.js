@@ -43,6 +43,8 @@ describe("useUniversalNS", () => {
       displayName: "Vitalik",
       platform: "ens",
       description: "Ethereum co-founder",
+      header: null,
+      status: null,
     };
 
     // Mock implementation with successful data

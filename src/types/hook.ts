@@ -97,14 +97,10 @@ export interface ProfileResponse extends NSResponse {
   email: string | null;
   /** Content hash */
   contenthash: string | null;
-  /** Profile header image */
-  header: string | null;
   /** Geographic location */
   location: string | null;
   /** Creation timestamp */
   createdAt: string | null;
-  /** Profile status */
-  status: string | null;
   /** Social platform links */
   links: SocialLinks;
   /** Web3bio profile page config **/
@@ -134,6 +130,10 @@ export interface NSResponse {
   displayName: string | null;
   /** Alternative identities */
   aliases?: string[];
+  /** Profile header image */
+  header: string | null;
+  /** Profile status */
+  status: string | null;
 }
 
 /**
