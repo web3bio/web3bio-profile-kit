@@ -1,6 +1,50 @@
 import { Platform, type PlatformType } from "../types/platform";
 
 /**
+ * Platforms classified as Web2 (traditional social / web profiles), used for identity formatting and related checks.
+ * @public
+ */
+export const WEB2_PLATFORMS: readonly Platform[] = [
+  Platform.bilibili,
+  Platform.bluesky,
+  Platform.calendly,
+  Platform.discord,
+  Platform.facebook,
+  Platform.github,
+  Platform.hackernews,
+  Platform.instagram,
+  Platform.keybase,
+  Platform.linkedin,
+  Platform.lobsters,
+  Platform.minds,
+  Platform.mstdnjp,
+  Platform.nostr,
+  Platform.reddit,
+  Platform.substack,
+  Platform.telegram,
+  Platform.threads,
+  Platform.tiktok,
+  Platform.twitter,
+  Platform.v2ex,
+  Platform.weibo,
+  Platform.whatsapp,
+  Platform.youtube,
+];
+
+const WEB2_PLATFORM_SET = new Set<Platform>(WEB2_PLATFORMS);
+
+/**
+ * Whether the given platform key is listed as a Web2 platform.
+ * @public
+ */
+export const isWeb2Platform = (
+  platform: Platform | string | null | undefined,
+): boolean => {
+  if (platform == null || platform === "") return false;
+  return WEB2_PLATFORM_SET.has(platform as Platform);
+};
+
+/**
  * Default data
  * @internal
  */
@@ -417,15 +461,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-hackernews.svg",
       label: "Hacker News",
       urlPrefix: "https://news.ycombinator.com/user?id=",
-    },
-  ],
-  [
-    Platform.hey,
-    {
-      color: "#E84F64",
-      icon: "icons/icon-hey.svg",
-      label: "Hey",
-      urlPrefix: "https://hey.xyz/u/",
     },
   ],
   [

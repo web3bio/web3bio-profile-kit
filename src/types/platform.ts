@@ -46,7 +46,6 @@ export enum Platform {
   gravity = "gravity",
   guild = "guild",
   hackernews = "hackernews",
-  hey = "hey",
   humanode = "humanode",
   humanpassport = "humanpassport",
   instagram = "instagram",

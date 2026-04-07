@@ -1,6 +1,12 @@
 export * from "../types/cointype";
 export { REGEX } from "./regex";
-export { DEFAULT_PLATFORM, PLATFORM_DATA, getPlatform } from "./platform";
+export {
+  DEFAULT_PLATFORM,
+  PLATFORM_DATA,
+  WEB2_PLATFORMS,
+  getPlatform,
+  isWeb2Platform,
+} from "./platform";
 export { NETWORK_DATA, getNetwork } from "./network";
 export { SOURCE_DATA, getSource } from "./source";
 

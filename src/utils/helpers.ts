@@ -1,22 +1,8 @@
 import { Platform } from "../types";
-import { PLATFORM_DATA } from "./platform";
+import { isWeb2Platform, PLATFORM_DATA } from "./platform";
 import { REGEX } from "./regex";
 
 export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
-
-const WEB2_SUFFIXES = new Set([
-  Platform.twitter,
-  Platform.nextid,
-  Platform.keybase,
-  Platform.instagram,
-  Platform.github,
-  Platform.discord,
-  Platform.reddit,
-  Platform.linkedin,
-  Platform.nostr,
-  Platform.bluesky,
-  Platform.telegram,
-]);
 
 /**
  * Resolves an identity string to a platform and identifier
@@ -75,7 +61,7 @@ export const prettify = (input: string): string => {
   const lastDotIndex = input.lastIndexOf(".");
   if (lastDotIndex !== -1) {
     const suffix = input.slice(lastDotIndex + 1);
-    if (WEB2_SUFFIXES.has(suffix as Platform)) {
+    if (isWeb2Platform(suffix)) {
       return input.slice(0, lastDotIndex);
     }
   }
