@@ -40,7 +40,7 @@ const WEB2_PLATFORM_SET = new Set<Platform>(WEB2_PLATFORMS);
 export const isWeb2Platform = (
   platform: Platform | string | null | undefined,
 ): boolean => {
-  if (platform == null || platform === "") return false;
+  if (!Boolean(platform)) return false;
   return WEB2_PLATFORM_SET.has(platform as Platform);
 };
 
