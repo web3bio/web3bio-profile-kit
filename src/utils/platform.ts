@@ -40,8 +40,7 @@ const WEB2_PLATFORM_SET = new Set<Platform>(WEB2_PLATFORMS);
 export const isWeb2Platform = (
   platform: Platform | string | null | undefined,
 ): boolean => {
-  if (!Boolean(platform)) return false;
-  return WEB2_PLATFORM_SET.has(platform as Platform);
+  return !!platform && WEB2_PLATFORM_SET.has(platform as Platform);
 };
 
 /**
@@ -67,26 +66,6 @@ export const PLATFORM_DATA: ReadonlyMap<
   Platform,
   Readonly<PlatformType>
 > = new Map([
-  [
-    Platform.ailayer,
-    {
-      color: "#A283FF",
-      icon: "icons/icon-ailayer.svg",
-      label: "AILayer Name Service",
-      urlPrefix: "https://mainnet-explorer.ailayer.xyz/address/",
-      registerlink: "https://space.id/tld/19/domains?query={name}",
-    },
-  ],
-  [
-    Platform.alienx,
-    {
-      color: "#D5F462",
-      icon: "icons/icon-alienx.svg",
-      label: "AlienX Name Service",
-      urlPrefix: "https://explorer.alienxchain.io/address/",
-      registerlink: "https://space.id/tld/17/domains?query={name}",
-    },
-  ],
   [
     Platform.aptos,
     {
@@ -219,24 +198,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.cosmos,
-    {
-      color: "#000000",
-      icon: "icons/icon-cosmos.svg",
-      label: "Cosmos",
-      urlPrefix: "https://www.mintscan.io/cosmos/account/",
-    },
-  ],
-  [
-    Platform.cyberconnect,
-    {
-      color: "#000000",
-      icon: "icons/icon-cyberconnect.svg",
-      label: "CyberConnect",
-      urlPrefix: "https://link3.to/",
-    },
-  ],
-  [
     Platform.deepdao,
     {
       color: "#337bff",
@@ -306,15 +267,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-ecp.svg",
       label: "Ethereum Comments Protocol",
       registerlink: "https://www.ethcomments.xyz/",
-    },
-  ],
-  [
-    Platform.edgeless,
-    {
-      color: "#a0eb67",
-      icon: "icons/icon-edgeless.svg",
-      label: "Edgeless",
-      urlPrefix: "https://explorer.edgeless.network/address/",
     },
   ],
   [
@@ -524,16 +476,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.lightlink,
-    {
-      color: "#00BFFF",
-      icon: "icons/icon-lightlink.svg",
-      label: "LightLink Name Service",
-      urlPrefix: "https://phoenix.lightlink.io/address/",
-      registerlink: "https://space.id/tld/9/domains?query={name}",
-    },
-  ],
-  [
     Platform.linea,
     {
       color: "#591FE6",
@@ -565,16 +507,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.manta,
-    {
-      color: "#0091ff",
-      icon: "icons/icon-manta.svg",
-      label: "Manta Name Service",
-      urlPrefix: "https://pacific-explorer.manta.network/address/",
-      registerlink: "https://space.id/tld/3/domains?query={name}",
-    },
-  ],
-  [
     Platform.matters,
     {
       color: "#000000",
@@ -593,42 +525,12 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.merlin,
-    {
-      color: "#5A32A3",
-      icon: "icons/icon-merlin.svg",
-      label: "Merlin Name Service",
-      urlPrefix: "https://scan.merlinchain.io/address/",
-      registerlink: "https://space.id/tld/12/domains?query={name}",
-    },
-  ],
-  [
     Platform.minds,
     {
       color: "#f7d354",
       icon: "icons/icon-minds.svg",
       label: "Minds",
       urlPrefix: "https://www.minds.com/",
-    },
-  ],
-  [
-    Platform.mint,
-    {
-      color: "#00A57C",
-      icon: "icons/icon-mint.svg",
-      label: "Mint Name Service",
-      urlPrefix: "https://explorer.mintchain.io/address/",
-      registerlink: "https://space.id/tld/18/domains?query={name}",
-    },
-  ],
-  [
-    Platform.mode,
-    {
-      color: "#E5FD52",
-      icon: "icons/icon-mode.svg",
-      label: "Mode Name Service",
-      urlPrefix: "https://explorer.mode.network/address/",
-      registerlink: "https://space.id/tld/6/domains?query={name}",
     },
   ],
   [
@@ -837,16 +739,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.taiko,
-    {
-      color: "#E81899",
-      icon: "icons/icon-taiko.svg",
-      label: "DotTaiko Name Service",
-      urlPrefix: "https://taikoscan.io/address/",
-      registerlink: "https://space.id/tld/16/domains?query={name}",
-    },
-  ],
-  [
     Platform.talent,
     {
       color: "#715AE4",
@@ -890,15 +782,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-tiktok.svg",
       label: "TikTok",
       urlPrefix: "https://www.tiktok.com/@",
-    },
-  ],
-  [
-    Platform.tomo,
-    {
-      color: "#DE3A7E",
-      icon: "icons/icon-tomo.svg",
-      label: "Tomo Name Service",
-      registerlink: "https://space.id/tld/10/domains?query={name}",
     },
   ],
   [
@@ -1033,26 +916,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.zeta,
-    {
-      color: "#005741",
-      icon: "icons/icon-zeta.svg",
-      label: "Zeta Name Service",
-      urlPrefix: "https://explorer.zetachain.com/address/",
-      registerlink: "https://space.id/tld/11/domains?query={name}",
-    },
-  ],
-  [
-    Platform.zkfair,
-    {
-      color: "#D43F36",
-      icon: "icons/icon-zkfair.svg",
-      label: "zkFair",
-      urlPrefix: "https://scan.zkfair.io/address/",
-      registerlink: "https://space.id/tld/8/domains?query={name}",
-    },
-  ],
-  [
     Platform.zkme,
     {
       color: "#005563",
@@ -1076,7 +939,5 @@ export const PLATFORM_DATA: ReadonlyMap<
  * @public
  */
 export const getPlatform = (platform: Platform): Readonly<PlatformType> => {
-  return (
-    PLATFORM_DATA.get(platform) || { ...DEFAULT_PLATFORM, label: platform }
-  );
+  return PLATFORM_DATA.get(platform) ?? { ...DEFAULT_PLATFORM, label: platform };
 };

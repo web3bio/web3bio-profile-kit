@@ -266,4 +266,4 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
  * @public
  */
 export const getSource = (sourceKey: Source): SourceType =>
-  SOURCE_DATA[sourceKey] || { name: sourceKey, description: "Unknown source" };
+  SOURCE_DATA[sourceKey] ?? { name: sourceKey, description: "Unknown source" };

@@ -369,6 +369,31 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
   },
 };
 
+const NETWORK_VALUES = Object.values(NETWORK_DATA);
+const NETWORK_BY_CHAIN_ID = new Map<number, NetworkType>(
+  NETWORK_VALUES
+    .filter((network): network is NetworkType & { chainId: number } =>
+      typeof network.chainId === "number",
+    )
+    .map((network) => [network.chainId, network]),
+);
+const NETWORK_BY_SHORT = new Map<string, NetworkType>(
+  NETWORK_VALUES
+    .filter((network): network is NetworkType & { short: string } =>
+      typeof network.short === "string" && network.short.length > 0,
+    )
+    .map((network) => [network.short, network]),
+);
+
+const toFallbackNetwork = (networkIdentifier: string | number): NetworkType => ({
+  key: String(networkIdentifier),
+  icon: "",
+  label: String(networkIdentifier),
+  primaryColor: "#000000",
+  bgColor: "#efefef",
+  scanPrefix: "",
+});
+
 /**
  * Gets network metadata for a given network identifier
  * Supports lookup by network key, network short name, or chainId
@@ -377,30 +402,14 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
  * @returns Network metadata object
  */
 export const getNetwork = (networkIdentifier: string | number): NetworkType => {
-  const isNumberParam = !isNaN(Number(networkIdentifier));
+  const numericIdentifier = Number(networkIdentifier);
+  const isNumberParam = !Number.isNaN(numericIdentifier);
   if (isNumberParam) {
-    const networkByChainId = Object.values(NETWORK_DATA).find(
-      (x) => x.chainId === Number(networkIdentifier),
-    );
-    if (networkByChainId) return networkByChainId;
-  } else {
-    if (NETWORK_DATA[networkIdentifier as Network])
-      return NETWORK_DATA[networkIdentifier as Network];
-    const networkByShort = Object.values(NETWORK_DATA).find(
-      (network) => network.short === networkIdentifier,
-    );
-
-    if (networkByShort) {
-      return networkByShort;
-    }
+    return NETWORK_BY_CHAIN_ID.get(numericIdentifier) || toFallbackNetwork(networkIdentifier);
   }
 
-  return {
-    key: String(networkIdentifier),
-    icon: "",
-    label: String(networkIdentifier),
-    primaryColor: "#000000",
-    bgColor: "#efefef",
-    scanPrefix: "",
-  };
+  const networkKey = networkIdentifier as Network;
+  if (NETWORK_DATA[networkKey]) return NETWORK_DATA[networkKey];
+
+  return NETWORK_BY_SHORT.get(String(networkIdentifier)) || toFallbackNetwork(networkIdentifier);
 };

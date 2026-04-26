@@ -14,6 +14,14 @@ const MATCH_IPFS_CID_AND_PATHNAME_RE = new RegExp(
 );
 const CORS_HOST_RE = new RegExp(`^(?:${CORS_HOST}|${CF_IPFS_HOST})\\??`);
 
+const tryDecodeURIComponent = (value: string): string => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
 export const resolveIPFS_CID = (str: string) =>
   str.match(MATCH_IPFS_CID_RE)?.[0];
 
@@ -24,38 +32,38 @@ export function resolveIPFS_URL(
 ): string | undefined | null {
   if (!cidOrURL) return cidOrURL;
 
-  // Normalize input by trimming and decoding
+  // Normalize input by trimming and decoding.
   const queryIndex = cidOrURL.indexOf("?");
-  let normalizedURL = decodeURIComponent(
+  let normalizedURL = tryDecodeURIComponent(
     queryIndex !== -1 ? cidOrURL.slice(0, queryIndex) : cidOrURL,
   );
 
-  // Handle CORS proxies first
+  // Handle CORS proxies first.
   if (
     normalizedURL.startsWith(CORS_HOST) ||
     normalizedURL.startsWith(CF_IPFS_HOST)
   ) {
     normalizedURL = normalizedURL.replace(CORS_HOST_RE, "");
-    // Continue processing the URL without the proxy prefix
+    // Continue processing the URL without the proxy prefix.
   }
 
-  // Handle ipfs.io URLs
-  if (normalizedURL.startsWith("https://ipfs.io")) {
+  // Handle ipfs.io URLs.
+  if (normalizedURL.startsWith(IPFS_GATEWAY_HOST)) {
     const dataMatch = normalizedURL.match(MATCH_IPFS_DATA_RE);
     if (dataMatch?.[1]) {
-      return decodeURIComponent(dataMatch[1]);
+      return tryDecodeURIComponent(dataMatch[1]);
     }
     return normalizedURL;
   }
 
-  // Handle ipfs protocol and CIDs
+  // Handle ipfs protocol and CIDs.
   if (normalizedURL.includes("ipfs:") || isIPFS(normalizedURL)) {
-    // Convert ipfs:// protocol to CID format
+    // Convert ipfs:// protocol to CID format.
     if (normalizedURL.startsWith("ipfs://")) {
       normalizedURL = normalizedURL.slice(7);
     }
 
-    // Handle URLs that start with a CID
+    // Handle URLs that start with a CID.
     if (MATCH_IPFS_CID_AT_STARTS_RE.test(normalizedURL)) {
       try {
         const url = new URL(normalizedURL);
@@ -70,7 +78,7 @@ export function resolveIPFS_URL(
       }
     }
 
-    // Handle bare CIDs or CIDs with paths
+    // Handle bare CIDs or CIDs with paths.
     const pathMatch = normalizedURL.match(MATCH_IPFS_CID_AND_PATHNAME_RE);
     if (pathMatch?.[0]) {
       return `${IPFS_GATEWAY_HOST}/ipfs/${pathMatch[0]}`;

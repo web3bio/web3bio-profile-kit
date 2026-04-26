@@ -4,6 +4,38 @@ import { REGEX } from "./regex";
 
 export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
 
+const FARCASTER_SUFFIXES = [".farcaster", ".fcast.id", ".farcaster.eth"] as const;
+const CHAIN_ALIASES = [".base", ".linea"] as const;
+
+const hasAnySuffix = (value: string, suffixes: readonly string[]): boolean =>
+  suffixes.some((suffix) => value.endsWith(suffix));
+
+const getSuffixAfterLastDot = (value: string): string | null => {
+  const lastDotIndex = value.lastIndexOf(".");
+  return lastDotIndex === -1 ? null : value.slice(lastDotIndex + 1);
+};
+
+const removeWeb2PlatformSuffix = (value: string): string => {
+  const suffix = getSuffixAfterLastDot(value);
+  if (!suffix || !isWeb2Platform(suffix)) return value;
+  return value.slice(0, -(suffix.length + 1));
+};
+
+const normalizeChainAliasToEth = (value: string): string => {
+  const [name, ...rest] = value.split(".");
+  const chain = rest[rest.length - 1];
+  return `${name}.${chain}.eth`;
+};
+
+const withPlatformEthSuffix = (
+  value: string,
+  shortSuffix: string,
+  fullSuffix: string,
+): string => {
+  if (value.endsWith(fullSuffix)) return value;
+  return value.endsWith(shortSuffix) ? `${value}.eth` : `${value}${fullSuffix}`;
+};
+
 /**
  * Resolves an identity string to a platform and identifier
  * @param input The identity to resolve
@@ -46,26 +78,14 @@ export const prettify = (input: string): string => {
   if (!input) return "";
   if (input.startsWith("farcaster,#"))
     return input.replace(/^(farcaster),/, "");
-  if (
-    input.endsWith(".farcaster") ||
-    input.endsWith(".fcast.id") ||
-    input.endsWith(".farcaster.eth")
-  ) {
+  if (hasAnySuffix(input, FARCASTER_SUFFIXES)) {
     return input.replace(/(\.farcaster|\.fcast\.id|\.farcaster\.eth)$/, "");
   }
-  if (input.endsWith(".base") || input.endsWith(".linea")) {
-    const parts = input.split(".");
-    return `${parts[0]}.${parts[parts.length - 1]}.eth`;
+  if (hasAnySuffix(input, CHAIN_ALIASES)) {
+    return normalizeChainAliasToEth(input);
   }
-  // for all web2 platform prettify format as "identity.platform"
-  const lastDotIndex = input.lastIndexOf(".");
-  if (lastDotIndex !== -1) {
-    const suffix = input.slice(lastDotIndex + 1);
-    if (isWeb2Platform(suffix)) {
-      return input.slice(0, lastDotIndex);
-    }
-  }
-  return input;
+  // For all web2 platforms prettify format as "identity.platform".
+  return removeWeb2PlatformSuffix(input);
 };
 /**
  * Fufill and standardize identity format
@@ -74,25 +94,15 @@ export const uglify = (input: string, platform: Platform): string => {
   if (!input) return "";
   switch (platform) {
     case Platform.farcaster:
-      return input.endsWith(".farcaster") ||
-        input.endsWith(".fcast.id") ||
-        input.endsWith(".farcaster.eth")
+      return hasAnySuffix(input, FARCASTER_SUFFIXES)
         ? input
         : `${input}.farcaster`;
     case Platform.lens:
       return input.endsWith(".lens") ? input : `${input}.lens`;
     case Platform.basenames:
-      return input.endsWith(".base.eth")
-        ? input
-        : input.endsWith(".base")
-          ? `${input}.eth`
-          : `${input}.base.eth`;
+      return withPlatformEthSuffix(input, ".base", ".base.eth");
     case Platform.linea:
-      return input.endsWith(".linea.eth")
-        ? input
-        : input.endsWith(".linea")
-          ? `${input}.eth`
-          : `${input}.linea.eth`;
+      return withPlatformEthSuffix(input, ".linea", ".linea.eth");
     default:
       return input;
   }
@@ -126,8 +136,7 @@ const SUPPORTED_PLATFORMS = new Set([
  * Check if the platform is supported for API queries
  */
 export const isSupportedPlatform = (platform?: Platform | null): boolean => {
-  if (!platform) return false;
-  return SUPPORTED_PLATFORMS.has(platform);
+  return !!platform && SUPPORTED_PLATFORMS.has(platform);
 };
 
 const platformMap = new Map([
@@ -153,20 +162,17 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
-  if (/\.(farcaster\.eth|farcaster|fcast\.id)$/.test(term))
+  if (hasAnySuffix(term, FARCASTER_SUFFIXES))
     return Platform.farcaster;
 
-  for (const [regex, Platform] of platformMap) {
+  for (const [regex, platform] of platformMap) {
     if (regex.test(term)) {
-      return Platform;
+      return platform;
     }
   }
 
-  const lastDotIndex = term.lastIndexOf(".");
-  if (lastDotIndex !== -1) {
-    const suffix = term.slice(lastDotIndex + 1);
-    if (PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
-  }
+  const suffix = getSuffixAfterLastDot(term);
+  if (suffix && PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
 
   return term.includes(".") ? Platform.ens : Platform.farcaster;
 };
@@ -196,8 +202,7 @@ export const isSameAddress = (
   address?: string | undefined,
   otherAddress?: string | undefined,
 ): boolean => {
-  if (!address || !otherAddress) return false;
-  return address.toLowerCase() === otherAddress.toLowerCase();
+  return !!address && !!otherAddress && address.toLowerCase() === otherAddress.toLowerCase();
 };
 
 const web3AddressRegexes = [
@@ -241,7 +246,7 @@ export const isValidEthereumAddress = (address: string): boolean => {
  * @returns True if the string is a valid Solana address, false otherwise
  */
 export const isValidSolanaAddress = (address: string): boolean => {
-  return REGEX.SOLANA_ADDRESS.test(address);
+  return !!address && REGEX.SOLANA_ADDRESS.test(address);
 };
 
 /**
@@ -259,7 +264,10 @@ export const idToJson = (
 ): { platform: Platform; identity: string } | null => {
   const id = resolveIdentity(input);
   if (!id) return null;
-  const [_platform, _identity] = id.split(",");
+  const separatorIndex = id.indexOf(",");
+  if (separatorIndex === -1) return null;
+  const _platform = id.slice(0, separatorIndex);
+  const _identity = id.slice(separatorIndex + 1);
   return {
     platform: _platform as Platform,
     identity: _identity,
