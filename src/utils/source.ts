@@ -111,6 +111,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "L2 based on ZK",
     icon: "icons/icon-linea.svg",
   },
+  [Source.magiceden]: {
+    name: "Magic Eden",
+    description: "Web3 NFT marketplace",
+    icon: "icons/icon-magiceden.svg",
+  },
   [Source.metopia]: {
     name: "Metopia",
     description: "Web3 identity & learning platform",
@@ -141,6 +146,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "NFT marketplace",
     icon: "icons/icon-opensea.svg",
   },
+  [Source.opinion]: {
+    name: "Opinion",
+    description: "High-performance prediction exchange",
+    icon: "icons/icon-opinion.svg",
+  },
   [Source.paragraph]: {
     name: "Paragraph",
     description: "Decentralized publishing protocol",
@@ -159,6 +169,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ppl]: {
     name: "0xPPL",
     description: "Web3 social platform",
+  },
+  [Source.predictfun]: {
+    name: "Predict.fun",
+    description: "The BNB-native prediction market",
   },
   [Source.privy]: {
     name: "Privy",
