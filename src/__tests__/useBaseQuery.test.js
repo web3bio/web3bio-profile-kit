@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
+import { createElement } from "react";
 import { useBaseQuery } from "../hooks";
 import { ErrorMessages, QueryEndpoint } from "../types";
 import {
@@ -9,27 +10,25 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Mock the fetch API
-global.fetch = jest.fn();
+global.fetch = vi.fn();
 
 // Mock helper functions
-jest.mock("../utils/helpers", () => ({
+vi.mock("../utils/helpers", () => ({
   PROFILE_API_ENDPOINT: "https://api.web3.bio",
-  getApiKey: jest.fn(),
-  resolveIdentity: jest.fn(),
+  getApiKey: vi.fn(),
+  resolveIdentity: vi.fn(),
 }));
 
 const createWrapper = () => {
   const queryClient = new QueryClient();
 
-  return ({ children }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return ({ children }) =>
+    createElement(QueryClientProvider, { client: queryClient }, children);
 };
 
 describe("useBaseQuery", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-
+    vi.clearAllMocks();
     // Default mock implementations
     getApiKey.mockImplementation((key) => key || "default-key");
     resolveIdentity.mockImplementation((id) =>

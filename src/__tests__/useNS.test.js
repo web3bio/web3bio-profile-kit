@@ -3,11 +3,11 @@ import { useNS, useBaseQuery } from "../hooks";
 import { QueryEndpoint } from "../types";
 
 // Mock the useBaseQuery hook to avoid actual API calls
-jest.mock("../hooks/useBaseQuery");
+vi.mock("../hooks/useBaseQuery");
 
 describe("useNS", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should call useBaseQuery with correct parameters", () => {
