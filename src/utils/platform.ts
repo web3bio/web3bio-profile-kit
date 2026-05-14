@@ -16,6 +16,7 @@ export const WEB2_PLATFORMS: readonly Platform[] = [
   Platform.keybase,
   Platform.linkedin,
   Platform.lobsters,
+  Platform.mastodon,
   Platform.minds,
   Platform.mstdnjp,
   Platform.nostr,
@@ -24,6 +25,7 @@ export const WEB2_PLATFORMS: readonly Platform[] = [
   Platform.telegram,
   Platform.threads,
   Platform.tiktok,
+  Platform.twitch,
   Platform.twitter,
   Platform.v2ex,
   Platform.weibo,
@@ -195,15 +197,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-coingecko.svg",
       label: "CoinGecko",
       urlPrefix: "https://www.coingecko.com/en/coins/",
-    },
-  ],
-  [
-    Platform.deepdao,
-    {
-      color: "#337bff",
-      icon: "icons/icon-deepdao.svg",
-      label: "DeepDAO",
-      urlPrefix: "https://deepdao.io/user/",
     },
   ],
   [
@@ -507,6 +500,16 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.mastodon,
+    {
+      color: "#6364FF",
+      icon: "icons/icon-mastodon.svg",
+      label: "Mastodon",
+      urlPrefix: "https://mastodon.social/@",
+      ensText: ["mastodon", "social.mastodon"],
+    },
+  ],
+  [
     Platform.matters,
     {
       color: "#000000",
@@ -800,6 +803,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-tron.svg",
       label: "Tron",
       urlPrefix: "https://tronscan.org/#/address/",
+    },
+  ],
+  [
+    Platform.twitch,
+    {
+      color: "#9246FF",
+      icon: "icons/icon-twitch.svg",
+      label: "Twitch",
+      urlPrefix: "https://www.twitch.tv/",
     },
   ],
   [
