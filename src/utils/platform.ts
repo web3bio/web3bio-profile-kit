@@ -16,6 +16,7 @@ export const WEB2_PLATFORMS: readonly Platform[] = [
   Platform.keybase,
   Platform.linkedin,
   Platform.lobsters,
+  Platform.luma,
   Platform.mastodon,
   Platform.minds,
   Platform.mstdnjp,
@@ -497,6 +498,15 @@ export const PLATFORM_DATA: ReadonlyMap<
       icon: "icons/icon-lobsters.svg",
       label: "Lobsters",
       urlPrefix: "https://lobste.rs/~",
+    },
+  ],
+  [
+    Platform.luma,
+    {
+      color: "#000000",
+      icon: "icons/icon-luma.svg",
+      label: "Luma",
+      urlPrefix: "https://luma.com/user/",
     },
   ],
   [

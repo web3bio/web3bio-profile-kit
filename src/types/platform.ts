@@ -49,6 +49,7 @@ export enum Platform {
   linkedin = "linkedin",
   linea = "linea",
   lobsters = "lobsters",
+  luma = "luma",
   mastodon = "mastodon",
   matters = "matters",
   medium = "medium",
