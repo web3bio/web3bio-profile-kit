@@ -850,7 +850,7 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: "Unstoppable Domains",
       description:
         "Unstoppable Domains (.x, .crypto and other Web3 domains), and ud.me Unstoppable Profiles",
-      urlPrefix: "https://web3.bio/",
+      urlPrefix: "https://ud.me/",
       editUrlPrefix: "https://unstoppabledomains.com/d/{name}",
       registerlink: "https://unstoppabledomains.com/search?searchTerm={name}",
     },
