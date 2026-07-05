@@ -18,6 +18,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Camp Network",
     description: "Modernize intellectual property infrastructure",
   },
+  [Source.cent]: {
+    name: "Cent",
+    description: "The Tweet Minting Platform",
+  },
   [Source.clicker]: {
     name: "Clicker",
     description: "The social network for traders",

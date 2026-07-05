@@ -7,6 +7,7 @@ export enum Source {
   baseapp = "baseapp",
   basenames = "basenames",
   camp_network = "camp_network",
+  cent = "cent",
   clicker = "clicker",
   clusters = "clusters",
   crowdsourcing = "crowdsourcing",
