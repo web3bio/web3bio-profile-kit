@@ -35,6 +35,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Crowdsourcing",
     description: "Crowdsourcing",
   },
+  [Source.debank]: {
+    name: "Debank",
+    description: "DeFi portfolio tracker for Ethereum",
+  },
   [Source.dentity]: {
     name: "Dentity",
     description: "Digital credentials",

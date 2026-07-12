@@ -201,14 +201,6 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
-    Platform.degenscore,
-    {
-      color: "#a855f7",
-      icon: "icons/icon-degenscore.svg",
-      label: "DegenScore",
-    },
-  ],
-  [
     Platform.dentity,
     {
       color: "#030712",
@@ -252,15 +244,6 @@ export const PLATFORM_DATA: ReadonlyMap<
       label: ".bit",
       urlPrefix: "https://d.id/",
       registerlink: "https://d.id/bit/account/create/{name}",
-    },
-  ],
-  [
-    Platform.ecp,
-    {
-      color: "#000000",
-      icon: "icons/icon-ecp.svg",
-      label: "Ethereum Comments Protocol",
-      registerlink: "https://www.ethcomments.xyz/",
     },
   ],
   [

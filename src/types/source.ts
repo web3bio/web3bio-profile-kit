@@ -11,6 +11,7 @@ export enum Source {
   clicker = "clicker",
   clusters = "clusters",
   crowdsourcing = "crowdsourcing",
+  debank = "debank",
   dentity = "dentity",
   dotbit = "dotbit",
   ens = "ens",
