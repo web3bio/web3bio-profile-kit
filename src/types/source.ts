@@ -28,6 +28,7 @@ export enum Source {
   keybase = "keybase",
   lens = "lens",
   linea = "linea",
+  liquid = "liquid",
   magiceden = "magiceden",
   metopia = "metopia",
   mirror = "mirror",
@@ -42,6 +43,7 @@ export enum Source {
   ppl = "ppl",
   predictfun = "predictfun",
   privy = "privy",
+  pumpfun = "pumpfun",
   questn = "questn",
   rarible = "rarible",
   rey = "rey",
@@ -56,6 +58,7 @@ export enum Source {
   talentprotocol = "talentprotocol",
   twitter = "twitter",
   unstoppabledomains = "unstoppabledomains",
+  virtuals = "virtuals",
   zealy = "zealy",
   zora = "zora",
 }

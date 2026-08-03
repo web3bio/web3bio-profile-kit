@@ -119,6 +119,10 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "L2 based on ZK",
     icon: "icons/icon-linea.svg",
   },
+  [Source.liquid]: {
+    name: "Liquid",
+    description: "Your trading super app",
+  },
   [Source.magiceden]: {
     name: "Magic Eden",
     description: "Web3 NFT marketplace",
@@ -186,6 +190,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Privy",
     description: "Wallet infrastructure",
     icon: "icons/icon-privy.svg",
+  },
+  [Source.pumpfun]: {
+    name: "Pump.fun",
+    description: "Trade internet trends",
+    icon: "icons/icon-pumpfun.svg",
   },
   [Source.questn]: {
     name: "QuestN",
@@ -255,6 +264,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     name: "Unstoppable Domains",
     description: "Blockchain domain name provider",
     icon: "icons/icon-unstoppabledomains.svg",
+  },
+  [Source.virtuals]: {
+    name: "Virtuals",
+    description: "A society of AI agents",
+    icon: "icons/icon-virtuals.svg",
   },
   [Source.zealy]: {
     name: "Zealy",
