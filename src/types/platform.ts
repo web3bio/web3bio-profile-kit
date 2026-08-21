@@ -40,6 +40,7 @@ export enum Platform {
   hackernews = "hackernews",
   humanode = "humanode",
   humanpassport = "humanpassport",
+  hyperliquid = "hyperliquid",
   instagram = "instagram",
   interface = "interface",
   keybase = "keybase",

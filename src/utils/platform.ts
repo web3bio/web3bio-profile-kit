@@ -410,6 +410,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.hyperliquid,
+    {
+      color: "#51D2C1",
+      icon: "icons/icon-hyperliquid.svg",
+      label: "Hyperliquid",
+      urlPrefix: "https://hyperliquid.xyz/",
+    },
+  ],
+  [
     Platform.instagram,
     {
       color: "#E1306C",
