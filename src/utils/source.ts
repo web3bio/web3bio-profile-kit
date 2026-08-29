@@ -59,6 +59,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "Ethereum",
     icon: "icons/icon-ethereum.svg",
   },
+  [Source.ethos]: {
+    name: "Ethos",
+    description: "Reputation & credibility for crypto",
+    icon: "icons/icon-ethos.svg",
+  },
   [Source.exchange_art]: {
     name: "Exchange Art",
     description: "A digital art marketplace",
@@ -181,6 +186,7 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
   [Source.ppl]: {
     name: "0xPPL",
     description: "Web3 social platform",
+    icon: "icons/icon-0xppl.svg",
   },
   [Source.predictfun]: {
     name: "Predict.fun",

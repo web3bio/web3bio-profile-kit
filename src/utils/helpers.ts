@@ -147,6 +147,7 @@ const platformMap = new Map([
   [REGEX.LENS, Platform.lens],
   [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
   [REGEX.SPACE_ID, Platform.space_id],
+  [REGEX.ARBITRUM, Platform.arbitrum],
   [REGEX.DOTBIT, Platform.dotbit],
   [REGEX.SNS, Platform.sns],
   [REGEX.SEEKERID, Platform.seekerid],
@@ -209,6 +210,7 @@ const web3AddressRegexes = [
   REGEX.ETH_ADDRESS,
   REGEX.BTC_ADDRESS,
   REGEX.SOLANA_ADDRESS,
+  REGEX.TON,
   REGEX.NEXT_ID,
   REGEX.NOSTR,
 ];

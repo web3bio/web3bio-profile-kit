@@ -11,7 +11,8 @@ export const REGEX = {
   LENS: /^[^.].+\.lens$/i,
   SNS: /^[^.].+\.sol$/i,
   CLUSTER: /^[\w-]+\/[\w-]+$/,
-  SPACE_ID: /^[^.].+\.(?:bnb|arb)$/i,
+  ARBITRUM: /^[^.].+\.arb$/i,
+  SPACE_ID: /^[^.].+\.bnb$/i,
   SEEKERID: /^[^.].+\.skr$/i,
   UNSTOPPABLE_DOMAINS:
     /^[^.].+\.(?:crypto|888|nft|blockchain|bitcoin|dao|x|klever|hi|zil|kresus|polygon|wallet|binanceus|anime|go|manga|eth)$/i,

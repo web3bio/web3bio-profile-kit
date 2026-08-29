@@ -8,21 +8,22 @@ export enum CredentialCategory {
 
 export enum CredentialSource {
   // isHuman
-  talent = "talent",
   binance = "binance",
   coinbase = "coinbase",
+  dentity = "dentity",
+  ethos = "ethos",
   farcasterPro = "farcaster-pro",
   galxePassport = "galxe-passport",
-  world_id = "world_id",
-  humanPassport = "human-passport",
-  zkme = "zkme",
   humanode = "humanode",
+  humanPassport = "human-passport",
   self_xyz = "self_xyz",
-  dentity = "dentity",
+  talent = "talent",
+  world_id = "world_id",
+  zkme = "zkme",
   // isRisky
-  hacker = "hacker",
-  hacked = "hacked",
   dmca = "dmca",
+  hacked = "hacked",
+  hacker = "hacker",
   // isSpam
   farcasterSpam = "farcaster-spam",
 }

@@ -16,6 +16,7 @@ export enum Source {
   dotbit = "dotbit",
   ens = "ens",
   ethereum = "ethereum",
+  ethos = "ethos",
   exchange_art = "exchange_art",
   farcaster = "farcaster",
   firefly = "firefly",
