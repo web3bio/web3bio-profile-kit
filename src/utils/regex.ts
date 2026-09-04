@@ -10,7 +10,7 @@ export const REGEX = {
     /^(?:[A-Za-z0-9_-]{1,61}(?:\.(?:eth|farcaster|fcast\.id|farcaster\.eth))?|farcaster,#\d+)$/i,
   LENS: /^[^.].+\.lens$/i,
   SNS: /^[^.].+\.sol$/i,
-  CLUSTER: /^[\w-]+\/[\w-]+$/,
+  CLUSTERS: /^[\w-]+\/[\w-]+$/,
   ARBITRUM: /^[^.].+\.arb$/i,
   SPACE_ID: /^[^.].+\.bnb$/i,
   SEEKERID: /^[^.].+\.skr$/i,
