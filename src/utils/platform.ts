@@ -320,6 +320,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.fomo,
+    {
+      color: "#0B091F",
+      icon: "icons/icon-fomo.svg",
+      label: "Fomo",
+      urlPrefix: "https://fomo.family/profile/",
+    },
+  ],
+  [
     Platform.galxe,
     {
       color: "#492BFF",

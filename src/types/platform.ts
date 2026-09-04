@@ -30,6 +30,7 @@ export enum Platform {
   facebook = "facebook",
   farcaster = "farcaster",
   firefly = "firefly",
+  fomo = "fomo",
   galxe = "galxe",
   genome = "genome",
   github = "github",
