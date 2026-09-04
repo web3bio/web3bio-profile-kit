@@ -1,112 +1,13 @@
 import { Platform } from "../types";
-import { isWeb2Platform, PLATFORM_DATA } from "./platform";
+import { isWeb2Platform } from "./platform";
 import { REGEX } from "./regex";
 
 export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
 
 const FARCASTER_SUFFIXES = [".farcaster", ".fcast.id", ".farcaster.eth"] as const;
 const CHAIN_ALIASES = [".base", ".linea"] as const;
+const ENCODED_IDENTITY_PLATFORMS = new Set([Platform.fomo, Platform.zora]);
 
-const hasAnySuffix = (value: string, suffixes: readonly string[]): boolean =>
-  suffixes.some((suffix) => value.endsWith(suffix));
-
-const getSuffixAfterLastDot = (value: string): string | null => {
-  const lastDotIndex = value.lastIndexOf(".");
-  return lastDotIndex === -1 ? null : value.slice(lastDotIndex + 1);
-};
-
-const removeWeb2PlatformSuffix = (value: string): string => {
-  const suffix = getSuffixAfterLastDot(value);
-  if (!suffix || !isWeb2Platform(suffix)) return value;
-  return value.slice(0, -(suffix.length + 1));
-};
-
-const normalizeChainAliasToEth = (value: string): string => {
-  const [name, ...rest] = value.split(".");
-  const chain = rest[rest.length - 1];
-  return `${name}.${chain}.eth`;
-};
-
-const withPlatformEthSuffix = (
-  value: string,
-  shortSuffix: string,
-  fullSuffix: string,
-): string => {
-  if (value.endsWith(fullSuffix)) return value;
-  return value.endsWith(shortSuffix) ? `${value}.eth` : `${value}${fullSuffix}`;
-};
-
-/**
- * Resolves an identity string to a platform and identifier
- * @param input The identity to resolve
- * @returns A formatted identity string or null if invalid
- */
-export const resolveIdentity = (input: string): string | null => {
-  if (!input) return null;
-
-  const parts = input.split(",");
-
-  let platform: Platform;
-  let identity: string;
-
-  if (parts.length === 2) {
-    // Format is already "platform,identity"
-    platform = parts[0] as Platform;
-    identity = prettify(parts[1]);
-  } else if (parts.length === 1) {
-    // Auto-detect platform from the identity string
-    platform = detectPlatform(input);
-    identity = prettify(input);
-  } else {
-    return null;
-  }
-
-  if (!isSupportedPlatform(platform) || !identity) return null;
-
-  // Normalize case except for case-sensitive identities
-  const normalizedIdentity = REGEX.LOWERCASE_EXEMPT.test(identity)
-    ? identity
-    : identity.toLowerCase();
-
-  return `${platform},${normalizedIdentity}`;
-};
-
-/**
- * Clean up and standardize identity format
- */
-export const prettify = (input: string): string => {
-  if (!input) return "";
-  if (input.startsWith("farcaster,#"))
-    return input.replace(/^(farcaster),/, "");
-  if (hasAnySuffix(input, FARCASTER_SUFFIXES)) {
-    return input.replace(/(\.farcaster|\.fcast\.id|\.farcaster\.eth)$/, "");
-  }
-  if (hasAnySuffix(input, CHAIN_ALIASES)) {
-    return normalizeChainAliasToEth(input);
-  }
-  // For all web2 platforms prettify format as "identity.platform".
-  return removeWeb2PlatformSuffix(input);
-};
-/**
- * Fufill and standardize identity format
- */
-export const uglify = (input: string, platform: Platform): string => {
-  if (!input) return "";
-  switch (platform) {
-    case Platform.farcaster:
-      return hasAnySuffix(input, FARCASTER_SUFFIXES)
-        ? input
-        : `${input}.farcaster`;
-    case Platform.lens:
-      return input.endsWith(".lens") ? input : `${input}.lens`;
-    case Platform.basenames:
-      return withPlatformEthSuffix(input, ".base", ".base.eth");
-    case Platform.linea:
-      return withPlatformEthSuffix(input, ".linea", ".linea.eth");
-    default:
-      return input;
-  }
-};
 const SUPPORTED_PLATFORMS = new Set([
   Platform.ens,
   Platform.basenames,
@@ -120,16 +21,49 @@ const SUPPORTED_PLATFORMS = new Set([
   Platform.linkedin,
   Platform.instagram,
   Platform.reddit,
+  Platform.tiktok,
   Platform.facebook,
   Platform.telegram,
   Platform.keybase,
   Platform.nostr,
+  Platform.fomo,
+  Platform.zora,
   Platform.bluesky,
+  Platform.space_id,
+  Platform.arbitrum,
   Platform.unstoppableDomains,
   Platform.nextid,
-  Platform.dotbit,
   Platform.solana,
   Platform.sns,
+]);
+
+const PLATFORM_PATTERNS = new Map([
+  [REGEX.BASENAMES, Platform.basenames],
+  [REGEX.LINEA, Platform.linea],
+  [REGEX.ENS, Platform.ens],
+  [REGEX.ETH_ADDRESS, Platform.ethereum],
+  [REGEX.LENS, Platform.lens],
+  [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
+  [REGEX.SPACE_ID, Platform.space_id],
+  [REGEX.ARBITRUM, Platform.arbitrum],
+  [REGEX.SNS, Platform.sns],
+  [REGEX.SEEKERID, Platform.seekerid],
+  [REGEX.BTC_ADDRESS, Platform.bitcoin],
+  [REGEX.SOLANA_ADDRESS, Platform.solana],
+  [REGEX.FARCASTER, Platform.farcaster],
+  [REGEX.CLUSTERS, Platform.clusters],
+  [REGEX.NEXT_ID, Platform.nextid],
+  [REGEX.NOSTR, Platform.nostr],
+  [REGEX.TWITTER, Platform.twitter],
+]);
+
+const WEB3_ADDRESS_PATTERNS = new Map<Platform, RegExp>([
+  [Platform.ethereum, REGEX.ETH_ADDRESS],
+  [Platform.bitcoin, REGEX.BTC_ADDRESS],
+  [Platform.solana, REGEX.SOLANA_ADDRESS],
+  [Platform.ton, REGEX.TON],
+  [Platform.nextid, REGEX.NEXT_ID],
+  [Platform.nostr, REGEX.NOSTR],
 ]);
 
 /**
@@ -139,43 +73,169 @@ export const isSupportedPlatform = (platform?: Platform | null): boolean => {
   return !!platform && SUPPORTED_PLATFORMS.has(platform);
 };
 
-const platformMap = new Map([
-  [REGEX.BASENAMES, Platform.basenames],
-  [REGEX.LINEA, Platform.linea],
-  [REGEX.ENS, Platform.ens],
-  [REGEX.ETH_ADDRESS, Platform.ethereum],
-  [REGEX.LENS, Platform.lens],
-  [REGEX.UNSTOPPABLE_DOMAINS, Platform.unstoppableDomains],
-  [REGEX.SPACE_ID, Platform.space_id],
-  [REGEX.ARBITRUM, Platform.arbitrum],
-  [REGEX.DOTBIT, Platform.dotbit],
-  [REGEX.SNS, Platform.sns],
-  [REGEX.SEEKERID, Platform.seekerid],
-  [REGEX.BTC_ADDRESS, Platform.bitcoin],
-  [REGEX.SOLANA_ADDRESS, Platform.solana],
-  [REGEX.FARCASTER, Platform.farcaster],
-  [REGEX.CLUSTER, Platform.clusters],
-  [REGEX.NEXT_ID, Platform.nextid],
-  [REGEX.NOSTR, Platform.nostr],
-  [REGEX.TWITTER, Platform.twitter],
-]);
+const endsWithIgnoreCase = (value: string, suffix: string): boolean =>
+  value.toLowerCase().endsWith(suffix.toLowerCase());
+
+const matchingSuffix = (
+  value: string,
+  suffixes: readonly string[],
+): string | undefined => suffixes.find((suffix) => endsWithIgnoreCase(value, suffix));
+
+const hasAnySuffix = (value: string, suffixes: readonly string[]): boolean =>
+  !!matchingSuffix(value, suffixes);
+
+const stripSuffixIgnoreCase = (value: string, suffix: string): string | null =>
+  endsWithIgnoreCase(value, suffix) ? value.slice(0, -suffix.length) : null;
+
+const lastSegment = (value: string): string | null => {
+  const lastDotIndex = value.lastIndexOf(".");
+  return lastDotIndex === -1 ? null : value.slice(lastDotIndex + 1).toLowerCase();
+};
+
+const encodedPlatformFromSuffix = (value: string): Platform | null => {
+  const suffix = lastSegment(value);
+  if (!suffix || !isSupportedPlatform(suffix as Platform)) return null;
+  if (isWeb2Platform(suffix) || ENCODED_IDENTITY_PLATFORMS.has(suffix as Platform)) {
+    return suffix as Platform;
+  }
+  return null;
+};
+
+const matchAddressIdentity = (
+  value: string,
+): { platform: Platform; address: string } | null => {
+  const suffix = lastSegment(value);
+  if (!suffix) return null;
+
+  const pattern = WEB3_ADDRESS_PATTERNS.get(suffix as Platform);
+  if (!pattern) return null;
+
+  const address = stripSuffixIgnoreCase(value, `.${suffix}`);
+  if (!address || !pattern.test(address)) return null;
+
+  return { platform: suffix as Platform, address };
+};
+
+const stripEncodedPlatformSuffix = (value: string): string => {
+  const platform = encodedPlatformFromSuffix(value);
+  if (!platform) return value;
+  return value.slice(0, -(platform.length + 1));
+};
+
+const normalizeChainAliasToEth = (value: string): string => {
+  const [name, ...rest] = value.split(".");
+  return `${name}.${rest[rest.length - 1].toLowerCase()}.eth`;
+};
+
+const withCanonicalSuffix = (
+  value: string,
+  shortSuffix: string,
+  fullSuffix: string,
+): string => {
+  const fullStem = stripSuffixIgnoreCase(value, fullSuffix);
+  if (fullStem !== null) return `${fullStem}${fullSuffix}`;
+  const shortStem = stripSuffixIgnoreCase(value, shortSuffix);
+  if (shortStem !== null) return `${shortStem}${fullSuffix}`;
+  return `${value}${fullSuffix}`;
+};
+
+/**
+ * Resolves an identity string to a platform and identifier
+ * @param input The identity to resolve
+ * @returns A formatted identity string or null if invalid
+ */
+export const resolveIdentity = (input: string): string | null => {
+  if (!input) return null;
+
+  const trimmed = input.trim();
+  if (!trimmed) return null;
+
+  const parts = trimmed.split(",");
+
+  let platform: Platform | null;
+  let identity: string;
+
+  if (parts.length === 2) {
+    platform = parts[0].trim().toLowerCase() as Platform;
+    identity = prettify(parts[1].trim());
+  } else if (parts.length === 1) {
+    platform = detectPlatform(trimmed);
+    identity = prettify(trimmed);
+  } else {
+    return null;
+  }
+
+  if (!platform || !isSupportedPlatform(platform) || !identity) return null;
+
+  const normalizedIdentity = REGEX.LOWERCASE_EXEMPT.test(identity)
+    ? identity
+    : identity.toLowerCase();
+
+  return `${platform},${normalizedIdentity}`;
+};
+
+/**
+ * Clean up and standardize identity format
+ */
+export const prettify = (input: string): string => {
+  if (!input) return "";
+  if (/^farcaster,#/i.test(input)) return input.replace(/^farcaster,/i, "");
+
+  const farcasterSuffix = matchingSuffix(input, FARCASTER_SUFFIXES);
+  if (farcasterSuffix) return input.slice(0, -farcasterSuffix.length);
+
+  const addressIdentity = matchAddressIdentity(input);
+  if (addressIdentity) return addressIdentity.address;
+
+  const snsName = stripSuffixIgnoreCase(input, `.${Platform.solana}`);
+  if (snsName) return `${snsName}.sol`;
+
+  if (hasAnySuffix(input, CHAIN_ALIASES)) return normalizeChainAliasToEth(input);
+
+  return stripEncodedPlatformSuffix(input);
+};
+
+/**
+ * Fufill and standardize identity format
+ */
+export const uglify = (input: string, platform: Platform): string => {
+  if (!input) return "";
+  switch (platform) {
+    case Platform.farcaster:
+      return hasAnySuffix(input, FARCASTER_SUFFIXES)
+        ? input
+        : `${input}.farcaster`;
+    case Platform.lens:
+      return `${stripSuffixIgnoreCase(input, ".lens") ?? input}.lens`;
+    case Platform.basenames:
+      return withCanonicalSuffix(input, ".base", ".base.eth");
+    case Platform.linea:
+      return withCanonicalSuffix(input, ".linea", ".linea.eth");
+    default:
+      return input;
+  }
+};
+
 /**
  * Detect platform from identity string based on regex patterns
  */
-export const detectPlatform = (term: string): Platform => {
-  if (hasAnySuffix(term, FARCASTER_SUFFIXES))
-    return Platform.farcaster;
+export const detectPlatform = (term: string): Platform | null => {
+  const value = term.trim();
+  if (!value) return null;
 
-  for (const [regex, platform] of platformMap) {
-    if (regex.test(term)) {
-      return platform;
-    }
+  const addressIdentity = matchAddressIdentity(value);
+  if (addressIdentity) return addressIdentity.platform;
+
+  const encodedPlatform = encodedPlatformFromSuffix(value);
+  if (encodedPlatform) return encodedPlatform;
+
+  if (hasAnySuffix(value, FARCASTER_SUFFIXES)) return Platform.farcaster;
+
+  for (const [regex, platform] of PLATFORM_PATTERNS) {
+    if (regex.test(value)) return platform;
   }
 
-  const suffix = getSuffixAfterLastDot(term);
-  if (suffix && PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
-
-  return term.includes(".") ? Platform.ens : Platform.farcaster;
+  return value.includes(".") ? Platform.ens : Platform.farcaster;
 };
 
 /**
@@ -193,11 +253,6 @@ export const getApiKey = (userProvidedKey?: string): string | undefined => {
 
 /**
  * Compare two addresses for equality in a case-insensitive manner
- * Used for blockchain address comparison where case doesn't affect validity
- *
- * @param address The first address to compare
- * @param otherAddress The second address to compare
- * @returns True if addresses match (ignoring case), false otherwise
  */
 export const isSameAddress = (
   address?: string | undefined,
@@ -206,46 +261,27 @@ export const isSameAddress = (
   return !!address && !!otherAddress && address.toLowerCase() === otherAddress.toLowerCase();
 };
 
-const web3AddressRegexes = [
-  REGEX.ETH_ADDRESS,
-  REGEX.BTC_ADDRESS,
-  REGEX.SOLANA_ADDRESS,
-  REGEX.TON,
-  REGEX.NEXT_ID,
-  REGEX.NOSTR,
-];
-
 /**
  * Determines if a string is a valid Web3 address
- * Checks against multiple blockchain address formats
- *
- * @param address The string to check
- * @returns True if the string matches any supported Web3 address format, false otherwise
  */
 export const isWeb3Address = (address: string): boolean => {
-  if (!address) return false;
-  return web3AddressRegexes.some((regex) => regex.test(address));
+  return (
+    !!address &&
+    [...WEB3_ADDRESS_PATTERNS.values()].some((regex) => regex.test(address))
+  );
 };
 
 /**
  * Validates if a string is a valid Ethereum address
- * Checks both the address format and excludes common burn/empty addresses
- *
- * @param address - The string to validate as an Ethereum address
- * @returns True if the address is valid and not a burn/empty address, false otherwise
  */
 export const isValidEthereumAddress = (address: string): boolean => {
-  if (!REGEX.ETH_ADDRESS.test(address)) return false; // invalid ethereum address
-  if (/^0x0*.$|^0x[123468abef]*$|^0x0*dead$/i.test(address)) return false; // empty & burn address
+  if (!REGEX.ETH_ADDRESS.test(address)) return false;
+  if (/^0x0*.$|^0x[123468abef]*$|^0x0*dead$/i.test(address)) return false;
   return true;
 };
 
 /**
  * Validates if a string is a valid Solana address
- * Checks if the string matches the Solana address format
- *
- * @param address - The string to validate as a Solana address
- * @returns True if the string is a valid Solana address, false otherwise
  */
 export const isValidSolanaAddress = (address: string): boolean => {
   return !!address && REGEX.SOLANA_ADDRESS.test(address);
@@ -253,8 +289,6 @@ export const isValidSolanaAddress = (address: string): boolean => {
 
 /**
  * Converts an identity string to a JSON object with platform and identity
- * @param input The identity to convert
- * @returns An object with platform and identity, or null if invalid
  *
  * @example
  * idToJson("ens,sujiyan.eth") // { platform: "ens", identity: "sujiyan.eth" }
@@ -266,12 +300,12 @@ export const idToJson = (
 ): { platform: Platform; identity: string } | null => {
   const id = resolveIdentity(input);
   if (!id) return null;
+
   const separatorIndex = id.indexOf(",");
   if (separatorIndex === -1) return null;
-  const _platform = id.slice(0, separatorIndex);
-  const _identity = id.slice(separatorIndex + 1);
+
   return {
-    platform: _platform as Platform,
-    identity: _identity,
+    platform: id.slice(0, separatorIndex) as Platform,
+    identity: id.slice(separatorIndex + 1),
   };
 };
