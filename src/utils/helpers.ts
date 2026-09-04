@@ -6,7 +6,7 @@ export const PROFILE_API_ENDPOINT = "https://api.web3.bio";
 
 const FARCASTER_SUFFIXES = [".farcaster", ".fcast.id", ".farcaster.eth"] as const;
 const CHAIN_ALIASES = [".base", ".linea"] as const;
-const SOLANA_PLATFORM_SUFFIX = ".solana";
+const ENCODED_IDENTITY_PLATFORMS = new Set([Platform.fomo, Platform.zora]);
 
 const SUPPORTED_PLATFORMS = new Set([
   Platform.ens,
@@ -27,6 +27,7 @@ const SUPPORTED_PLATFORMS = new Set([
   Platform.keybase,
   Platform.nostr,
   Platform.fomo,
+  Platform.zora,
   Platform.bluesky,
   Platform.space_id,
   Platform.arbitrum,
@@ -56,14 +57,14 @@ const PLATFORM_PATTERNS = new Map([
   [REGEX.TWITTER, Platform.twitter],
 ]);
 
-const WEB3_ADDRESS_PATTERNS = [
-  REGEX.ETH_ADDRESS,
-  REGEX.BTC_ADDRESS,
-  REGEX.SOLANA_ADDRESS,
-  REGEX.TON,
-  REGEX.NEXT_ID,
-  REGEX.NOSTR,
-];
+const WEB3_ADDRESS_PATTERNS = new Map<Platform, RegExp>([
+  [Platform.ethereum, REGEX.ETH_ADDRESS],
+  [Platform.bitcoin, REGEX.BTC_ADDRESS],
+  [Platform.solana, REGEX.SOLANA_ADDRESS],
+  [Platform.ton, REGEX.TON],
+  [Platform.nextid, REGEX.NEXT_ID],
+  [Platform.nostr, REGEX.NOSTR],
+]);
 
 /**
  * Check if the platform is supported for API queries
@@ -94,18 +95,30 @@ const lastSegment = (value: string): string | null => {
 const encodedPlatformFromSuffix = (value: string): Platform | null => {
   const suffix = lastSegment(value);
   if (!suffix || !isSupportedPlatform(suffix as Platform)) return null;
-  if (isWeb2Platform(suffix) || suffix === Platform.fomo) return suffix as Platform;
+  if (isWeb2Platform(suffix) || ENCODED_IDENTITY_PLATFORMS.has(suffix as Platform)) {
+    return suffix as Platform;
+  }
   return null;
 };
 
-const stripSolanaPlatformSuffix = (value: string): string | null => {
-  const address = stripSuffixIgnoreCase(value, SOLANA_PLATFORM_SUFFIX);
-  return address && REGEX.SOLANA_ADDRESS.test(address) ? address : null;
+const matchAddressIdentity = (
+  value: string,
+): { platform: Platform; address: string } | null => {
+  const suffix = lastSegment(value);
+  if (!suffix) return null;
+
+  const pattern = WEB3_ADDRESS_PATTERNS.get(suffix as Platform);
+  if (!pattern) return null;
+
+  const address = stripSuffixIgnoreCase(value, `.${suffix}`);
+  if (!address || !pattern.test(address)) return null;
+
+  return { platform: suffix as Platform, address };
 };
 
-const stripWeb2PlatformSuffix = (value: string): string => {
+const stripEncodedPlatformSuffix = (value: string): string => {
   const platform = encodedPlatformFromSuffix(value);
-  if (!platform || !isWeb2Platform(platform)) return value;
+  if (!platform) return value;
   return value.slice(0, -(platform.length + 1));
 };
 
@@ -171,12 +184,15 @@ export const prettify = (input: string): string => {
   const farcasterSuffix = matchingSuffix(input, FARCASTER_SUFFIXES);
   if (farcasterSuffix) return input.slice(0, -farcasterSuffix.length);
 
-  const solanaAddress = stripSolanaPlatformSuffix(input);
-  if (solanaAddress) return solanaAddress;
+  const addressIdentity = matchAddressIdentity(input);
+  if (addressIdentity) return addressIdentity.address;
+
+  const snsName = stripSuffixIgnoreCase(input, `.${Platform.solana}`);
+  if (snsName) return `${snsName}.sol`;
 
   if (hasAnySuffix(input, CHAIN_ALIASES)) return normalizeChainAliasToEth(input);
 
-  return stripWeb2PlatformSuffix(input);
+  return stripEncodedPlatformSuffix(input);
 };
 
 /**
@@ -207,11 +223,13 @@ export const detectPlatform = (term: string): Platform | null => {
   const value = term.trim();
   if (!value) return null;
 
+  const addressIdentity = matchAddressIdentity(value);
+  if (addressIdentity) return addressIdentity.platform;
+
   const encodedPlatform = encodedPlatformFromSuffix(value);
   if (encodedPlatform) return encodedPlatform;
 
   if (hasAnySuffix(value, FARCASTER_SUFFIXES)) return Platform.farcaster;
-  if (stripSolanaPlatformSuffix(value)) return Platform.solana;
 
   for (const [regex, platform] of PLATFORM_PATTERNS) {
     if (regex.test(value)) return platform;
@@ -247,7 +265,10 @@ export const isSameAddress = (
  * Determines if a string is a valid Web3 address
  */
 export const isWeb3Address = (address: string): boolean => {
-  return !!address && WEB3_ADDRESS_PATTERNS.some((regex) => regex.test(address));
+  return (
+    !!address &&
+    [...WEB3_ADDRESS_PATTERNS.values()].some((regex) => regex.test(address))
+  );
 };
 
 /**
