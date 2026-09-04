@@ -113,6 +113,7 @@ const SUPPORTED_PLATFORMS = new Set([
   Platform.linea,
   Platform.ethereum,
   Platform.farcaster,
+  Platform.fomo,
   Platform.lens,
   Platform.twitter,
   Platform.github,
@@ -163,6 +164,11 @@ const platformMap = new Map([
  * Detect platform from identity string based on regex patterns
  */
 export const detectPlatform = (term: string): Platform => {
+  const suffix = getSuffixAfterLastDot(term)?.toLowerCase() as
+    | Platform
+    | undefined;
+  if (suffix && PLATFORM_DATA.has(suffix)) return suffix;
+
   if (hasAnySuffix(term, FARCASTER_SUFFIXES))
     return Platform.farcaster;
 
@@ -171,9 +177,6 @@ export const detectPlatform = (term: string): Platform => {
       return platform;
     }
   }
-
-  const suffix = getSuffixAfterLastDot(term);
-  if (suffix && PLATFORM_DATA.has(suffix as Platform)) return suffix as Platform;
 
   return term.includes(".") ? Platform.ens : Platform.farcaster;
 };
