@@ -1,4 +1,5 @@
 import { Platform } from "../types";
+import { REGEX } from "../utils/regex";
 import {
   detectPlatform,
   idToJson,
@@ -18,6 +19,17 @@ const NEXT_ID = `0x${"ab".repeat(33)}`;
 const BTC = "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa";
 const TON = `EQ${"A".repeat(46)}`;
 const NOSTR = `npub1${"a".repeat(58)}`;
+
+describe("SNS domain recognition", () => {
+  it("accepts .sns and legacy .sol names without matching unrelated suffixes", () => {
+    expect(REGEX.SNS.test("alice.sns")).toBe(true);
+    expect(REGEX.SNS.test("a.SNS")).toBe(true);
+    expect(REGEX.SNS.test("alice.sol")).toBe(true);
+    expect(REGEX.SNS.test("alice.solana")).toBe(true);
+    expect(REGEX.SNS.test("alice.something")).toBe(false);
+    expect(REGEX.SNS.test("alice..sns")).toBe(false);
+  });
+});
 
 describe("detectPlatform", () => {
   it.each([
@@ -42,6 +54,10 @@ describe("detectPlatform", () => {
     ["alice.bnb", Platform.space_id],
     ["alice.sol", Platform.sns],
     ["alice.solana", Platform.sns],
+    ["alice.sns", Platform.sns],
+    ["Alice.SNS", Platform.sns],
+    ["a.sns", Platform.sns],
+    ["sub.alice.sns", Platform.sns],
     ["alice.skr", Platform.seekerid],
     ["alice.x", Platform.unstoppableDomains],
     ["alice.crypto", Platform.unstoppableDomains],
@@ -97,6 +113,9 @@ describe("resolveIdentity", () => {
     ["alice.bnb", "space_id,alice.bnb"],
     ["alice.sol", "sns,alice.sol"],
     ["alice.solana", "sns,alice.sol"],
+    ["alice.sns", "sns,alice.sns"],
+    ["Alice.SNS", "sns,alice.sns"],
+    ["sns,Alice.SNS", "sns,alice.sns"],
     ["alice.SOLANA", "sns,alice.sol"],
     ["alice.x", "unstoppabledomains,alice.x"],
     ["alice.bitcoin", "unstoppabledomains,alice.bitcoin"],
