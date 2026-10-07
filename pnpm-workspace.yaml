@@ -1,6 +1,9 @@
 packages:
   - "examples"
   - "."
+allowBuilds:
+  esbuild: true
+  sharp: true
 ignoredBuiltDependencies:
   - core-js
   - core-js-pure

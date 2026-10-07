@@ -25,7 +25,7 @@ describe("SNS domain recognition", () => {
     expect(REGEX.SNS.test("alice.sns")).toBe(true);
     expect(REGEX.SNS.test("a.SNS")).toBe(true);
     expect(REGEX.SNS.test("alice.sol")).toBe(true);
-    expect(REGEX.SNS.test("alice.solana")).toBe(true);
+    expect(REGEX.SNS.test("alice.solana")).toBe(false);
     expect(REGEX.SNS.test("alice.something")).toBe(false);
     expect(REGEX.SNS.test("alice..sns")).toBe(false);
   });
@@ -53,7 +53,6 @@ describe("detectPlatform", () => {
     ["alice.arb", Platform.arbitrum],
     ["alice.bnb", Platform.space_id],
     ["alice.sol", Platform.sns],
-    ["alice.solana", Platform.sns],
     ["alice.sns", Platform.sns],
     ["Alice.SNS", Platform.sns],
     ["a.sns", Platform.sns],
@@ -112,11 +111,9 @@ describe("resolveIdentity", () => {
     ["alice.arb", "arbitrum,alice.arb"],
     ["alice.bnb", "space_id,alice.bnb"],
     ["alice.sol", "sns,alice.sol"],
-    ["alice.solana", "sns,alice.sol"],
     ["alice.sns", "sns,alice.sns"],
     ["Alice.SNS", "sns,alice.sns"],
     ["sns,Alice.SNS", "sns,alice.sns"],
-    ["alice.SOLANA", "sns,alice.sol"],
     ["alice.x", "unstoppabledomains,alice.x"],
     ["alice.bitcoin", "unstoppabledomains,alice.bitcoin"],
     ["google.com", "ens,google.com"],
@@ -163,7 +160,6 @@ describe("prettify", () => {
     [`${ETHEREUM}.ethereum`, ETHEREUM],
     ["suji.base", "suji.base.eth"],
     ["suji.linea", "suji.linea.eth"],
-    ["alice.solana", "alice.sol"],
     ["alice.twitter", "alice"],
     ["alice.fomo", "alice"],
     ["alice.zora", "alice"],
