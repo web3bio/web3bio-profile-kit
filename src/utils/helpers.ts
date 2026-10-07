@@ -187,9 +187,6 @@ export const prettify = (input: string): string => {
   const addressIdentity = matchAddressIdentity(input);
   if (addressIdentity) return addressIdentity.address;
 
-  const snsName = stripSuffixIgnoreCase(input, `.${Platform.solana}`);
-  if (snsName) return `${snsName}.sol`;
-
   if (hasAnySuffix(input, CHAIN_ALIASES)) return normalizeChainAliasToEth(input);
 
   return stripEncodedPlatformSuffix(input);
