@@ -1,6 +1,6 @@
 {
   "name": "web3bio-profile-kit",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "description": "React hooks for querying ENS, Lens, Farcaster and Web3 universal profiles",
   "author": "web3bio",
   "license": "MIT",
@@ -82,18 +82,26 @@
     "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/node": "^22.19.17",
-    "@types/react": "^18.3.23",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.20.5",
+    "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
-    "@tanstack/react-query": "^5.100.5",
+    "@tanstack/react-query": "^5.104.5",
     "dotenv": "^16.6.1",
     "jsdom": "^26.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^5.0.10",
-    "rollup": "^3.29.5",
+    "rollup": "^3.30.0",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vite": "^7.3.7",
+    "vitest": "^4.1.12"
+  },
+  "pnpm": {
+    "overrides": {
+      "next@15.5.28>postcss": "8.5.28",
+      "next@15.5.28>sharp": "0.35.5",
+      "source-map-js": "1.2.2"
+    }
   }
 }
