@@ -61,6 +61,7 @@ export enum Platform {
   nostr = "nostr",
   opensea = "opensea",
   opinion = "opinion",
+  orb = "orb",
   paragraph = "paragraph",
   philand = "philand",
   poap = "poap",
