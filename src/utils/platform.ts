@@ -613,6 +613,15 @@ export const PLATFORM_DATA: ReadonlyMap<
     },
   ],
   [
+    Platform.orb,
+    {
+      color: "#000000",
+      icon: "icons/icon-orb.svg",
+      label: "Orb",
+      urlPrefix: "https://orb.club/@",
+    },
+  ],
+  [
     Platform.paragraph,
     {
       color: "#2563eb",

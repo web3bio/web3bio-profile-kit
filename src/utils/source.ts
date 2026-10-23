@@ -168,6 +168,11 @@ export const SOURCE_DATA: Readonly<Record<Source, SourceType>> = {
     description: "High-performance prediction exchange",
     icon: "icons/icon-opinion.svg",
   },
+  [Source.orb]: {
+    name: "Orb",
+    description: "Web3 social platform",
+    icon: "icons/icon-orb.svg",
+  },
   [Source.paragraph]: {
     name: "Paragraph",
     description: "Decentralized publishing protocol",

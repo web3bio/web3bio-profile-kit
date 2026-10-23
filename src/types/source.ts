@@ -38,6 +38,7 @@ export enum Source {
   nostr = "nostr",
   opensea = "opensea",
   opinion = "opinion",
+  orb = "orb",
   paragraph = "paragraph",
   particle = "particle",
   polymarket = "polymarket",
