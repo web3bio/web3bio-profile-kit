@@ -197,7 +197,9 @@ export const NETWORK_DATA: { [key in Network]: NetworkType } = {
     key: Network.lens,
     label: "Lens",
     primaryColor: "#2CC256",
-    scanPrefix: "https://momoka.lens.xyz/",
+    scanLabel: "Lens Explorer",
+    scanPrefix: "https://explorer.lens.xyz/address/",
+    scanPrefixTx: "https://explorer.lens.xyz/tx/",
   },
   [Network.linea]: {
     bgColor: "#efefef",
