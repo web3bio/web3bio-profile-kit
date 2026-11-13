@@ -14,25 +14,34 @@ export enum Network {
   bitcoin = "bitcoin",
   bsc = "bsc",
   conflux = "conflux",
+  dogecoin = "dogecoin",
   erc1577 = "erc1577",
   ethereum = "ethereum",
   fantom = "fantom",
   farcaster = "farcaster",
   flow = "flow",
   gnosis = "gnosis",
+  kusama = "kusama",
   lens = "lens",
   linea = "linea",
+  litecoin = "litecoin",
   mantle = "mantle",
   mastodon = "mastodon",
+  near = "near",
   optimism = "optimism",
   plasma = "plasma",
+  polkadot = "polkadot",
   polygon = "polygon",
   scroll = "scroll",
   solana = "solana",
   starknet = "starknet",
+  sui = "sui",
+  ton = "ton",
+  tron = "tron",
   unichain = "unichain",
   world = "world",
   xLayer = "x-layer",
+  xrpl = "xrpl",
   zero = "zero",
   zksync_era = "zksync_era",
   zora = "zora",
@@ -49,7 +58,9 @@ export interface NetworkType {
   icon: string;
   key: string;
   label: string;
+  nativeSymbol?: string;
   primaryColor: string;
+  rpcUrl?: string;
   scanLabel?: string;
   scanPrefix: string;
   scanPrefixTx?: string;
