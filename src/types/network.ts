@@ -3,7 +3,6 @@
  * @public
  */
 export enum Network {
-  abstract = "abstract",
   aptos = "aptos",
   arbitrum = "arbitrum",
   arbitrum_nova = "arbitrum_nova",
@@ -14,6 +13,7 @@ export enum Network {
   bitcoin = "bitcoin",
   bsc = "bsc",
   conflux = "conflux",
+  doge = "doge",
   erc1577 = "erc1577",
   ethereum = "ethereum",
   fantom = "fantom",
@@ -24,12 +24,17 @@ export enum Network {
   linea = "linea",
   mantle = "mantle",
   mastodon = "mastodon",
+  near = "near",
   optimism = "optimism",
   plasma = "plasma",
+  polkadot = "polkadot",
   polygon = "polygon",
   scroll = "scroll",
   solana = "solana",
   starknet = "starknet",
+  sui = "sui",
+  ton = "ton",
+  tron = "tron",
   unichain = "unichain",
   world = "world",
   xLayer = "x-layer",
@@ -49,7 +54,9 @@ export interface NetworkType {
   icon: string;
   key: string;
   label: string;
+  nativeSymbol?: string;
   primaryColor: string;
+  rpcUrl?: string;
   scanLabel?: string;
   scanPrefix: string;
   scanPrefixTx?: string;
