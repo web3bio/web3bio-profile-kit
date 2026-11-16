@@ -11,22 +11,18 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.js",
       "require": "./dist/hooks/index.cjs"
     },
     "./types": {
-      "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.js",
       "require": "./dist/types/index.cjs"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
       "import": "./dist/utils/index.js",
       "require": "./dist/utils/index.cjs"
     },
